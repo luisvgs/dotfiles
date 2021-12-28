@@ -1,0 +1,6 @@
+#!/bin/bash
+if [[ -n "$BLOCK_INSTANCE" ]]; then
+    export TZ="$BLOCK_INSTANCE"
+fi
+
+date '+%H∶%M'
