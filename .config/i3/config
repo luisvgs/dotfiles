@@ -200,7 +200,7 @@ set $bg-color 	         #2f343f
 set $inactive-bg-color   #2f343f
 set $text-color          #FFEDE5
 set $inactive-text-color #676E7D
-set $urgent-bg-color     #5917A3
+set $urgent-bg-color     #FF3B0A
 
 # window colors
 #                       border              background         text                 indicator
