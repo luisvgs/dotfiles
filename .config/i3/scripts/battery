@@ -4,7 +4,6 @@ BATTERY=0
 BATTERY_STATE=$(echo "${BATTERY_INFO}" | upower -i $(upower -e | grep 'BAT') | grep -E "state|to\ full" | awk '{print $2}')
 BATTERY_POWER=$(echo "${BATTERY_INFO}" | upower -i $(upower -e | grep 'BAT') | grep -E "percentage" | awk '{print $2}' | tr -d '%')
 URGENT_VALUE=10
-
 if [[ "${BATTERY_POWER}" -gt 87 ]]; then
     BATTERY_ICON=""
 elif [[ "${BATTERY_POWER}" -gt 63 ]]; then
@@ -25,8 +24,8 @@ if [[ "${BATTERY_STATE}" = "discharging" ]]; then
     echo "${BATTERY_ICON} ${BATTERY_POWER}%"
     echo ""
 else
-    echo " ${BATTERY_POWER}%"
-    echo " ${BATTERY_POWER}%"
+    echo "⚡ ${BATTERY_POWER}%"
+    echo "⚡ ${BATTERY_POWER}%"
     echo ""
 fi
 

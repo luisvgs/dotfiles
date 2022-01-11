@@ -1,5 +1,6 @@
 local lsp = require'lspconfig'
 local lsp_status = require'lsp-status'
+local null_ls = require'null-ls'
 
 lsp_status.register_progress()
 lsp_status.config {
@@ -13,48 +14,52 @@ lsp_status.config {
 }
 
 local lsp_attach = function(args)
-  return function(client, bufnr)
-    if client.resolved_capabilities.document_highlight then
-      vim.api.nvim_exec([[
-        augroup lsp_document_highlight
-          autocmd! * <buffer>
-          autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-          autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-	  autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics({focusable = false})
-        augroup END
-      ]], false)
+    return function(client, bufnr)
+	if client.resolved_capabilities.document_highlight then
+	vim.api.nvim_exec([[
+	    augroup lsp_document_highlight
+	    autocmd! * <buffer>
+	    autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+	    autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+	    autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics({focusable = false})
+	    augroup END
+	]], false)
+	end
+
+	if client.resolved_capabilities.document_formatting then
+	    vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
+	end
+
+	-- if args == nil or args.format == nil or args.format then
+	--   vim.api.nvim_exec([[
+	--     augroup lsp_formatting_sync
+	--       autocmd! * <buffer>
+	--       autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()
+	--     augroup END
+	--   ]], false)
+	-- end
+
+	lsp_status.on_attach(client)
+
+	vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', {})
+	vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>clr', '<cmd>lua vim.lsp.stop_client(vim.lsp.get_active_clients())<cr>', {})
+	vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>cd', '<cmd>lua vim.lsp.buf.definition()<cr>', {})
+	vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ch', '<cmd>lua vim.lsp.buf.signature_help()<cr>', {})
+	vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gd', '<cmd>lua vim.lsp.buf.declaration()<cr>', {})
+	vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>K', '<cmd>lua vim.lsp.buf.hover()<cr>', {})
+	vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', {})
+	vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<cr>', {})
+	vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>cn', "<cmd>lua vim.lsp.diagnostic.goto_next()<cr>", {})
+	vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>cp', "<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>", {})
+	vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>a', "<cmd>lua vim.lsp.buf.code_action()<cr>", {})
+	vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ca', '<cmd>Telescope lsp_code_actions theme=get_dropdown<cr>', {})
+	vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gr', '<cmd>Telescope lsp_references<cr>', {})
+	vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>cs', '<cmd>Telescope lsp_dynamic_workspace_symbols<cr>', {})
+	vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>cx', '<cmd>Telescope lsp_workspace_diagnostics<cr>', {})
+	vim.api.nvim_buf_set_keymap(bufnr, 'x', '<leader>ca', '<cmd>Telescope lsp_range_code_actions theme=get_dropdown<cr>', {})
+	vim.api.nvim_buf_set_keymap(bufnr, 'i', '<C-a>', '<cmd>Telescope lsp_code_actions theme=get_dropdown<cr>', {})
+	vim.api.nvim_buf_set_keymap(bufnr, 'i', '<C-h>', '<cmd>lua vim.lsp.buf.signature_help()<cr>', {})
     end
-
-    -- if args == nil or args.format == nil or args.format then
-    --   vim.api.nvim_exec([[
-    --     augroup lsp_formatting_sync
-    --       autocmd! * <buffer>
-    --       autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()
-    --     augroup END
-    --   ]], false)
-    -- end
-
-    lsp_status.on_attach(client)
-
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', {})
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>clr', '<cmd>lua vim.lsp.stop_client(vim.lsp.get_active_clients())<cr>', {})
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>cd', '<cmd>lua vim.lsp.buf.definition()<cr>', {})
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ch', '<cmd>lua vim.lsp.buf.signature_help()<cr>', {})
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gd', '<cmd>lua vim.lsp.buf.declaration()<cr>', {})
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>K', '<cmd>lua vim.lsp.buf.hover()<cr>', {})
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', {})
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<cr>', {})
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>cn', "<cmd>lua vim.lsp.diagnostic.goto_next()<cr>", {})
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>cp', "<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>", {})
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>a', "<cmd>lua vim.lsp.buf.code_action()<cr>", {})
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ca', '<cmd>Telescope lsp_code_actions theme=get_dropdown<cr>', {})
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gr', '<cmd>Telescope lsp_references<cr>', {})
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>cs', '<cmd>Telescope lsp_dynamic_workspace_symbols<cr>', {})
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>cx', '<cmd>Telescope lsp_workspace_diagnostics<cr>', {})
-    vim.api.nvim_buf_set_keymap(bufnr, 'x', '<leader>ca', '<cmd>Telescope lsp_range_code_actions theme=get_dropdown<cr>', {})
-    vim.api.nvim_buf_set_keymap(bufnr, 'i', '<C-a>', '<cmd>Telescope lsp_code_actions theme=get_dropdown<cr>', {})
-    vim.api.nvim_buf_set_keymap(bufnr, 'i', '<C-h>', '<cmd>lua vim.lsp.buf.signature_help()<cr>', {})
-  end
 end
 
   -- Setup nvim-cmp.
@@ -91,10 +96,49 @@ end
     ,
     settings = {
 	languageServerHaskell = {
-	    formattingProvider = "stylish-haskell",
+	    formattingProvider = "brittany",
         },
     },
 }
+
+-- Bash
+lsp.bashls.setup{}
+
+-- Typescript
+null_ls.setup({
+    sources = {
+        null_ls.builtins.diagnostics.eslint,
+        null_ls.builtins.code_actions.eslint,
+        null_ls.builtins.formatting.prettier
+    },
+    on_attach = function(client, bufnr)
+	return lsp_attach()(client, bufnr)
+    end
+})
+
+local buf_map = function(bufnr, mode, lhs, rhs, opts)
+    vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts or {
+        silent = true,
+    })
+end
+
+lsp.tsserver.setup({
+    capabilities = capabilities,
+    on_attach = function(client, bufnr)
+        client.resolved_capabilities.document_formatting = false
+        client.resolved_capabilities.document_range_formatting = false        
+
+	local ts_utils = require("nvim-lsp-ts-utils")
+        ts_utils.setup({})
+        ts_utils.setup_client(client)
+
+	buf_map(bufnr, "n", "gs", ":TSLspOrganize<CR>")
+        buf_map(bufnr, "n", "gi", ":TSLspRenameFile<CR>")
+        buf_map(bufnr, "n", "go", ":TSLspImportAll<CR>")
+
+	return lsp_attach()(client, bufnr)
+    end,
+})
 
 -- Rust
 lsp.rust_analyzer.setup {
@@ -106,12 +150,6 @@ lsp.rust_analyzer.setup {
             importGranularity = "module",
             importPrefix = "by_self",
         },
-
-      -- cargo = {
-      --   allFeatures = false,
-      --   autoreload = false,
-      --   loadOutDirsFromCheck = false,
-      -- },
 
       checkOnSave = {
         enable = false,
@@ -175,20 +213,20 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 
 vim.fn.sign_define(
   'DiagnosticSignError',
-  { text = '█', texthl = 'DiagnosticError' }
+  { text = '█', texthl = 'DiagnosticSignError' }
 )
 
 vim.fn.sign_define(
   'DiagnosticSignWarn',
-  { text = '█', texthl = 'DiagnosticWarn' }
+  { text = '█', texthl = 'DiagnosticSignWarn' }
 )
 
 vim.fn.sign_define(
   'DiagnosticSignInfo',
-  { text = '█', texthl = 'DiagnosticInfo' }
+  { text = '', texthl = 'DiagnosticSignInfo' }
 )
 
 vim.fn.sign_define(
   'DiagnosticSignHint',
-  { text = '█', texthl = 'DiagnosticHint' }
+  { text = '', texthl = 'DiagnosticSignHint' }
 )
