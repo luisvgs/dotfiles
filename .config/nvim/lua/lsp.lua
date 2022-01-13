@@ -143,7 +143,7 @@ lsp.tsserver.setup({
 -- Rust
 lsp.rust_analyzer.setup {
   capabilities = capabilities,
-  cmd = { "rust-analyzer"},
+  -- cmd = { "rust-analyzer"},
   settings = {
     ["rust-analyzer"] = {
         assist = {

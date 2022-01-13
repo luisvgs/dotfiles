@@ -322,13 +322,6 @@ nnoremap <leader>r :call <SID>better_sub()<CR>
 
 
 
-" Ocaml
-" let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
-" execute "set rtp+=" . g:opamshare . "/merlin/vim"
-" set rtp^="/home/luis/.opam/4.11.1/share/ocp-indent/vim"
-
-
-
 nnoremap <leader>= :Tabularize /=<CR>
 nnoremap <leader>- :Tabularize /-><CR>
 nnoremap <leader>, :Tabularize /,<CR>
