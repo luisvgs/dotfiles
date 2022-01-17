@@ -30,7 +30,7 @@ return require('packer').startup(function()
 
     -- Colorschemes
     use 'rktjmp/lush.nvim'
-    use "rebelot/kanagawa.nvim"
+    use 'navarasu/onedark.nvim'
     use 'ozkanonur/nimda.vim'
     use 'metalelf0/jellybeans-nvim'
     use 'marko-cerovac/material.nvim'
@@ -67,7 +67,6 @@ return require('packer').startup(function()
 	"tversteeg/registers.nvim",
 	disable = true,
     }
-    use 'christoomey/vim-tmux-navigator'
     use 'tpope/vim-commentary'
     use 'tjdevries/express_line.nvim'
     use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }

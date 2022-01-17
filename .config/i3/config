@@ -231,7 +231,7 @@ set $urgent-bg-color     #FF3B0A
 # smart_gaps on
 
 for_window [class="^.*"] border pixel 1
-exec_always feh --bg-scale /home/luis/Imágenes/World.jpg
+exec_always feh --bg-scale /home/luis/Imágenes/Pool.png
 
 
 assign [class="kitty"] $workspace1
@@ -248,10 +248,11 @@ bindsym $mod+Shift+t exec telegram
 bindsym $mod+Shift+s exec spotify
 bindsym $mod+Shift+g exec gnome-terminal
 bindsym $mod+Shift+Return exec "kitty -d `xcwd`"
-# Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec "amixer -q sset Master,0 1+ unmute"
-bindsym XF86AudioLowerVolume exec "amixer -q sset Master,0 1- unmute"
-bindsym XF86AudioMute exec "amixer -q sset Master,0 toggle"
+
+# Alsa controls
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume alsa_output.pci-0000_03_00.6.analog-stereo +5% #increase sound volume
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume alsa_output.pci-0000_03_00.6.analog-stereo -5% #decrease sound volume
+bindsym XF86AudioMute exec pactl set-sink-mute alsa_output.pci-0000_03_00.6.analog-stereo toggle # mute sound
 
 
 bindsym XF86MonBrightnessUp exec light -A 8 # increase screen brightness
