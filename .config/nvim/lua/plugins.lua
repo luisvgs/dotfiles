@@ -26,7 +26,7 @@ return require('packer').startup(function()
 	end
     }
     use 'godlygeek/tabular'
-    use 'justinmk/vim-sneak'
+    use 'rlane/pounce.nvim'
 
     -- Colorschemes
     use 'rktjmp/lush.nvim'
@@ -35,8 +35,10 @@ return require('packer').startup(function()
     use 'metalelf0/jellybeans-nvim'
     use 'marko-cerovac/material.nvim'
     use 'tjdevries/colorbuddy.vim'
+    use 'RRethy/nvim-base16'
     use 'folke/tokyonight.nvim' 
     use 'NTBBloodbath/doom-one.nvim'
+    -- use 'jnurmine/Zenburn'
 
     -- Languages
     use 'rust-lang/rust.vim'
@@ -69,42 +71,9 @@ return require('packer').startup(function()
     }
     use 'tpope/vim-commentary'
     use 'tjdevries/express_line.nvim'
-    use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
-    use {
-	'nvim-telescope/telescope.nvim',
-	disable = true,
-	config = function()
-	    vim.cmd[[ nnoremap <leader>ta <cmd>Telescope lsp_document_symbols theme=get_ivy<cr> ]]
-	    vim.cmd[[ nnoremap <leader>bb <cmd>Telescope buffers<cr> ]]
-	    vim.cmd[[ nnoremap <leader>fg <cmd>Telescope live_grep<cr> ]]
-	    vim.cmd[[ 
-	    nnoremap <leader>fo :lua require'telescope.builtin'
-	    .oldfiles(require('telescope.themes')
-	    .get_ivy({ 
-		prompt_title=false,winblend = 2, 
-		previewer=false,
-		layout_config = { height = 11 } 
-	    }))<cr> 
-	    ]]
-	    vim.cmd[[ nnoremap <leader>fb :lua require'telescope.builtin'
-	    .file_browser(require('telescope.themes')
-	    .get_dropdown({ 
-		winblend = 2, 
-		previewer= false 
-	    }))<cr> 
-	    ]]
-	    vim.cmd[[ nnoremap <leader>ff :lua require'telescope.builtin'
-	    .find_files(require('telescope.themes')
-	    .get_ivy({ 
-		winblend = 2, 
-		previewer=false 
-	    }))<cr> 
-	    ]]
-	end
-    }
     use 'machakann/vim-highlightedyank'
     use 'jiangmiao/auto-pairs'
-    use 'camspiers/lens.vim'
+    use 'beauwilliams/focus.nvim'
     use {
 	'gabrielpoca/replacer.nvim',
     }

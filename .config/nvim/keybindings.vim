@@ -103,15 +103,11 @@ let g:fzf_preview_window = []
 
 
 
-
-
-
 "" Use ctrl-[hjkl] to select the active split!
 nmap <silent> <c-k> :wincmd k<CR>
 nmap <silent> <c-j> :wincmd j<CR>
 nmap <silent> <c-h> :wincmd h<CR>
 nmap <silent> <c-l> :wincmd l<CR>
-
 
 
 
@@ -137,10 +133,8 @@ nnoremap <Down> :resize +2<CR>
 
 
 "====== Git config
-nmap <leader>gs :G<CR>
-nnoremap <Leader>gaf :Gw<CR>      
-
-
+" nmap <leader>gs :G<CR>
+" nnoremap <Leader>gaf :Gw<CR>      
 
 
 
@@ -164,7 +158,7 @@ nnoremap ,h <C-w>s
 
 
 " Yank highlight
-let g:highlightedyank_highlight_duration = 0200
+let g:highlightedyank_highlight_duration = 0100
 
 
 
@@ -223,15 +217,8 @@ let g:idris_indent_rewrite = 8
 
 
 
-" ========= Window resizing
-let g:lens#height_resize_max = 30
 
 
-
-
-
-
-nnoremap <C-n> :Hexplore<CR>
 
 
 
@@ -276,19 +263,8 @@ vnoremap > >gv
 
 
 
-"Netrw config:
-let g:netrw_liststyle = 1
-let g:netrw_bnner = 0
-let g:netrw_browse_split = 2
-let g:netrw_winsize = 5
 
 
-
-
-
-
-"Sneak
-let g:sneak#s_next = 1
 
 
 
@@ -304,8 +280,6 @@ let g:vim_markdown_folding_disabled = 1
 
 
 
-
-let g:vista_default_executive = 'ctags'
 
 
 
@@ -329,3 +303,12 @@ nnoremap <leader># :Tabularize /#-}<CR>
 
 " buffer nav
 nnoremap <leader>b :ls<CR>:b<Space>a
+
+" Pounce
+nnoremap <leader>p <cmd>Pounce<cr>
+
+" Focus
+nnoremap <silent><leader>l <cmd>FocusSplitRight<cr> 
+nnoremap <silent><leader>j <cmd>FocusSplitDown<cr> 
+nnoremap <silent><leader>k <cmd>FocusSplitUp<cr> 
+" nnoremap <silent><leader>j<cmd>FocusSplitLeft<cr> 
