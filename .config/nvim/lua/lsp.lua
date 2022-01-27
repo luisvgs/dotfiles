@@ -21,7 +21,7 @@ local lsp_attach = function(args)
 	    autocmd! * <buffer>
 	    autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
 	    autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-	    autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics({focusable = false})
+	    autocmd CursorHold * lua vim.diagnostic.open_float()
 	    augroup END
 	]], false)
 	end
