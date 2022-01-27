@@ -6,10 +6,10 @@ vim.g.material_style = 'darker'
 -- vim.cmd[[colorscheme jellybeans-nvim]]
 -- vim.cmd[[colorscheme doom-one]]
 -- vim.cmd[[colorscheme material]]
-vim.cmd[[colorscheme tokyonight]]
+-- vim.cmd[[colorscheme tokyonight]]
 -- vim.cmd[[colorscheme nimda]]
 -- vim.cmd[[ colorscheme base16-atelier-plateau]]
 require('onedark').setup {
     style = 'warmer'
 }
--- require('onedark').load()
+require('onedark').load()
