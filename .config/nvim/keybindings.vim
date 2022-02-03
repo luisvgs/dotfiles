@@ -264,6 +264,7 @@ vnoremap > >gv
 
 
 
+autocmd FileType javascript set shiftwidth=1|set expandtab| set shiftwidth=2
 
 
 
@@ -312,3 +313,9 @@ nnoremap <silent><leader>l <cmd>FocusSplitRight<cr>
 nnoremap <silent><leader>j <cmd>FocusSplitDown<cr> 
 nnoremap <silent><leader>k <cmd>FocusSplitUp<cr> 
 " nnoremap <silent><leader>j<cmd>FocusSplitLeft<cr> 
+
+
+nnoremap <silent><leader>gs <cmd>G<cr> 
+nnoremap <silent><leader>gc <cmd>Git commit<cr> 
+nnoremap <silent><leader>gd <cmd>Git diff<cr> 
+nnoremap <silent><leader>gl<cmd>Git log<cr> 
