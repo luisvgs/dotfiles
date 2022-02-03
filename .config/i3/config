@@ -49,7 +49,7 @@ bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
 bindsym $mod+d exec "dmenu_run -nf '#BBBBBB' -nb '#000000' -sb '#296E77' -sf '#EEEEEE' -fn 'monospace-10' -p 'dmenu '"
-bindsym $mod+Shift+d exec rofi -show window
+bindsym $mod+Shift+d exec rofi -show run 
 # bindsym $mod+d exec rofi -show run
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
@@ -109,7 +109,8 @@ bindsym $mod+a focus parent
 # We use variables to avoid repeating the names in multiple places.
 # Workspace naming
 set $workspace1 "1: Kitty "
-set $workspace2 "2: Mozilla "
+set $workspace2 "2: Chrome "
+# set $workspace2 "2: Mozilla "
 set $workspace3 "3: Telegram "
 set $workspace4 "4: Terminal "
 set $workspace5 "5: Spotify "
@@ -231,11 +232,12 @@ set $urgent-bg-color     #FF3B0A
 # smart_gaps on
 
 for_window [class="^.*"] border pixel 1
-exec_always feh --bg-scale /home/luis/Imágenes/horizon.jpg
+exec_always feh --bg-scale /home/luis/Imágenes/prado.jpg
 
 
 assign [class="kitty"] $workspace1
-assign [class="Firefox"] $workspace2
+# assign [class="Firefox"] $workspace2
+assign [class="Google-chrome"] $workspace2
 assign [class="TelegramDesktop"] $workspace3
 assign [class="Spotify"] $workspace5
 assign [class="Gnome-terminal"] $workspace4
@@ -243,11 +245,13 @@ assign [class="Gnome-terminal"] $workspace4
 
 
 # Personal keybindings
-bindsym $mod+Shift+f exec firefox
+bindsym $mod+Shift+f exec google-chrome
 bindsym $mod+Shift+t exec telegram
 bindsym $mod+Shift+s exec spotify
 bindsym $mod+Shift+g exec gnome-terminal
-bindsym $mod+Shift+Return exec "kitty -d `xcwd`"
+bindsym $mod+Shift+Return exec "kitty -d $HOME/Escritorio/programming"
+bindsym $mod+Return exec "kitty -d `xcwd`"
+bindsym $mod+Shift+n exec "nautilus $HOME"
 
 # Alsa controls
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume alsa_output.pci-0000_03_00.6.analog-stereo +5% #increase sound volume
@@ -262,7 +266,7 @@ bindsym XF86MonBrightnessDown exec light -U 8 # decrease screen brightness
 exec xinput set-prop 12 306 1
 
 # English keyboard
-exec "setxkbmap -layout us,de"
+# exec "setxkbmap -layout us,de"
 
 # exec "setxkbmap -option 'grp:alt_shift_toggle'"
 
@@ -270,3 +274,7 @@ exec "setxkbmap -layout us,de"
 # Polybar
 exec_always --no-startup-id ~/.config/polybar/launch.sh
 workspace_layout tabbed 
+
+
+# Screen printing
+bindsym $mod+Shift+p exec "scrot /home/luis/Imágenes/%Y-%m-%d-%H-%M-%S.png"
