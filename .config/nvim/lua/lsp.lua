@@ -13,15 +13,15 @@ lsp_status.config {
   indicator_ok = '%#StatusLineLSPOk#',
 }
 
-local lsp_attach = function(args)
-    return function(client, bufnr)
+local lsp_attach = function()
+   return function(client, bufnr)
 	if client.resolved_capabilities.document_highlight then
 	vim.api.nvim_exec([[
 	    augroup lsp_document_highlight
 	    autocmd! * <buffer>
 	    autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
 	    autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-	    autocmd CursorHold * lua vim.diagnostic.open_float()
+	    autocmd CursorHold * lua vim.diagnostic.open_float(nil, {focus=false})
 	    augroup END
 	]], false)
 	end
@@ -85,6 +85,7 @@ cmp.setup({
 })
 
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+vim.tbl_extend('keep', capabilities, lsp_status.capabilities)
 
 -- Haskell.
 lsp.hls.setup {
@@ -102,7 +103,29 @@ end
 }
 
 -- Bash
-lsp.bashls.setup{}
+lsp.bashls.setup {
+    capabilities = capabilities,
+    on_attach = function(client, bufnr)
+	return lsp_attach()(client, bufnr)
+    end
+}
+
+-- Lua
+lsp.sumneko_lua.setup {
+    cmd = { "/home/luis/lua-language-server/bin/lua-language-server"},
+    capabilities = capabilities,
+    settings = {
+	Lua = {
+	    diagnostics = {
+		enable = true,
+		globals = { "vim" },
+	    },
+	},
+    },
+    on_attach = function(client, bufnr)
+	return lsp_attach()(client, bufnr)
+    end
+}
 
 -- Typescript
 null_ls.setup({
@@ -143,7 +166,7 @@ lsp.tsserver.setup({
 -- Rust
 lsp.rust_analyzer.setup {
   capabilities = capabilities,
-  -- cmd = { "rust-analyzer"},
+  cmd = { "rust-analyzer"},
   settings = {
     ["rust-analyzer"] = {
         assist = {
@@ -223,10 +246,10 @@ vim.fn.sign_define(
 
 vim.fn.sign_define(
   'DiagnosticSignInfo',
-  { text = '', texthl = 'DiagnosticSignInfo' }
+  { text = '█', texthl = 'DiagnosticSignInfo' }
 )
 
 vim.fn.sign_define(
   'DiagnosticSignHint',
-  { text = '', texthl = 'DiagnosticSignHint' }
+  { text = '█', texthl = 'DiagnosticSignHint' }
 )

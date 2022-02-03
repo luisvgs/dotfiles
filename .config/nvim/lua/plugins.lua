@@ -7,6 +7,8 @@ return require('packer').startup(function()
 	ft = "markdown"
     }
     use {'qnighy/lalrpop.vim', ft = "lalrpop"}
+    use 'windwp/nvim-ts-autotag'
+    use 'tpope/vim-fugitive'
     use {
 	'goolord/alpha-nvim',
 	config = function ()
@@ -33,12 +35,9 @@ return require('packer').startup(function()
     use 'navarasu/onedark.nvim'
     use 'ozkanonur/nimda.vim'
     use 'metalelf0/jellybeans-nvim'
-    use 'marko-cerovac/material.nvim'
     use 'tjdevries/colorbuddy.vim'
-    use 'RRethy/nvim-base16'
     use 'folke/tokyonight.nvim' 
     use 'NTBBloodbath/doom-one.nvim'
-    -- use 'jnurmine/Zenburn'
 
     -- Languages
     use 'rust-lang/rust.vim'
@@ -65,10 +64,6 @@ return require('packer').startup(function()
     use 'tpope/vim-surround'
     use { "junegunn/fzf", run = "./install --all" }
     use { "junegunn/fzf.vim" }
-    use { 
-	"tversteeg/registers.nvim",
-	disable = true,
-    }
     use 'tpope/vim-commentary'
     use 'tjdevries/express_line.nvim'
     use 'machakann/vim-highlightedyank'
@@ -89,6 +84,7 @@ return require('packer').startup(function()
     use 'hrsh7th/cmp-buffer'
     use {
 	'nvim-lua/lsp_extensions.nvim',
+	disable = true,
 	as = 'lsp_extensions',
 	config = function()
 	    vim.cmd [[
