@@ -1,3 +1,4 @@
+
 fancy-ctrl-z () {
   if [[ $#BUFFER -eq 0 ]]; then
     BUFFER="fg"
@@ -8,7 +9,7 @@ fancy-ctrl-z () {
   fi
 }
 zle -N fancy-ctrl-z
-# bindkey '^Z' fancy-ctrl-z
+bindkey '^Z' fancy-ctrl-z
 
 # Important paths
 export PATH="~/.cargo/bin:$PATH"
@@ -67,14 +68,11 @@ setopt PROMPT_SUBST
 PROMPT='%B%F{green}${PWD/#$HOME/~} %F{magenta}λ ${vcs_info_msg_0_} '
 
 [ -f "/home/luis/.ghcup/env" ] && source "/home/luis/.ghcup/env" # ghcup-env
-source $HOME/.config/zsh-vi-mode/zsh-vi-mode.plugin.zsh
-zvm_after_init_commands+=('[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh')
-function my_init() {
-    bindkey '^Z' fancy-ctrl-z
-}
-zvm_after_init_commands+=(my_init)
+# source $HOME/.config/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 source $HOME/.config/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source $HOME/.config/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $HOME/.config/zsh-autopair/autopair.zsh
 source $HOME/.profile
-# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+alias luamake=/home/luis/Escritorio/lua-language-server/3rd/luamake/luamake
