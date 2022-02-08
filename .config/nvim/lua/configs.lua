@@ -25,11 +25,23 @@ set.updatetime = 300
 cmd([[
     autocmd FileType javascript set shiftwidth=1|set expandtab| set shiftwidth=2
     autocmd FileType javascriptreact set shiftwidth=1|set expandtab| set shiftwidth=2
+    autocmd FileType make setlocal noexpandtab
+    autocmd FileType haskell setlocal expandtab
+    autocmd FileType haskell let b:autoformat_autoindent = 0
 ]])
 
 -- Rust
 vim.g.rust_recommended_style = false
 vim.g.rustfmt_autosave = false
+
+-- FZF
+vim.g.fzf_preview_window = {}
+vim.g.fzf_layout = { down = '35%' }
+vim.g.fzf_action = {
+  ["ctrl-t"] = 'tab split',
+  ["ctrl-i"] = 'split',
+  ["ctrl-v"] = 'vsplit'
+}
 
 -- Haskell
 vim.g.haskell_classic_highlighting = false
@@ -48,6 +60,9 @@ vim.g.cabal_indent_section = 2
 -- Yank
 vim.g.highlightedyank_highlight_duration = 0100
 
+
+-- Markdown stuff
+vim.g.vim_markdown_folding_disabled = true
 
 -- Idris
 -- vim.g.idris_indent_if = 3

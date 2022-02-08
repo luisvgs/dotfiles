@@ -111,21 +111,21 @@ lsp.bashls.setup {
 }
 
 -- Lua
-lsp.sumneko_lua.setup {
-    cmd = { "/home/luis/lua-language-server/bin/lua-language-server"},
-    capabilities = capabilities,
-    settings = {
-	Lua = {
-	    diagnostics = {
-		enable = true,
-		globals = { "vim" },
-	    },
-	},
-    },
-    on_attach = function(client, bufnr)
-	return lsp_attach()(client, bufnr)
-    end
-}
+-- lsp.sumneko_lua.setup {
+--     cmd = { "/home/luis/lua-language-server/bin/lua-language-server"},
+--     capabilities = capabilities,
+--     settings = {
+-- 	Lua = {
+-- 	    diagnostics = {
+-- 		enable = true,
+-- 		globals = { "vim" },
+-- 	    },
+-- 	},
+--     },
+--     on_attach = function(client, bufnr)
+-- 	return lsp_attach()(client, bufnr)
+--     end
+-- }
 
 -- Typescript
 null_ls.setup({

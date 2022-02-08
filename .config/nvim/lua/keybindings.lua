@@ -7,10 +7,13 @@ map("n", "<leader>gc", "<cmd>Git commit<cr>")
 map("n", "<leader>gd", "<cmd>Git diff<cr>")
 map("n", "<leader>gl", "<cmd>Git log<cr>")
 
+-- Replacer
+map("n", "<leader>h", ':lua require("replacer").run()<cr>')
+
 -- Focus
-map("n", "<leader>l", "<cmd>FocusSplitRight<cr>")
-map("n", "<leader>j", "<cmd>FocusSplitDown<cr>")
-map("n", "<leader>k", "<cmd>FocusSplitUp<cr>")
+map("n", "<leader>l", ":FocusSplitRight<cr>")
+map("n", "<leader>j", ":FocusSplitDown<cr>")
+map("n", "<leader>k", ":FocusSplitUp<cr>")
 
 -- Pounce
 map("n", "<leader>p", "<cmd>Pounce<cr>")
@@ -73,3 +76,31 @@ map("x", "J", ":move '>+1<cr>gv-gv")
 -- Identation with < and >
 map("v", "<", "<gv")
 map("v", ">", ">gv")
+
+-- Sends any deleted text to the black hole register
+map("n", "x", '"_x')
+map("n", "d", '"_d')
+map("n", "D", '"_D')
+map("v", "d", '"_d')
+map("n", "<leader>d", '""d')
+map("n", "<leader>D", '""D')
+map("v", "<leader>d", '""d')
+
+-- Wraps word in cursor in ()
+map("n", "<leader>z", "viw<esc>a)<esc>hbi(<esc>lel")
+map("n", "<leader>cb", "viw<esc>a}<esc>hbi{<esc>lel")
+
+-- " Keep star command in the same position
+-- nnoremap * m`:keepjumps normal! *``<cr>
+map("n", "*", "m`:keepjumps normal! *``<cr>")
+
+-- Stop text search highlight
+map("n", "<esc>", ":noh<cr>")
+
+-- map ctrl+s to :w
+map("n", "<c-s>", ":w<cr>")
+map("i", "<c-s>", "<Esc>:w<cr>a")
+
+
+-- Movement: maps c-e to $ such as inoremap <C-e> <C-o>$
+map("i", "<c-e>", "<c-o>$")
