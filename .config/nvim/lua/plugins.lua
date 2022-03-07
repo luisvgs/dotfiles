@@ -2,6 +2,7 @@ vim.cmd [[packadd packer.nvim]]
 return require('packer').startup(function()
     -- Util
     use 'wbthomason/packer.nvim'
+    use 'ThePrimeagen/git-worktree.nvim'
     use { 
 	'plasticboy/vim-markdown',
 	ft = "markdown"
@@ -32,12 +33,14 @@ return require('packer').startup(function()
 
     -- Colorschemes
     use 'rktjmp/lush.nvim'
+    use "rafamadriz/neon"
     use 'navarasu/onedark.nvim'
     use 'ozkanonur/nimda.vim'
     use 'metalelf0/jellybeans-nvim'
     use 'tjdevries/colorbuddy.vim'
     use 'folke/tokyonight.nvim' 
     use 'NTBBloodbath/doom-one.nvim'
+    use 'marko-cerovac/material.nvim'
 
     -- Languages
     use 'rust-lang/rust.vim'

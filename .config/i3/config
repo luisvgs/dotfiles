@@ -232,7 +232,7 @@ set $urgent-bg-color     #FF3B0A
 # smart_gaps on
 
 for_window [class="^.*"] border pixel 1
-exec_always feh --bg-scale /home/luis/Imágenes/samurai.jpg
+exec_always feh --bg-scale /home/luis/Imágenes/city.jpg
 
 
 assign [class="kitty"] $workspace1

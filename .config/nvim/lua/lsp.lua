@@ -219,7 +219,7 @@ lsp.rust_analyzer.setup {
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<localleader>dd', '<cmd>belowright 10sp | term cargo doc --open<cr>', {})
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<localleader>ds', '<cmd>belowright 10sp | term rustup doc --std<cr>', {})
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>cr', '<cmd>belowright 10sp | term cargo run<cr>', {})
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ct', '<cmd>belowright 10sp | term cargo t<cr>', {})
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ct', '<cmd>belowright 13sp | term cargo t<cr>', {})
 
     return lsp_attach()(client, bufnr)
   end

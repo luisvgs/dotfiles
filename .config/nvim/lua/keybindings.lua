@@ -16,7 +16,7 @@ map("n", "<leader>j", ":FocusSplitDown<cr>")
 map("n", "<leader>k", ":FocusSplitUp<cr>")
 
 -- Pounce
-map("n", "<leader>p", "<cmd>Pounce<cr>")
+map("n", "<leader>pp", ":Pounce<cr>")
 
 -- Tabularize (for Haskell, mostly)
 map("n", "<leader>=", "<cmd>Tabularize /=<cr>")
@@ -39,10 +39,11 @@ map("n", "<Down>", ":resize +2<cr>")
 -- Clippy
 map("n", "<C-Y>", ":RustFmt<cr>")
 
--- FZF Keybindings
+-- Fzf
 map("n", "<C-F>", ":Files %:p:h<cr>")
 map("n", "<C-B>", ":Buffers <cr>")
 map("n", "<C-P>", ":History<cr>")
+map("n", "<leader>fc", "<cmd>Commits<cr>")
 
 -- Buffer navigation
 map("n", "<leader>q", ":bd!<cr>")
@@ -104,3 +105,21 @@ map("i", "<c-s>", "<Esc>:w<cr>a")
 
 -- Movement: maps c-e to $ such as inoremap <C-e> <C-o>$
 map("i", "<c-e>", "<c-o>$")
+
+-- Packer
+map("n", "<leader>pi", "<cmd>PackerInstall<cr>")
+map("n", "<leader>pu", "<cmd>PackerUpdate<cr>")
+map("n", "<leader>pc", "<cmd>PackerClean<cr>")
+
+
+-- Quick access to common files.
+map('n', '<leader>fci', '<cmd>edit ~/.config/nvim/init.lua<cr>')
+map('n', '<leader>fck', '<cmd>edit ~/.config/nvim/lua/keybindings.lua<cr>')
+map('n', '<leader>fcl', '<cmd>edit ~/.config/nvim/lua/lsp.lua<cr>')
+map('n', '<leader>fcp', '<cmd>edit ~/.config/nvim/lua/plugins.lua<cr>')
+
+
+-- Git Worktrees
+map('n', '<leader>gwc', ':lua require("git-worktree").create_worktree("../feature", "feature", "origin")<cr>')
+map('n', '<leader>gwd', ':lua require("git-worktree").delete_worktree("feature")<cr>')
+map('n', '<leader>gws', ':lua require("git-worktree").switch_worktree("feature")<cr>')
