@@ -23,6 +23,7 @@ set.shortmess = set.shortmess + "c"
 set.updatetime = 300
 
 cmd([[
+    autocmd FileType javascriptreact setlocal commentstring={/*\ %s\ */}
     autocmd FileType javascript set shiftwidth=1|set expandtab| set shiftwidth=2
     autocmd FileType javascriptreact set shiftwidth=1|set expandtab| set shiftwidth=2
     autocmd FileType make setlocal noexpandtab

@@ -2,7 +2,7 @@ local map = require("utils").map
 vim.g.mapleader = " "
 
 -- Fugitive
-map("n", "<leader>gs", "<cmd>G<cr>")
+map("n", "<leader>gg", "<cmd>G<cr>")
 map("n", "<leader>gc", "<cmd>Git commit<cr>")
 map("n", "<leader>gd", "<cmd>Git diff<cr>")
 map("n", "<leader>gl", "<cmd>Git log<cr>")
@@ -40,10 +40,14 @@ map("n", "<Down>", ":resize +2<cr>")
 map("n", "<C-Y>", ":RustFmt<cr>")
 
 -- Fzf
-map("n", "<C-F>", ":Files %:p:h<cr>")
+-- map("n", "<C-F>", ":Files %:p:h<cr>")
+-- map("n", "<C-P>", ":History<cr>")
+-- map("n", "<leader>fc", "<cmd>Commits<cr>")
 map("n", "<C-B>", ":Buffers <cr>")
-map("n", "<C-P>", ":History<cr>")
-map("n", "<leader>fc", "<cmd>Commits<cr>")
+map('n', '<C-F>', "<cmd>lua require('fzf-lua').files()<CR>")
+map('n', '<C-P>', "<cmd>lua require('fzf-lua').oldfiles()<CR>")
+map('n', '<leader>fc', "<cmd>lua require('fzf-lua').git_commits()<CR>")
+map('n', '<leader>gs', "<cmd>lua require('fzf-lua').git_status()<CR>")
 
 -- Buffer navigation
 map("n", "<leader>q", ":bd!<cr>")

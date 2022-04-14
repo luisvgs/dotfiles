@@ -111,7 +111,7 @@ bindsym $mod+a focus parent
 set $workspace1 "1: Kitty "
 set $workspace2 "2: Chrome "
 # set $workspace2 "2: Mozilla "
-set $workspace3 "3: Telegram "
+set $workspace3 "3:  Telegram "
 set $workspace4 "4: Terminal "
 set $workspace5 "5: Spotify "
 set $workspace6 "6: Directories "
@@ -232,7 +232,7 @@ set $urgent-bg-color     #FF3B0A
 # smart_gaps on
 
 for_window [class="^.*"] border pixel 1
-exec_always feh --bg-scale /home/luis/Imágenes/city.jpg
+exec_always feh --bg-scale /home/luis/Imágenes/world.jpg
 
 
 assign [class="kitty"] $workspace1

@@ -34,13 +34,12 @@ return require('packer').startup(function()
     -- Colorschemes
     use 'rktjmp/lush.nvim'
     use "rafamadriz/neon"
+    use "rebelot/kanagawa.nvim"
     use 'navarasu/onedark.nvim'
-    use 'ozkanonur/nimda.vim'
     use 'metalelf0/jellybeans-nvim'
     use 'tjdevries/colorbuddy.vim'
     use 'folke/tokyonight.nvim' 
     use 'NTBBloodbath/doom-one.nvim'
-    use 'marko-cerovac/material.nvim'
 
     -- Languages
     use 'rust-lang/rust.vim'
@@ -67,18 +66,25 @@ return require('packer').startup(function()
     use 'tpope/vim-surround'
     use { "junegunn/fzf", run = "./install --all" }
     use { "junegunn/fzf.vim" }
+    use { 'ibhagwan/fzf-lua',
+        requires = { 'kyazdani42/nvim-web-devicons' }
+    }
     use 'tpope/vim-commentary'
+    use 'JoosepAlviste/nvim-ts-context-commentstring'
     use 'tjdevries/express_line.nvim'
     use 'machakann/vim-highlightedyank'
-    use 'jiangmiao/auto-pairs'
     use 'beauwilliams/focus.nvim'
+    use 'windwp/nvim-autopairs'
     use {
 	'gabrielpoca/replacer.nvim',
     }
     use 'kyazdani42/nvim-web-devicons' 
 
     -- LSP
-    use 'onsails/lspkind-nvim'
+    use {
+	    'onsails/lspkind-nvim',
+		disable = true
+    }
     use 'neovim/nvim-lspconfig'
     use 'jose-elias-alvarez/null-ls.nvim'
     use 'jose-elias-alvarez/nvim-lsp-ts-utils'

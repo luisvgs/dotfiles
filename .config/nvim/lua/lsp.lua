@@ -2,8 +2,11 @@ local lsp = require'lspconfig'
 local lsp_status = require'lsp-status'
 local null_ls = require'null-ls'
 
+
+
 lsp_status.register_progress()
 lsp_status.config {
+
   current_function = false,
   status_symbol = '%#StatusLineLinNbr#LSP',
   indicator_errors = '%#StatusLineLSPErrors#',
@@ -27,7 +30,12 @@ local lsp_attach = function()
 	end
 
 	if client.resolved_capabilities.document_formatting then
-	    vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
+          vim.cmd([[
+              augroup LspFormatting
+                autocmd! * <buffer>
+                autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()
+              augroup END
+            ]])
 	end
 
 	-- if args == nil or args.format == nil or args.format then
@@ -111,21 +119,22 @@ lsp.bashls.setup {
 }
 
 -- Lua
--- lsp.sumneko_lua.setup {
---     cmd = { "/home/luis/lua-language-server/bin/lua-language-server"},
---     capabilities = capabilities,
---     settings = {
--- 	Lua = {
--- 	    diagnostics = {
--- 		enable = true,
--- 		globals = { "vim" },
--- 	    },
--- 	},
---     },
---     on_attach = function(client, bufnr)
--- 	return lsp_attach()(client, bufnr)
---     end
--- }
+lsp.sumneko_lua.setup {
+    cmd = { "/home/luis/lua-language-server/bin/lua-language-server"},
+    capabilities = capabilities,
+    settings = {
+	Lua = {
+	    diagnostics = {
+		enable = true,
+		globals = { "vim" },
+	    },
+	},
+        format = { enable = true }
+    },
+    on_attach = function(client, bufnr)
+	return lsp_attach()(client, bufnr)
+    end
+}
 
 -- Typescript
 null_ls.setup({
