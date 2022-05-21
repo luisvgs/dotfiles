@@ -48,6 +48,9 @@ map('n', '<C-F>', "<cmd>lua require('fzf-lua').files()<CR>")
 map('n', '<C-P>', "<cmd>lua require('fzf-lua').oldfiles()<CR>")
 map('n', '<leader>fc', "<cmd>lua require('fzf-lua').git_commits()<CR>")
 map('n', '<leader>gs', "<cmd>lua require('fzf-lua').git_status()<CR>")
+map('n', '<leader>lg', "<cmd>lua require('fzf-lua').live_grep()<CR>")
+map('n', '<leader>gr', "<cmd>lua require('fzf-lua').grep()<CR>")
+map('n', '<leader>rg', ":Rg <cr>")
 
 -- Buffer navigation
 map("n", "<leader>q", ":bd!<cr>")
@@ -122,8 +125,3 @@ map('n', '<leader>fck', '<cmd>edit ~/.config/nvim/lua/keybindings.lua<cr>')
 map('n', '<leader>fcl', '<cmd>edit ~/.config/nvim/lua/lsp.lua<cr>')
 map('n', '<leader>fcp', '<cmd>edit ~/.config/nvim/lua/plugins.lua<cr>')
 
-
--- Git Worktrees
-map('n', '<leader>gwc', ':lua require("git-worktree").create_worktree("../feature", "feature", "origin")<cr>')
-map('n', '<leader>gwd', ':lua require("git-worktree").delete_worktree("feature")<cr>')
-map('n', '<leader>gws', ':lua require("git-worktree").switch_worktree("feature")<cr>')

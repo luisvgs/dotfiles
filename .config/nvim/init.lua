@@ -4,6 +4,7 @@ require('treesitter-config')
 require('keybindings')
 require('configs')
 require('colorscheme')
+
 local builtin = require("el.builtin")
 local extensions = require("el.extensions")
 local helper = require("el.helper")
@@ -20,7 +21,6 @@ local git_branch = subscribe.buf_autocmd(
         local branch = extensions.git_branch(window, buffer)
         if branch then
             return '  '.. branch ..''
-            -- return '  ' .. extensions.git_icon() .. ' ' .. branch
         end
     end
 )
@@ -29,8 +29,6 @@ local lsp_current_status = function(win, _)
     local status = require('lsp-status').status()
     if type(status) == 'string' then
         if win.is_active then
-            -- Hacky way to get rid of extra characters from
-            -- rust_analyzer
             local result, _ = string.gsub(status, '\240\159\135\187', '')
             return result
         end
@@ -102,3 +100,4 @@ require('fzf-lua').setup {
     previewer = false
   }
 }
+require("todo-comments").setup()

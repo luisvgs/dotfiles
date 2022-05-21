@@ -2,7 +2,10 @@ vim.cmd [[packadd packer.nvim]]
 return require('packer').startup(function()
     -- Util
     use 'wbthomason/packer.nvim'
-    use 'ThePrimeagen/git-worktree.nvim'
+    use {
+        'ThePrimeagen/git-worktree.nvim',
+        disable = true,
+    }
     use { 
 	'plasticboy/vim-markdown',
 	ft = "markdown"
@@ -10,12 +13,6 @@ return require('packer').startup(function()
     use {'qnighy/lalrpop.vim', ft = "lalrpop"}
     use 'windwp/nvim-ts-autotag'
     use 'tpope/vim-fugitive'
-    use {
-	'goolord/alpha-nvim',
-	config = function ()
-	    require'alpha'.setup(require'alpha.themes.startify'.opts)
-	end
-    }
     use {
 	'nvim-treesitter/nvim-treesitter',
 	run = ':TSUpdate', 
@@ -28,18 +25,26 @@ return require('packer').startup(function()
 	    require("trouble").setup {}
 	end
     }
+    -- Lua
+use {
+  "folke/todo-comments.nvim",
+  requires = "nvim-lua/plenary.nvim",
+  config = function()
+    require("todo-comments").setup()
+  end
+}
     use 'godlygeek/tabular'
     use 'rlane/pounce.nvim'
 
     -- Colorschemes
     use 'rktjmp/lush.nvim'
-    use "rafamadriz/neon"
-    use "rebelot/kanagawa.nvim"
+    use 'RRethy/nvim-base16'
     use 'navarasu/onedark.nvim'
     use 'metalelf0/jellybeans-nvim'
     use 'tjdevries/colorbuddy.vim'
     use 'folke/tokyonight.nvim' 
     use 'NTBBloodbath/doom-one.nvim'
+    use "ellisonleao/gruvbox.nvim"
 
     -- Languages
     use 'rust-lang/rust.vim'
@@ -83,7 +88,7 @@ return require('packer').startup(function()
     -- LSP
     use {
 	    'onsails/lspkind-nvim',
-		disable = true
+		disable =false 
     }
     use 'neovim/nvim-lspconfig'
     use 'jose-elias-alvarez/null-ls.nvim'

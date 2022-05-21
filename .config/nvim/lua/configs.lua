@@ -9,7 +9,7 @@ set.softtabstop =4
 set.smarttab = true
 set.cursorline = true
 set.expandtab = true
-set.clipboard = set.clipboard + "unnamedplus"
+-- set.clipboard = set.clipboard + "unnamedplus"
 set.showcmd = true
 set.number = true
 set.relativenumber = true
@@ -30,6 +30,8 @@ cmd([[
     autocmd FileType haskell setlocal expandtab
     autocmd FileType haskell let b:autoformat_autoindent = 0
 ]])
+
+vim.api.nvim_set_option("clipboard","unnamed")
 
 -- Rust
 vim.g.rust_recommended_style = false
