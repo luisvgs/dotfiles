@@ -6,6 +6,6 @@ update_check_interval 0
 
 
 # BEGIN_KITTY_THEME
-# Doom One
+# Gruvbox Material Dark Medium
 include current-theme.conf
 # END_KITTY_THEME
