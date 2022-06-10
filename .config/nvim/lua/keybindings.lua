@@ -1,11 +1,18 @@
 local map = require("utils").map
 vim.g.mapleader = " "
 
+-- Terminal
+map("n", "<leader>ot", "<cmd>ToggleTerm<cr>")
+
 -- Fugitive
 map("n", "<leader>gg", "<cmd>G<cr>")
 map("n", "<leader>gc", "<cmd>Git commit<cr>")
 map("n", "<leader>gd", "<cmd>Git diff<cr>")
 map("n", "<leader>gl", "<cmd>Git log<cr>")
+
+-- Diffview
+map("n", "<leader>gdv", ":DiffviewOpen<cr>") -- Compares against the whole index
+map("n", "<leader>gdf", ":DiffviewOpen %<cr>") -- Compares against the current file
 
 -- Replacer
 map("n", "<leader>h", ':lua require("replacer").run()<cr>')
@@ -43,14 +50,14 @@ map("n", "<C-Y>", ":RustFmt<cr>")
 -- map("n", "<C-F>", ":Files %:p:h<cr>")
 -- map("n", "<C-P>", ":History<cr>")
 -- map("n", "<leader>fc", "<cmd>Commits<cr>")
-map("n", "<C-B>", ":Buffers <cr>")
-map('n', '<C-F>', "<cmd>lua require('fzf-lua').files()<CR>")
-map('n', '<C-P>', "<cmd>lua require('fzf-lua').oldfiles()<CR>")
-map('n', '<leader>fc', "<cmd>lua require('fzf-lua').git_commits()<CR>")
-map('n', '<leader>gs', "<cmd>lua require('fzf-lua').git_status()<CR>")
-map('n', '<leader>lg', "<cmd>lua require('fzf-lua').live_grep()<CR>")
-map('n', '<leader>gr', "<cmd>lua require('fzf-lua').grep()<CR>")
-map('n', '<leader>rg', ":Rg <cr>")
+map("n", "<leader>b", ":Buffers <cr>")
+map("n", "<C-F>", "<cmd>lua require('fzf-lua').files()<CR>")
+map("n", "<C-P>", "<cmd>lua require('fzf-lua').oldfiles()<CR>")
+map("n", "<leader>fc", "<cmd>lua require('fzf-lua').git_commits()<CR>")
+map("n", "<leader>gs", "<cmd>lua require('fzf-lua').git_status()<CR>")
+map("n", "<leader>lg", "<cmd>lua require('fzf-lua').live_grep()<CR>")
+map("n", "<leader>gr", "<cmd>lua require('fzf-lua').grep()<CR>")
+map("n", "<leader>rg", ":Rg <cr>")
 
 -- Buffer navigation
 map("n", "<leader>q", ":bd!<cr>")
@@ -68,8 +75,8 @@ map("n", "<leader>y", '"+y')
 map("n", "<leader>p", '"+p')
 
 -- Creates vertical and horizontal plits
-map("n", ",v", '<C-w>v')
-map("n", ",h", '<C-w>s')
+map("n", ",v", "<C-w>v")
+map("n", ",h", "<C-w>s")
 
 -- Move with hjkl to active split
 map("n", "<C-k>", ":wincmd k<cr>")
@@ -109,7 +116,6 @@ map("n", "<esc>", ":noh<cr>")
 map("n", "<c-s>", ":w<cr>")
 map("i", "<c-s>", "<Esc>:w<cr>a")
 
-
 -- Movement: maps c-e to $ such as inoremap <C-e> <C-o>$
 map("i", "<c-e>", "<c-o>$")
 
@@ -118,10 +124,9 @@ map("n", "<leader>pi", "<cmd>PackerInstall<cr>")
 map("n", "<leader>pu", "<cmd>PackerUpdate<cr>")
 map("n", "<leader>pc", "<cmd>PackerClean<cr>")
 
-
 -- Quick access to common files.
-map('n', '<leader>fci', '<cmd>edit ~/.config/nvim/init.lua<cr>')
-map('n', '<leader>fck', '<cmd>edit ~/.config/nvim/lua/keybindings.lua<cr>')
-map('n', '<leader>fcl', '<cmd>edit ~/.config/nvim/lua/lsp.lua<cr>')
-map('n', '<leader>fcp', '<cmd>edit ~/.config/nvim/lua/plugins.lua<cr>')
-
+map("n", "<leader>oci", "<cmd>edit ~/.config/nvim/init.lua<cr>")
+map("n", "<leader>ock", "<cmd>edit ~/.config/nvim/lua/keybindings.lua<cr>")
+map("n", "<leader>ocl", "<cmd>edit ~/.config/nvim/lua/lsp.lua<cr>")
+map("n", "<leader>ocp", "<cmd>edit ~/.config/nvim/lua/plugins.lua<cr>")
+map("n", "<leader>occ", "<cmd>edit ~/.config/nvim/lua/configs.lua<cr>")
