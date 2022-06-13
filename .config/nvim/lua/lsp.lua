@@ -1,6 +1,7 @@
 local lsp = require("lspconfig")
 local lsp_status = require("lsp-status")
 local null_ls = require("null-ls")
+local navic = require("nvim-navic")
 
 lsp_status.register_progress()
 lsp_status.config({
@@ -141,6 +142,7 @@ vim.tbl_extend("keep", capabilities, lsp_status.capabilities)
 lsp.hls.setup({
 	capabilities = capabilities,
 	on_attach = function(client, bufnr)
+		navic.attach(client, bufnr)
 		vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>hi", "<cmd>belowright 7sp | term ghci %<cr>", {})
 		return lsp_attach()(client, bufnr)
 	end,
@@ -155,6 +157,7 @@ lsp.hls.setup({
 lsp.bashls.setup({
 	capabilities = capabilities,
 	on_attach = function(client, bufnr)
+		navic.attach(client, bufnr)
 		return lsp_attach()(client, bufnr)
 	end,
 })
@@ -177,6 +180,7 @@ lsp.sumneko_lua.setup({
 		},
 	},
 	on_attach = function(client, bufnr)
+		navic.attach(client, bufnr)
 		client.resolved_capabilities.document_formatting = false
 		client.resolved_capabilities.document_range_formatting = false
 		return lsp_attach()(client, bufnr)
@@ -269,6 +273,7 @@ lsp.rust_analyzer.setup({
 	},
 
 	on_attach = function(client, bufnr)
+		navic.attach(client, bufnr)
 		vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>cb", "<cmd>belowright 10sp | term cargo build<cr>", {})
 		vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>cc", "<cmd>belowright 10sp | term cargo clippy<cr>", {})
 		vim.api.nvim_buf_set_keymap(

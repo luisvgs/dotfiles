@@ -44,31 +44,9 @@ return require("packer").startup(function(use)
 	use("rktjmp/lush.nvim")
 	use("RRethy/nvim-base16")
 	use("metalelf0/jellybeans-nvim")
-	use({
-		"rebelot/kanagawa.nvim",
-		config = function()
-			require("kanagawa").setup({
-				undercurl = true, -- enable undercurls
-				commentStyle = "NONE",
-				functionStyle = "NONE",
-				keywordStyle = "NONE",
-				statementStyle = "NONE",
-				typeStyle = "NONE",
-				variablebuiltinStyle = "NONE",
-				specialReturn = true, -- special highlight for the return keyword
-				specialException = true, -- special highlight for exception handling keywords
-				transparent = false, -- do not set background color
-				dimInactive = false, -- dim inactive window `:h hl-NormalNC`
-				globalStatus = false, -- adjust window separators highlight for laststatus=3
-				colors = {},
-				overrides = {},
-			})
-		end,
-	})
 	use("tjdevries/colorbuddy.vim")
 	use("folke/tokyonight.nvim")
 	use("NTBBloodbath/doom-one.nvim")
-	use("ellisonleao/gruvbox.nvim")
 
 	-- Languages
 	use("rust-lang/rust.vim")
@@ -103,7 +81,7 @@ return require("packer").startup(function(use)
 	use({ "ibhagwan/fzf-lua", requires = { "kyazdani42/nvim-web-devicons" } })
 	use("tpope/vim-commentary")
 	use("JoosepAlviste/nvim-ts-context-commentstring")
-	use("tjdevries/express_line.nvim")
+	use({ "tjdevries/express_line.nvim", disable = true })
 	use({
 		"nvim-lualine/lualine.nvim",
 		requires = { "kyazdani42/nvim-web-devicons", opt = true },
@@ -122,8 +100,8 @@ return require("packer").startup(function(use)
 		disable = false,
 	})
 	use({
-		"SmiteshP/nvim-gps",
-		requires = "nvim-treesitter/nvim-treesitter",
+		"SmiteshP/nvim-navic",
+		requires = "neovim/nvim-lspconfig",
 	})
 	use("neovim/nvim-lspconfig")
 	use("jose-elias-alvarez/null-ls.nvim")

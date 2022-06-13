@@ -1,5 +1,5 @@
 local lualine = require("lualine")
-local gps = require("nvim-gps")
+local navic = require("nvim-navic")
 
 -- Color table for highlights
 -- stylua: ignore
@@ -130,7 +130,7 @@ ins_left({
 	color = { fg = colors.magenta, gui = "bold" },
 })
 
-ins_left({ gps.get_location, cond = gps.is_available, color = { fg = colors.violet, gui = "bold" } })
+ins_left({ navic.get_location, cond = navic.is_available })
 
 ins_left({
 	"diagnostics",
