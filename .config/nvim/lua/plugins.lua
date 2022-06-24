@@ -34,7 +34,6 @@ return require("packer").startup(function(use)
 			require("trouble").setup({})
 		end,
 	})
-	-- Packer
 	use({ "sindrets/diffview.nvim", requires = "nvim-lua/plenary.nvim" })
 	-- Lua
 	use("godlygeek/tabular")
@@ -47,7 +46,8 @@ return require("packer").startup(function(use)
 	use("tjdevries/colorbuddy.vim")
 	use("folke/tokyonight.nvim")
 	use("NTBBloodbath/doom-one.nvim")
-
+	-- If you are using Packer
+	use("marko-cerovac/material.nvim")
 	-- Languages
 	use("rust-lang/rust.vim")
 
