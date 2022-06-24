@@ -25,12 +25,6 @@ map("n", "<leader>k", ":FocusSplitUp<cr>")
 -- Pounce
 map("n", "<leader>pp", ":Pounce<cr>")
 
--- Tabularize (for Haskell, mostly)
-map("n", "<leader>=", "<cmd>Tabularize /=<cr>")
-map("n", "<leader>-", "<cmd>Tabularize /-<cr>")
-map("n", "<leader>,", "<cmd>Tabularize /,<cr>")
-map("n", "<leader>#", "<cmd>Tabularize /#-}<cr>")
-
 -- Trouble
 map("n", "<leader>xx", "<cmd>TroubleToggle<cr>")
 

@@ -10,15 +10,9 @@ return require("packer").startup(function(use)
 		end,
 	})
 	use({
-		"ThePrimeagen/git-worktree.nvim",
-		disable = true,
+		"rmagatti/goto-preview",
 	})
 	use("j-hui/fidget.nvim")
-	use({
-		"plasticboy/vim-markdown",
-		disable = true,
-		ft = "markdown",
-	})
 	use({ "qnighy/lalrpop.vim", ft = "lalrpop" })
 	use("windwp/nvim-ts-autotag")
 	use("tpope/vim-fugitive")
@@ -36,7 +30,6 @@ return require("packer").startup(function(use)
 	})
 	use({ "sindrets/diffview.nvim", requires = "nvim-lua/plenary.nvim" })
 	-- Lua
-	use("godlygeek/tabular")
 	use("rlane/pounce.nvim")
 
 	-- Colorschemes
@@ -109,15 +102,5 @@ return require("packer").startup(function(use)
 	use("hrsh7th/nvim-cmp")
 	use("hrsh7th/cmp-nvim-lsp")
 	use("hrsh7th/cmp-buffer")
-	use({
-		"nvim-lua/lsp_extensions.nvim",
-		disable = true,
-		as = "lsp_extensions",
-		config = function()
-			vim.cmd([[
-	    au BufEnter,BufWinEnter,BufWritePost,InsertLeave,TabEnter *.rs :lua require'lsp_extensions'.inlay_hints{ prefix = " » " }
-	    ]])
-		end,
-	})
 	use("nvim-lua/lsp-status.nvim")
 end)
