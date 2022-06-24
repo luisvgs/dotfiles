@@ -147,9 +147,7 @@ lsp.hls.setup({
 		return lsp_attach()(client, bufnr)
 	end,
 	settings = {
-		languageServerHaskell = {
-			formattingProvider = "brittany",
-		},
+		haskell = { formattingProvider = "brittany", "--indent=4" },
 	},
 })
 
