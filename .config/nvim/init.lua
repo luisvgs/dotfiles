@@ -6,11 +6,9 @@ require("configs")
 require("colorscheme")
 require("statusline")
 require("fidget").setup({})
-require("goto-preview").setup({
-	default_mappings = true,
-})
+require("goto-preview").setup({})
 require("nvim-navic").setup({})
-require("toggleterm").setup({ shade_terminals = false, persist_size = false })
+-- require("toggleterm").setup({ shade_terminals = false, persist_size = false })
 require("focus").setup({ autoresize = true, excluded_buftypes = { "terminal" }, excluded_filetypes = { "toggleterm" } })
 require("nvim-autopairs").setup({})
 require("fzf-lua").setup({
@@ -21,3 +19,4 @@ require("fzf-lua").setup({
 		previewer = false,
 	},
 })
+require("git-conflict").setup()

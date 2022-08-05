@@ -84,10 +84,11 @@ _G.packer_plugins = {
     path = "/home/luis/.local/share/nvim/site/pack/packer/start/colorbuddy.vim",
     url = "https://github.com/tjdevries/colorbuddy.vim"
   },
-  ["diffview.nvim"] = {
+  ["dired.nvim"] = {
+    config = { "\27LJ\2\ne\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0B\0\2\1K\0\1\0\1\0\3\16show_hidden\2\16show_banner\1\19path_separator\6/\nsetup\ndired\frequire\0" },
     loaded = true,
-    path = "/home/luis/.local/share/nvim/site/pack/packer/start/diffview.nvim",
-    url = "https://github.com/sindrets/diffview.nvim"
+    path = "/home/luis/.local/share/nvim/site/pack/packer/start/dired.nvim",
+    url = "https://github.com/X3eRo0/dired.nvim"
   },
   ["doom-one.nvim"] = {
     loaded = true,
@@ -119,12 +120,15 @@ _G.packer_plugins = {
     path = "/home/luis/.local/share/nvim/site/pack/packer/start/fzf.vim",
     url = "https://github.com/junegunn/fzf.vim"
   },
-  ["haskell-vim"] = {
-    loaded = false,
-    needs_bufread = true,
-    only_cond = false,
-    path = "/home/luis/.local/share/nvim/site/pack/packer/opt/haskell-vim",
-    url = "https://github.com/neovimhaskell/haskell-vim"
+  ["git-conflict.nvim"] = {
+    loaded = true,
+    path = "/home/luis/.local/share/nvim/site/pack/packer/start/git-conflict.nvim",
+    url = "https://github.com/akinsho/git-conflict.nvim"
+  },
+  ["goto-preview"] = {
+    loaded = true,
+    path = "/home/luis/.local/share/nvim/site/pack/packer/start/goto-preview",
+    url = "https://github.com/rmagatti/goto-preview"
   },
   ["jellybeans-nvim"] = {
     loaded = true,
@@ -158,10 +162,10 @@ _G.packer_plugins = {
     path = "/home/luis/.local/share/nvim/site/pack/packer/start/lush.nvim",
     url = "https://github.com/rktjmp/lush.nvim"
   },
-  ["material.nvim"] = {
+  ["nui.nvim"] = {
     loaded = true,
-    path = "/home/luis/.local/share/nvim/site/pack/packer/start/material.nvim",
-    url = "https://github.com/marko-cerovac/material.nvim"
+    path = "/home/luis/.local/share/nvim/site/pack/packer/start/nui.nvim",
+    url = "https://github.com/MunifTanjim/nui.nvim"
   },
   ["null-ls.nvim"] = {
     loaded = true,
@@ -243,17 +247,6 @@ _G.packer_plugins = {
     path = "/home/luis/.local/share/nvim/site/pack/packer/start/rust.vim",
     url = "https://github.com/rust-lang/rust.vim"
   },
-  tabular = {
-    loaded = true,
-    path = "/home/luis/.local/share/nvim/site/pack/packer/start/tabular",
-    url = "https://github.com/godlygeek/tabular"
-  },
-  ["toggleterm.nvim"] = {
-    config = { "\27LJ\2\n8\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\15toggleterm\frequire\0" },
-    loaded = true,
-    path = "/home/luis/.local/share/nvim/site/pack/packer/start/toggleterm.nvim",
-    url = "https://github.com/akinsho/toggleterm.nvim"
-  },
   ["tokyonight.nvim"] = {
     loaded = true,
     path = "/home/luis/.local/share/nvim/site/pack/packer/start/tokyonight.nvim",
@@ -275,13 +268,6 @@ _G.packer_plugins = {
     path = "/home/luis/.local/share/nvim/site/pack/packer/start/vim-fugitive",
     url = "https://github.com/tpope/vim-fugitive"
   },
-  ["vim-haskell-indent"] = {
-    loaded = false,
-    needs_bufread = false,
-    only_cond = false,
-    path = "/home/luis/.local/share/nvim/site/pack/packer/opt/vim-haskell-indent",
-    url = "https://github.com/itchyny/vim-haskell-indent"
-  },
   ["vim-highlightedyank"] = {
     loaded = true,
     path = "/home/luis/.local/share/nvim/site/pack/packer/start/vim-highlightedyank",
@@ -299,22 +285,18 @@ time([[Defining packer_plugins]], false)
 time([[Config for trouble.nvim]], true)
 try_loadstring("\27LJ\2\n9\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\ftrouble\frequire\0", "config", "trouble.nvim")
 time([[Config for trouble.nvim]], false)
--- Config for: toggleterm.nvim
-time([[Config for toggleterm.nvim]], true)
-try_loadstring("\27LJ\2\n8\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\15toggleterm\frequire\0", "config", "toggleterm.nvim")
-time([[Config for toggleterm.nvim]], false)
+-- Config for: dired.nvim
+time([[Config for dired.nvim]], true)
+try_loadstring("\27LJ\2\ne\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0B\0\2\1K\0\1\0\1\0\3\16show_hidden\2\16show_banner\1\19path_separator\6/\nsetup\ndired\frequire\0", "config", "dired.nvim")
+time([[Config for dired.nvim]], false)
 vim.cmd [[augroup packer_load_aucmds]]
 vim.cmd [[au!]]
   -- Filetype lazy-loads
 time([[Defining lazy-load filetype autocommands]], true)
-vim.cmd [[au FileType haskell ++once lua require("packer.load")({'vim-haskell-indent', 'haskell-vim'}, { ft = "haskell" }, _G.packer_plugins)]]
 vim.cmd [[au FileType lalrpop ++once lua require("packer.load")({'lalrpop.vim'}, { ft = "lalrpop" }, _G.packer_plugins)]]
 time([[Defining lazy-load filetype autocommands]], false)
 vim.cmd("augroup END")
 vim.cmd [[augroup filetypedetect]]
-time([[Sourcing ftdetect script at: /home/luis/.local/share/nvim/site/pack/packer/opt/haskell-vim/ftdetect/haskell.vim]], true)
-vim.cmd [[source /home/luis/.local/share/nvim/site/pack/packer/opt/haskell-vim/ftdetect/haskell.vim]]
-time([[Sourcing ftdetect script at: /home/luis/.local/share/nvim/site/pack/packer/opt/haskell-vim/ftdetect/haskell.vim]], false)
 time([[Sourcing ftdetect script at: /home/luis/.local/share/nvim/site/pack/packer/opt/lalrpop.vim/ftdetect/lalrpop.vim]], true)
 vim.cmd [[source /home/luis/.local/share/nvim/site/pack/packer/opt/lalrpop.vim/ftdetect/lalrpop.vim]]
 time([[Sourcing ftdetect script at: /home/luis/.local/share/nvim/site/pack/packer/opt/lalrpop.vim/ftdetect/lalrpop.vim]], false)

@@ -4,9 +4,21 @@ return require("packer").startup(function(use)
 	use("wbthomason/packer.nvim")
 	use({
 		"akinsho/toggleterm.nvim",
+		disable = true,
 		tag = "v1.*",
 		config = function()
 			require("toggleterm").setup()
+		end,
+	})
+	use({
+		"X3eRo0/dired.nvim",
+		requires = "MunifTanjim/nui.nvim",
+		config = function()
+			require("dired").setup({
+				path_separator = "/",
+				show_banner = false,
+				show_hidden = true,
+			})
 		end,
 	})
 	use({
@@ -16,6 +28,9 @@ return require("packer").startup(function(use)
 	use({ "qnighy/lalrpop.vim", ft = "lalrpop" })
 	use("windwp/nvim-ts-autotag")
 	use("tpope/vim-fugitive")
+	use({
+		"akinsho/git-conflict.nvim",
+	})
 	use({
 		"nvim-treesitter/nvim-treesitter",
 		run = ":TSUpdate",
@@ -28,7 +43,6 @@ return require("packer").startup(function(use)
 			require("trouble").setup({})
 		end,
 	})
-	use({ "sindrets/diffview.nvim", requires = "nvim-lua/plenary.nvim" })
 	-- Lua
 	use("rlane/pounce.nvim")
 
@@ -39,14 +53,13 @@ return require("packer").startup(function(use)
 	use("tjdevries/colorbuddy.vim")
 	use("folke/tokyonight.nvim")
 	use("NTBBloodbath/doom-one.nvim")
-	-- If you are using Packer
-	use("marko-cerovac/material.nvim")
 	-- Languages
 	use("rust-lang/rust.vim")
 
 	use({
 		"neovimhaskell/haskell-vim",
 		ft = "haskell",
+		disable = true,
 	})
 	use({
 		"alx741/vim-stylishask",
@@ -55,18 +68,9 @@ return require("packer").startup(function(use)
 	use({
 		"itchyny/vim-haskell-indent",
 		ft = "haskell",
-	})
-	use({
-		"scalameta/nvim-metals",
 		disable = true,
-		ft = "scala", -- Scala
 	})
-	use({
-		"ckipp01/scala-utils.nvim",
-		disable = true,
-		ft = "scala",
-	})
-
+	use({ "scalameta/nvim-metals", disable = true, requires = { "nvim-lua/plenary.nvim" } })
 	-- Workflow
 	use("tpope/vim-surround")
 	use({ "junegunn/fzf", run = "./install --all" })

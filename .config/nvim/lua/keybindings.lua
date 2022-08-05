@@ -1,6 +1,8 @@
 local map = require("utils").map
 vim.g.mapleader = " "
 
+map("n", "-", "<cmd>Dired<cr>")
+
 -- Terminal
 map("n", "<leader>ot", "<cmd>ToggleTerm<cr>")
 
@@ -10,9 +12,9 @@ map("n", "<leader>gc", "<cmd>Git commit<cr>")
 map("n", "<leader>gd", "<cmd>Git diff<cr>")
 map("n", "<leader>gl", "<cmd>Git log<cr>")
 
--- Diffview
-map("n", "<leader>gdv", ":DiffviewOpen<cr>") -- Compares against the whole index
-map("n", "<leader>gdf", ":DiffviewOpen %<cr>") -- Compares against the current file
+-- Goto preview
+-- Why gp not working?
+map("n", "<leader>gp", "<cmd>lua require('goto-preview').goto_preview_definition()<cr>")
 
 -- Replacer
 map("n", "<leader>h", ':lua require("replacer").run()<cr>')
@@ -29,16 +31,13 @@ map("n", "<leader>pp", ":Pounce<cr>")
 map("n", "<leader>xx", "<cmd>TroubleToggle<cr>")
 
 -- Source current buffer
-map("n", "<leader>s", ":source %<cr>")
+map("n", "<leader>s", "<cmd>source ~/.config/zsh/.zshrc<cr>")
 
 -- Window resizing alternative using arrow keys
 map("n", "<Left>", ":vertical +2<cr>")
 map("n", "<Right>", ":vertical -2<cr>")
 map("n", "<Up>", ":resize -2<cr>")
 map("n", "<Down>", ":resize +2<cr>")
-
--- Clippy
-map("n", "<C-Y>", ":RustFmt<cr>")
 
 -- Fzf
 -- map("n", "<C-F>", ":Files %:p:h<cr>")
@@ -97,7 +96,7 @@ map("v", "<leader>d", '""d')
 
 -- Wraps word in cursor in ()
 map("n", "<leader>z", "viw<esc>a)<esc>hbi(<esc>lel")
-map("n", "<leader>cb", "viw<esc>a}<esc>hbi{<esc>lel")
+-- map("n", "<leader>cb", "viw<esc>a}<esc>hbi{<esc>lel")
 
 -- " Keep star command in the same position
 -- nnoremap * m`:keepjumps normal! *``<cr>

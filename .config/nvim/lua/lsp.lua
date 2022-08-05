@@ -222,6 +222,16 @@ lsp.tsserver.setup({
 	end,
 })
 
+-- Scala
+-- local metals_config = require("metals").bare_config()
+-- metals_config.settings = {
+-- 	showImplicitArguments = false,
+-- 	showInferredType = true,
+-- 	excludedPackages = {},
+-- }
+-- metals_config.init_options.statusBarProvider = false
+-- require("metals").initialize_or_attach({})
+
 -- Rust
 lsp.rust_analyzer.setup({
 	capabilities = capabilities,
@@ -271,7 +281,7 @@ lsp.rust_analyzer.setup({
 	},
 
 	on_attach = function(client, bufnr)
-		navic.attach(client, bufnr)
+		-- navic.attach(client, bufnr)
 		vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>cb", "<cmd>belowright 10sp | term cargo build<cr>", {})
 		vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>cc", "<cmd>belowright 10sp | term cargo clippy<cr>", {})
 		vim.api.nvim_buf_set_keymap(

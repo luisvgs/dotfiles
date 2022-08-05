@@ -47,10 +47,6 @@ end
 
 vim.cmd("autocmd! TermOpen term://*toggleterm#* lua set_terminal_keymaps()")
 
--- Rust
-vim.g.rust_recommended_style = true
-vim.g.rustfmt_autosave = false
-
 -- FZF
 vim.g.fzf_preview_window = {}
 vim.g.fzf_layout = { down = "35%" }
