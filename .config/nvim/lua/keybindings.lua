@@ -1,8 +1,6 @@
 local map = require("utils").map
 vim.g.mapleader = " "
 
-map("n", "-", "<cmd>Dired<cr>")
-
 -- Terminal
 map("n", "<leader>ot", "<cmd>ToggleTerm<cr>")
 
@@ -23,9 +21,6 @@ map("n", "<leader>h", ':lua require("replacer").run()<cr>')
 map("n", "<leader>l", ":FocusSplitRight<cr>")
 map("n", "<leader>j", ":FocusSplitDown<cr>")
 map("n", "<leader>k", ":FocusSplitUp<cr>")
-
--- Pounce
-map("n", "<leader>pp", ":Pounce<cr>")
 
 -- Trouble
 map("n", "<leader>xx", "<cmd>TroubleToggle<cr>")
@@ -116,6 +111,9 @@ map("i", "<c-e>", "<c-o>$")
 map("n", "<leader>pi", "<cmd>PackerInstall<cr>")
 map("n", "<leader>pu", "<cmd>PackerUpdate<cr>")
 map("n", "<leader>pc", "<cmd>PackerClean<cr>")
+
+-- Hop
+map("n", "<leader>f", "<cmd>HopChar1<cr>")
 
 -- Quick access to common files.
 map("n", "<leader>oci", "<cmd>edit ~/.config/nvim/init.lua<cr>")

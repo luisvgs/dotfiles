@@ -11,17 +11,6 @@ return require("packer").startup(function(use)
 		end,
 	})
 	use({
-		"X3eRo0/dired.nvim",
-		requires = "MunifTanjim/nui.nvim",
-		config = function()
-			require("dired").setup({
-				path_separator = "/",
-				show_banner = false,
-				show_hidden = true,
-			})
-		end,
-	})
-	use({
 		"rmagatti/goto-preview",
 	})
 	use("j-hui/fidget.nvim")
@@ -43,9 +32,15 @@ return require("packer").startup(function(use)
 			require("trouble").setup({})
 		end,
 	})
-	-- Lua
-	use("rlane/pounce.nvim")
-
+	-- Motions
+	use({
+		"phaazon/hop.nvim",
+		branch = "v2", -- optional but strongly recommended
+		config = function()
+			-- you can configure Hop the way you like here; see :h hop-config
+			require("hop").setup({ keys = "etovxqpdygfblzhckisuran" })
+		end,
+	})
 	-- Colorschemes
 	use("rktjmp/lush.nvim")
 	use("RRethy/nvim-base16")
@@ -84,7 +79,6 @@ return require("packer").startup(function(use)
 		requires = { "kyazdani42/nvim-web-devicons", opt = true },
 	})
 	use("machakann/vim-highlightedyank")
-	use("beauwilliams/focus.nvim")
 	use("windwp/nvim-autopairs")
 	use({
 		"gabrielpoca/replacer.nvim",

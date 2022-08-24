@@ -84,12 +84,6 @@ _G.packer_plugins = {
     path = "/home/luis/.local/share/nvim/site/pack/packer/start/colorbuddy.vim",
     url = "https://github.com/tjdevries/colorbuddy.vim"
   },
-  ["dired.nvim"] = {
-    config = { "\27LJ\2\ne\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0B\0\2\1K\0\1\0\1\0\3\16show_hidden\2\16show_banner\1\19path_separator\6/\nsetup\ndired\frequire\0" },
-    loaded = true,
-    path = "/home/luis/.local/share/nvim/site/pack/packer/start/dired.nvim",
-    url = "https://github.com/X3eRo0/dired.nvim"
-  },
   ["doom-one.nvim"] = {
     loaded = true,
     path = "/home/luis/.local/share/nvim/site/pack/packer/start/doom-one.nvim",
@@ -99,11 +93,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/luis/.local/share/nvim/site/pack/packer/start/fidget.nvim",
     url = "https://github.com/j-hui/fidget.nvim"
-  },
-  ["focus.nvim"] = {
-    loaded = true,
-    path = "/home/luis/.local/share/nvim/site/pack/packer/start/focus.nvim",
-    url = "https://github.com/beauwilliams/focus.nvim"
   },
   fzf = {
     loaded = true,
@@ -129,6 +118,12 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/luis/.local/share/nvim/site/pack/packer/start/goto-preview",
     url = "https://github.com/rmagatti/goto-preview"
+  },
+  ["hop.nvim"] = {
+    config = { "\27LJ\2\nU\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0B\0\2\1K\0\1\0\1\0\1\tkeys\28etovxqpdygfblzhckisuran\nsetup\bhop\frequire\0" },
+    loaded = true,
+    path = "/home/luis/.local/share/nvim/site/pack/packer/start/hop.nvim",
+    url = "https://github.com/phaazon/hop.nvim"
   },
   ["jellybeans-nvim"] = {
     loaded = true,
@@ -161,11 +156,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/luis/.local/share/nvim/site/pack/packer/start/lush.nvim",
     url = "https://github.com/rktjmp/lush.nvim"
-  },
-  ["nui.nvim"] = {
-    loaded = true,
-    path = "/home/luis/.local/share/nvim/site/pack/packer/start/nui.nvim",
-    url = "https://github.com/MunifTanjim/nui.nvim"
   },
   ["null-ls.nvim"] = {
     loaded = true,
@@ -232,11 +222,6 @@ _G.packer_plugins = {
     path = "/home/luis/.local/share/nvim/site/pack/packer/start/plenary.nvim",
     url = "https://github.com/nvim-lua/plenary.nvim"
   },
-  ["pounce.nvim"] = {
-    loaded = true,
-    path = "/home/luis/.local/share/nvim/site/pack/packer/start/pounce.nvim",
-    url = "https://github.com/rlane/pounce.nvim"
-  },
   ["replacer.nvim"] = {
     loaded = true,
     path = "/home/luis/.local/share/nvim/site/pack/packer/start/replacer.nvim",
@@ -281,14 +266,14 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
+-- Config for: hop.nvim
+time([[Config for hop.nvim]], true)
+try_loadstring("\27LJ\2\nU\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0B\0\2\1K\0\1\0\1\0\1\tkeys\28etovxqpdygfblzhckisuran\nsetup\bhop\frequire\0", "config", "hop.nvim")
+time([[Config for hop.nvim]], false)
 -- Config for: trouble.nvim
 time([[Config for trouble.nvim]], true)
 try_loadstring("\27LJ\2\n9\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\ftrouble\frequire\0", "config", "trouble.nvim")
 time([[Config for trouble.nvim]], false)
--- Config for: dired.nvim
-time([[Config for dired.nvim]], true)
-try_loadstring("\27LJ\2\ne\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0B\0\2\1K\0\1\0\1\0\3\16show_hidden\2\16show_banner\1\19path_separator\6/\nsetup\ndired\frequire\0", "config", "dired.nvim")
-time([[Config for dired.nvim]], false)
 vim.cmd [[augroup packer_load_aucmds]]
 vim.cmd [[au!]]
   -- Filetype lazy-loads
