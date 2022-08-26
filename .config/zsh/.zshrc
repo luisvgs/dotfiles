@@ -1,45 +1,24 @@
-
-fancy-ctrl-z () {
-  if [[ $#BUFFER -eq 0 ]]; then
-    BUFFER="fg"
-    zle accept-line -w
-  else
-    zle push-input -w
-    zle clear-screen -w
-  fi
-}
-zle -N fancy-ctrl-z
-bindkey '^Z' fancy-ctrl-z
-
-# Important paths
 export PATH="~/.cargo/bin:$PATH"
 export PATH="$HOME/.npm-global/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
+export EDITOR='nvim'
+BLK="04" CHR="04" DIR="04" EXE="00" REG="00" HARDLINK="00" SYMLINK="06" MISSING="00" ORPHAN="01" FIFO="0F" SOCK="0F" OTHER="02"
+export NNN_FCOLORS="$BLK$CHR$DIR$EXE$REG$HARDLINK$SYMLINK$MISSING$ORPHAN$FIFO$SOCK$OTHER"
 
 alias nvim="/usr/local/bin/nvim"
 alias v='nvim'
 alias vim='nvim'
-alias vim-home="/home/luis/.config/nvim"
-
-# Git aliases
+alias vim-home="$HOME/.config/nvim"
 alias g='git'
-# Stage all
+alias gw='git worktree'
 alias ga='git add .'
-# Stage modified and deleted files only
 alias gu='git add -u'
-# Branches status
 alias gb='git branch'
-# Create new branch
 alias gcb='git checkout -b'
-# Commit new, modified and deleted files w message.
 alias gcam='git commit -a -m'
-# Commit with message
 alias gm='git commit -m'
-# Switch branches easily
 alias gco='git checkout $@'
-# When I forget to stage a file into a commit, 'git add' the missed file, then
 alias oops='git commit --amend -C HEAD'
-# Pretty print commit history
 alias ggr="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative"
 alias gd='git diff'
 alias gdc='git diff --cached'
@@ -48,31 +27,23 @@ alias gbd='git push origin --delete'
 alias gr='git remote'
 alias gs='git status'
 alias gp='!git push origin $(git rev-parse --abbrev-ref HEAD)'
-alias gpl='!git pull origin $(git rev-parse --abbrev-ref HEAD)'
-
-
-# exa aliases
+alias gpl='git pull origin $(git rev-parse --abbrev-ref HEAD)'
+alias gtest='git merge dev --no-ff --no-commit'
+alias cat='bat'
 alias ls='exa -l --icons'
 alias l='exa -lah --icons'
 alias lg='exa --git -l --icons'
 alias lt='exa --tree --level=2 --long'
+alias n='nnn -e'
 
-
-# Load version control information
-autoload -Uz vcs_info
-precmd() { vcs_info }
-
-zstyle ':vcs_info:git:*' formats '(on  %b)'
- 
-setopt PROMPT_SUBST
-PROMPT='%B%F{green}${PWD/#$HOME/~} %F{magenta}λ ${vcs_info_msg_0_} '
-
-[ -f "/home/luis/.ghcup/env" ] && source "/home/luis/.ghcup/env" # ghcup-env
-# source $HOME/.config/zsh-vi-mode/zsh-vi-mode.plugin.zsh
-source $HOME/.config/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source $HOME/.config/zsh-autosuggestions/zsh-autosuggestions.zsh
-source $HOME/.config/zsh-autopair/autopair.zsh
-source $HOME/.profile
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-alias luamake=/home/luis/Escritorio/lua-language-server/3rd/luamake/luamake
+autoload -U compinit 
+compinit
+
+source /home/luis/.config/zsh/scripts/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /home/luis/.config/zsh/scripts/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /home/luis/.config/zsh/scripts/zsh-scripts/fzf_git_functions.zsh
+source /home/luis/.config/zsh/scripts/zsh-scripts/key-binding.zsh
+source /home/luis/.config/zsh/scripts/fancy-ctrlz/fancy.zsh
+source /home/luis/.config/zsh/scripts/git-prompt/git-prompt.zsh
