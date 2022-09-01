@@ -2,6 +2,11 @@ export PATH="~/.cargo/bin:$PATH"
 export PATH="$HOME/.npm-global/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export EDITOR='nvim'
+
+export NNN_PLUG='f:fzopen'
+BLK="0B" CHR="0B" DIR="04" EXE="06" REG="00" HARDLINK="06" SYMLINK="06" MISSING="00" ORPHAN="09" FIFO="06" SOCK="0B" OTHER="06"
+export NNN_FCOLORS="$BLK$CHR$DIR$EXE$REG$HARDLINK$SYMLINK$MISSING$ORPHAN$FIFO$SOCK$OTHER"
+
 export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
 --color=dark
 --color=fg:-1,bg:-1,hl:#c678dd,fg+:#ffffff,bg+:#4b5263,hl+:#d858fe
@@ -40,12 +45,6 @@ alias l='exa -lah --icons'
 alias lg='exa --git -l --icons'
 alias lt='exa --tree --level=1 --long'
 
-autoload -Uz vcs_info
-precmd() { vcs_info }
-zstyle ':vcs_info:git:*' formats '(on  %b)'
-setopt PROMPT_SUBST
-PROMPT='%B%F{green}${PWD/#$HOME/~} %F{magenta}λ ${vcs_info_msg_0_} '
-
 [ -f "/home/luis/.ghcup/env" ] && source "/home/luis/.ghcup/env" # ghcup-env
 source $HOME/.config/zsh/scripts/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source $HOME/.config/zsh/scripts/zsh-autosuggestions/zsh-autosuggestions.zsh
@@ -55,5 +54,4 @@ source $HOME/.config/zsh/scripts/fzf-functions/key-binding.zsh
 source $HOME/.config/zsh/scripts/ctrl-z/ctrlz.zsh
 source $HOME/.config/zsh/scripts/git-prompt/git-prompt.zsh
 source $HOME/.profile
-# source $HOME/.config/zsh/scripts/git-prompt/git-prompt.zsh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
