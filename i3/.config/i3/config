@@ -228,7 +228,7 @@ set $urgent-bg-color     #FF3B0A
 # smart_gaps on
 
 for_window [class="^.*"] border pixel 0
-exec_always feh --bg-scale /home/luis/Imágenes/doom.png
+exec_always feh --bg-scale /home/luis/Imágenes/hollow-knight.png
 
 
 assign [class="alacritty"] $workspace1
