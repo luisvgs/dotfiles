@@ -1,8 +1,10 @@
 local map = require("utils").map
 vim.g.mapleader = " "
 
--- Terminal
-map("n", "<leader>ot", "<cmd>ToggleTerm<cr>")
+-- FloaTerm configuration
+map("n", "<leader>ft", ":FloatermNew --name=myfloat --height=0.8 --width=0.7 --autoclose=2 zsh<cr>")
+map("n", "t", ":FloatermToggle myfloat<CR>")
+map("t", "<C-c>", "<C-\\><C-n>:q<CR>")
 
 -- Fugitive
 map("n", "<leader>gg", "<cmd>G<cr>")
@@ -121,3 +123,8 @@ map("n", "<leader>ock", "<cmd>edit ~/.config/nvim/lua/keybindings.lua<cr>")
 map("n", "<leader>ocl", "<cmd>edit ~/.config/nvim/lua/lsp.lua<cr>")
 map("n", "<leader>ocp", "<cmd>edit ~/.config/nvim/lua/plugins.lua<cr>")
 map("n", "<leader>occ", "<cmd>edit ~/.config/nvim/lua/configs.lua<cr>")
+
+-- Automatically jump to end of text you pasted
+map("v", "y", "y`]")
+map("v", "p", "p`]")
+map("n", "p", "p`]")
