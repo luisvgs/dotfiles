@@ -8,10 +8,11 @@ BLK="0B" CHR="0B" DIR="04" EXE="06" REG="00" HARDLINK="06" SYMLINK="06" MISSING=
 export NNN_FCOLORS="$BLK$CHR$DIR$EXE$REG$HARDLINK$SYMLINK$MISSING$ORPHAN$FIFO$SOCK$OTHER"
 
 export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
---color=dark
---color=fg:-1,bg:-1,hl:#c678dd,fg+:#ffffff,bg+:#4b5263,hl+:#d858fe
---color=info:#98c379,prompt:#61afef,pointer:#be5046,marker:#e5c07b,spinner:#61afef,header:#61afef
-'
+ --color=fg:#cbccc6,bg:#1f2430,hl:#707a8c
+ --color=fg+:#707a8c,bg+:#191e2a,hl+:#ffcc66
+ --color=info:#73d0ff,prompt:#707a8c,pointer:#cbccc6
+ --color=marker:#73d0ff,spinner:#73d0ff,header:#d4bfff'
+
 alias n='nnn -e'
 alias g='git'
 alias gc='git clone'
@@ -46,12 +47,12 @@ alias lg='exa --git -l --icons'
 alias lt='exa --tree --level=1 --long'
 
 [ -f "/home/luis/.ghcup/env" ] && source "/home/luis/.ghcup/env" # ghcup-env
+source $HOME/.config/zsh/scripts/git-prompt/git-prompt.zsh
 source $HOME/.config/zsh/scripts/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source $HOME/.config/zsh/scripts/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $HOME/.config/zsh/scripts/zsh-autopair/autopair.zsh
 source $HOME/.config/zsh/scripts/fzf-functions/fzf-functions.sh
 source $HOME/.config/zsh/scripts/fzf-functions/key-binding.zsh
 source $HOME/.config/zsh/scripts/ctrl-z/ctrlz.zsh
-source $HOME/.config/zsh/scripts/git-prompt/git-prompt.zsh
 source $HOME/.profile
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
