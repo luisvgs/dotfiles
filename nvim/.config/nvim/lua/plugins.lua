@@ -3,14 +3,6 @@ return require("packer").startup(function(use)
 	-- Util
 	use("wbthomason/packer.nvim")
 	use({
-		"akinsho/toggleterm.nvim",
-		disable = true,
-		tag = "v1.*",
-		config = function()
-			require("toggleterm").setup()
-		end,
-	})
-	use({
 		"rmagatti/goto-preview",
 	})
 	use("j-hui/fidget.nvim")
@@ -43,8 +35,6 @@ return require("packer").startup(function(use)
 	})
 	-- Colorschemes
 	use("rktjmp/lush.nvim")
-	use("RRethy/nvim-base16")
-	use("metalelf0/jellybeans-nvim")
 	use("tjdevries/colorbuddy.vim")
 	use("folke/tokyonight.nvim")
 	use("NTBBloodbath/doom-one.nvim")
