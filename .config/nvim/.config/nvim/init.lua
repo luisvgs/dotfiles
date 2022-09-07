@@ -11,7 +11,7 @@ require("nvim-navic").setup({})
 require("nvim-autopairs").setup({})
 require("fzf-lua").setup({
 	winopts = {
-		split = "belowright new", -- open in a top split
+		split = "belowright new",
 	},
 	files = {
 		previewer = false,
