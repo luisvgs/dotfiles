@@ -58,8 +58,6 @@ return require("packer").startup(function(use)
 	use({ "scalameta/nvim-metals", disable = true, requires = { "nvim-lua/plenary.nvim" } })
 	-- Workflow
 	use("tpope/vim-surround")
-	use({ "junegunn/fzf", run = "./install --all" })
-	use({ "junegunn/fzf.vim" })
 	use({ "ibhagwan/fzf-lua", requires = { "kyazdani42/nvim-web-devicons" } })
 	use("tpope/vim-commentary")
 	use("JoosepAlviste/nvim-ts-context-commentstring")
