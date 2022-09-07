@@ -3,12 +3,14 @@ return require("packer").startup(function(use)
 	-- Util
 	use("wbthomason/packer.nvim")
 	use("j-hui/fidget.nvim")
+	use("norcalli/nvim-colorizer.lua")
 	use({ "qnighy/lalrpop.vim", ft = "lalrpop" })
 	use("windwp/nvim-ts-autotag")
 	use("phaazon/mind.nvim")
 	use("tpope/vim-fugitive")
 	use({
 		"akinsho/git-conflict.nvim",
+		tag = "*",
 	})
 	use({
 		"nvim-treesitter/nvim-treesitter",
@@ -48,8 +50,6 @@ return require("packer").startup(function(use)
 	-- Workflow
 	use("tpope/vim-surround")
 	use("voldikss/vim-floaterm")
-	use({ "junegunn/fzf", run = "./install --all" })
-	use({ "junegunn/fzf.vim" })
 	use({ "ibhagwan/fzf-lua", requires = { "kyazdani42/nvim-web-devicons" } })
 	use("tpope/vim-commentary")
 	use("JoosepAlviste/nvim-ts-context-commentstring")
