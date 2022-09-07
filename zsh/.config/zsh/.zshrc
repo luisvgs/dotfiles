@@ -7,11 +7,10 @@ export NNN_PLUG='f:fzopen'
 BLK="0B" CHR="0B" DIR="04" EXE="06" REG="00" HARDLINK="06" SYMLINK="06" MISSING="00" ORPHAN="09" FIFO="06" SOCK="0B" OTHER="06"
 export NNN_FCOLORS="$BLK$CHR$DIR$EXE$REG$HARDLINK$SYMLINK$MISSING$ORPHAN$FIFO$SOCK$OTHER"
 
-export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
- --color=fg:#cbccc6,bg:#1f2430,hl:#707a8c
- --color=fg+:#707a8c,bg+:#191e2a,hl+:#ffcc66
- --color=info:#73d0ff,prompt:#707a8c,pointer:#cbccc6
- --color=marker:#73d0ff,spinner:#73d0ff,header:#d4bfff'
+export FZF_DEFAULT_OPTS='
+--color dark,hl:33,hl+:37,fg+:235,bg+:136,fg+:254
+--color info:254,prompt:37,spinner:108,pointer:235,marker:235
+'
 
 alias n='nnn -e'
 alias g='git'
@@ -55,4 +54,3 @@ source $HOME/.config/zsh/scripts/fzf-functions/fzf-functions.sh
 source $HOME/.config/zsh/scripts/fzf-functions/key-binding.zsh
 source $HOME/.config/zsh/scripts/ctrl-z/ctrlz.zsh
 source $HOME/.profile
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
