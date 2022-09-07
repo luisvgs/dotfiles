@@ -8,11 +8,18 @@ require("statusline")
 require("fidget").setup({})
 require("goto-preview").setup({})
 require("nvim-navic").setup({})
--- require("toggleterm").setup({ shade_terminals = false, persist_size = false })
 require("nvim-autopairs").setup({})
 require("fzf-lua").setup({
+	winopts = {
+		split = "belowright new",
+	},
+	grep = {
+		previewer = false,
+		cmd = "rg --color=always --smart-case -g '!{.git,node_modules}/'",
+	},
 	files = {
 		previewer = false,
+		cmd = "find -type f -not -path '*/node_modules/*' -printf '%P\n'",
 	},
 	oldfiles = {
 		previewer = false,

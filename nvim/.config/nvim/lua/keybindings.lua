@@ -37,17 +37,12 @@ map("n", "<Up>", ":resize -2<cr>")
 map("n", "<Down>", ":resize +2<cr>")
 
 -- Fzf
--- map("n", "<C-F>", ":Files %:p:h<cr>")
--- map("n", "<C-P>", ":History<cr>")
--- map("n", "<leader>fc", "<cmd>Commits<cr>")
-map("n", "<leader>b", ":Buffers <cr>")
 map("n", "<C-F>", "<cmd>lua require('fzf-lua').files()<CR>")
 map("n", "<C-P>", "<cmd>lua require('fzf-lua').oldfiles()<CR>")
 map("n", "<leader>fc", "<cmd>lua require('fzf-lua').git_commits()<CR>")
 map("n", "<leader>gs", "<cmd>lua require('fzf-lua').git_status()<CR>")
-map("n", "<leader>lg", "<cmd>lua require('fzf-lua').live_grep()<CR>")
-map("n", "<leader>gr", "<cmd>lua require('fzf-lua').grep()<CR>")
-map("n", "<leader>rg", ":Rg <cr>")
+map("n", "<leader>rg", "<cmd>lua require('fzf-lua').grep_project()<CR>")
+map("n", "<leader>rp", "<cmd>lua require('fzf-lua').grep()<CR>")
 
 -- Buffer navigation
 map("n", "<leader>q", ":bd!<cr>")
