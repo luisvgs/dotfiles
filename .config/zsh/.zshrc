@@ -5,6 +5,11 @@ export EDITOR='nvim'
 BLK="04" CHR="04" DIR="04" EXE="00" REG="00" HARDLINK="00" SYMLINK="06" MISSING="00" ORPHAN="01" FIFO="0F" SOCK="0F" OTHER="02"
 export NNN_FCOLORS="$BLK$CHR$DIR$EXE$REG$HARDLINK$SYMLINK$MISSING$ORPHAN$FIFO$SOCK$OTHER"
 
+export FZF_DEFAULT_OPTS='
+--color dark,hl:33,hl+:37,fg+:235,bg+:136,fg+:254
+--color info:254,prompt:37,spinner:108,pointer:235,marker:235
+'
+
 alias nvim="/usr/local/bin/nvim"
 alias v='nvim'
 alias vim='nvim'
@@ -36,9 +41,9 @@ alias lg='exa --git -l --icons'
 alias lt='exa --tree --level=2 --long'
 alias n='nnn -e'
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-autoload -U compinit 
+autoload -U compinit
 compinit
 
 source /home/luis/.config/zsh/scripts/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
