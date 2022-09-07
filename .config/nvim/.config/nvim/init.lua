@@ -15,9 +15,11 @@ require("fzf-lua").setup({
 	},
 	files = {
 		previewer = false,
+		cmd = "find -type f -not -path '*/node_modules/*' -printf '%P\n'",
 	},
 	grep = {
 		previewer = false,
+		cmd = "rg --color=always --smart-case -g '!{.git,node_modules}/'",
 	},
 	oldfiles = {
 		previewer = false,
