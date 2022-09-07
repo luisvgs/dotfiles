@@ -84,7 +84,6 @@ local lsp_attach = function()
 		)
 		vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>cd", "<cmd>lua vim.lsp.buf.definition()<cr>", {})
 		vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>ch", "<cmd>lua vim.lsp.buf.signature_help()<cr>", {})
-		-- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gd', '<cmd>lua vim.lsp.buf.declaration()<cr>', {})
 		vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>K", "<cmd>lua vim.lsp.buf.hover()<cr>", {})
 		vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>gi", "<cmd>lua vim.lsp.buf.implementation()<cr>", {})
 		vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<cr>", {})
@@ -196,7 +195,6 @@ lsp.sumneko_lua.setup({
 null_ls.setup({
 	sources = {
 		null_ls.builtins.diagnostics.eslint,
-		-- null_ls.builtins.code_actions.eslint,
 		null_ls.builtins.formatting.prettier,
 		null_ls.builtins.formatting.stylua,
 	},
@@ -289,8 +287,8 @@ lsp.rust_analyzer.setup({
 
 	on_attach = function(client, bufnr)
 		-- navic.attach(client, bufnr)
-		vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>cb", "<cmd>belowright 10sp | term cargo build<cr>", {})
-		vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>cc", "<cmd>belowright 10sp | term cargo clippy<cr>", {})
+		vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>cb", "<cmd>belowright 15sp | term cargo build<cr>", {})
+		vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>cc", "<cmd>belowright 15sp | term cargo clippy<cr>", {})
 		vim.api.nvim_buf_set_keymap(
 			bufnr,
 			"n",
@@ -319,8 +317,8 @@ lsp.rust_analyzer.setup({
 			"<cmd>belowright 10sp | term rustup doc --std<cr>",
 			{}
 		)
-		vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>cr", "<cmd>belowright 10sp | term cargo run<cr>", {})
-		vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>ct", "<cmd>belowright 13sp | term cargo t<cr>", {})
+		vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>cr", "<cmd>belowright 15sp | term cargo run<cr>", {})
+		vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>ct", "<cmd>belowright 15sp | term cargo t<cr>", {})
 
 		return lsp_attach()(client, bufnr)
 	end,
