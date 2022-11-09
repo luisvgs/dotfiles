@@ -2,12 +2,14 @@ vim.cmd([[packadd packer.nvim]])
 return require("packer").startup(function(use)
 	-- Util
 	use("wbthomason/packer.nvim")
+	use("elihunter173/dirbuf.nvim")
+	use("rcarriga/nvim-notify")
 	use("j-hui/fidget.nvim")
 	use("norcalli/nvim-colorizer.lua")
 	use({ "qnighy/lalrpop.vim", ft = "lalrpop" })
 	use("windwp/nvim-ts-autotag")
-	use("phaazon/mind.nvim")
 	use("tpope/vim-fugitive")
+	use("ThePrimeagen/git-worktree.nvim")
 	use({
 		"akinsho/git-conflict.nvim",
 		tag = "*",
@@ -30,19 +32,12 @@ return require("packer").startup(function(use)
 	})
 	-- Lua
 	use("godlygeek/tabular")
-	use({
-		"phaazon/hop.nvim",
-		branch = "v2", -- optional but strongly recommended
-		config = function()
-			-- you can configure Hop the way you like here; see :h hop-config
-			require("hop").setup({ keys = "etovxqpdygfblzhckisuran" })
-		end,
-	})
 	-- Colorschemes
 	use("rktjmp/lush.nvim")
-	use("folke/tokyonight.nvim")
+	use({ "folke/tokyonight.nvim", branch = "main" })
 	use("tjdevries/colorbuddy.vim")
-	use("NTBBloodbath/doom-one.nvim")
+	use("romgrk/doom-one.vim")
+	use("sainnhe/edge")
 
 	-- Languages
 	use("rust-lang/rust.vim")
@@ -50,7 +45,13 @@ return require("packer").startup(function(use)
 	-- Workflow
 	use("tpope/vim-surround")
 	use("voldikss/vim-floaterm")
-	use({ "ibhagwan/fzf-lua", requires = { "kyazdani42/nvim-web-devicons" } })
+	use({ "ibhagwan/fzf-lua", disable = true, requires = { "kyazdani42/nvim-web-devicons" } })
+	use({
+		"nvim-telescope/telescope.nvim",
+		tag = "0.1.0",
+		requires = { { "nvim-lua/plenary.nvim" } },
+	})
+	use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
 	use("tpope/vim-commentary")
 	use("JoosepAlviste/nvim-ts-context-commentstring")
 	use({ "tjdevries/express_line.nvim", disable = true })
@@ -68,16 +69,26 @@ return require("packer").startup(function(use)
 
 	-- LSP
 	use("onsails/lspkind.nvim")
+	use({
+		"rmagatti/goto-preview",
+	})
 	use("lvimuser/lsp-inlayhints.nvim")
+	use({
+		"glepnir/lspsaga.nvim",
+		branch = "main",
+	})
 	use({
 		"SmiteshP/nvim-navic",
 		requires = "neovim/nvim-lspconfig",
 	})
+	-- Packer
 	use("neovim/nvim-lspconfig")
 	use("jose-elias-alvarez/null-ls.nvim")
 	use("jose-elias-alvarez/nvim-lsp-ts-utils")
 	use("hrsh7th/nvim-cmp")
+	use("dcampos/nvim-snippy")
 	use("hrsh7th/cmp-nvim-lsp")
+	use("hrsh7th/cmp-path")
 	use("hrsh7th/cmp-buffer")
 	use("nvim-lua/lsp-status.nvim")
 end)

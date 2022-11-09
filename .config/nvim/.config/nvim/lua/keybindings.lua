@@ -1,18 +1,23 @@
 local map = require("utils").map
 vim.g.mapleader = " "
 
+-- LspSaga
+map("n", "gj", "<Cmd>Lspsaga diagnostic_jump_next<CR>")
+map("n", "K", "<Cmd>Lspsaga hover_doc<CR>")
+map("n", "gd", "<Cmd>Lspsaga lsp_finder<CR>")
+map("n", "gk", "<Cmd>Lspsaga signature_help<CR>")
+map("n", "gp", "<Cmd>Lspsaga preview_definition<CR>")
+map("n", "gr", "<Cmd>Lspsaga rename<CR>")
+
 -- FloaTerm configuration
 map("n", "<leader>ft", ":FloatermNew --name=myfloat --height=0.8 --width=0.7 --autoclose=2 zsh<cr>")
 map("n", "t", ":FloatermToggle myfloat<CR>")
 map("t", "<C-c>", "<C-\\><C-n>:q<CR>")
 
--- Hop
-map("n", "<leader>f", ":HopChar1<cr>")
 -- Fugitive
 map("n", "<leader>gg", "<cmd>G<cr>")
 map("n", "<leader>gc", "<cmd>Git commit<cr>")
 map("n", "<leader>gd", "<cmd>Git diff<cr>")
-map("n", "<leader>gl", "<cmd>Gclog<cr>")
 
 -- Git Conflicts
 map("n", "<leader>gq", "<cmd>GitConflictListQf<cr>")
@@ -49,12 +54,27 @@ map("n", "<Down>", ":resize +2<cr>")
 map("n", "<C-Y>", ":RustFmt<cr>")
 
 -- Fzf
-map("n", "<C-F>", "<cmd>lua require('fzf-lua').files()<CR>")
-map("n", "<C-P>", "<cmd>lua require('fzf-lua').oldfiles()<CR>")
-map("n", "<leader>fc", "<cmd>lua require('fzf-lua').git_commits()<CR>")
-map("n", "<leader>gs", "<cmd>lua require('fzf-lua').git_status()<CR>")
-map("n", "<leader>rg", "<cmd>lua require('fzf-lua').grep_project()<CR>")
-map("n", "<leader>rp", "<cmd>lua require('fzf-lua').grep()<CR>")
+-- map("n", "<C-F>", "<cmd>lua require('fzf-lua').files()<CR>")
+-- map("n", "<C-P>", "<cmd>lua require('fzf-lua').oldfiles()<CR>")
+-- map("n", "<leader>gs", "<cmd>lua require('fzf-lua').git_status()<CR>")
+-- map("n", "<leader>rg", "<cmd>lua require('fzf-lua').grep_project()<CR>")
+-- map("n", "<leader>rp", "<cmd>lua require('fzf-lua').grep()<CR>")
+
+map(
+	"n",
+	"<C-F>",
+	":lua require'telescope.builtin'.find_files(require('telescope.themes').get_ivy({previewer = false, prompt_prefix=🔍, border = false, layout_config = {height = 0.4 }}))<CR>"
+)
+map("n", "<C-P>", "<cmd>Telescope oldfiles prompt_prefix=🔍 layout_config={height=0.4}<CR>")
+map("n", "<leader>gs", "<cmd> Telescope git_status<CR>")
+map("n", "<leader>rg", "<cmd>Telescope live_grep theme=ivy border=false layout_config={height=0.3}<CR>")
+map(
+	"n",
+	"<leader>gw",
+	"<cmd>Telescope git_worktree git_worktrees previewer=false border=false layout_config={height=0.2}<CR>"
+)
+
+map("n", "<leader>gl", "<cmd>Telescope git_commits previewer=false border=false layout_config={height=0.2}<CR>")
 
 -- Buffer navigation
 map("n", "<leader>q", ":bd!<cr>")
@@ -115,6 +135,7 @@ map("i", "<c-s>", "<Esc>:w<cr>a")
 
 -- Movement: maps c-e to $ such as inoremap <C-e> <C-o>$
 map("i", "<c-e>", "<c-o>$")
+map("v", "<c-e>", "$")
 
 -- Packer
 map("n", "<leader>pi", "<cmd>PackerInstall<cr>")
@@ -140,3 +161,5 @@ map("n", "<leader>p", '"+p')
 map("n", "<leader>P", '"+P')
 map("v", "<leader>p", '"+p')
 map("v", "<leader>P", '"+P')
+
+-- map("v", "c-g", "$")

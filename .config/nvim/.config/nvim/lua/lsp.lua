@@ -2,6 +2,7 @@ local lsp = require("lspconfig")
 local lsp_status = require("lsp-status")
 local null_ls = require("null-ls")
 local navic = require("nvim-navic")
+vim.notify = require("notify")
 
 lsp_status.register_progress()
 lsp_status.config({
@@ -50,11 +51,11 @@ vim.diagnostic.config({
 
 local lsp_attach = function()
 	return function(client, bufnr)
-		if client.resolved_capabilities.document_formatting then
+		if client.server_capabilities.document_formatting then
 			vim.cmd([[
                           augroup LspFormatting
                           autocmd! * <buffer>
-                          autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()
+                          autocmd BufWritePre <buffer> lua vim.lsp.buf.format()
                           augroup END
                         ]])
 		end
@@ -115,17 +116,23 @@ cmp.setup({
 			select = true,
 		}),
 	},
-	window = {
-		completion = cmp.config.window.bordered(),
-		documentation = cmp.config.window.bordered(),
+	snippet = {
+		expand = function(args)
+			require("snippy").expand_snippet(args.body)
+		end,
 	},
 	formatting = {
 		format = kind.cmp_format({ with_text = true, maxwidth = 50 }),
 	},
-	sources = cmp.config.sources({ { name = "nvim_lsp" } }, { { name = "buffer" } }),
+	sources = cmp.config.sources(
+		{ { name = "nvim_lsp" } },
+		{ { name = "buffer" } },
+		{ { name = "snippy" } },
+		{ { name = "path" } }
+	),
 })
 
-local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 vim.tbl_extend("keep", capabilities, lsp_status.capabilities)
 
 -- Bash
@@ -156,8 +163,8 @@ lsp.sumneko_lua.setup({
 	},
 	on_attach = function(client, bufnr)
 		navic.attach(client, bufnr)
-		client.resolved_capabilities.document_formatting = false
-		client.resolved_capabilities.document_range_formatting = false
+		client.server_capabilities.document_formatting = false
+		client.server_capabilities.document_range_formatting = false
 		return lsp_attach()(client, bufnr)
 	end,
 })
@@ -165,14 +172,22 @@ lsp.sumneko_lua.setup({
 -- Typescript
 null_ls.setup({
 	sources = {
-		null_ls.builtins.diagnostics.eslint_d.with({
-			diagnostics_format = "[eslint] #{m}\n(#{c})",
-		}),
+		null_ls.builtins.formatting.prettier,
 		null_ls.builtins.formatting.stylua,
-		null_ls.builtins.formatting.prettierd,
 	},
 	on_attach = function(client, bufnr)
-		return lsp_attach()(client, bufnr)
+		if client.supports_method("textDocument/formatting") then
+			vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+			vim.api.nvim_create_autocmd("BufWritePre", {
+				group = augroup,
+				buffer = bufnr,
+				callback = function()
+					vim.lsp.buf.format({ bufnr = bufnr })
+				end,
+			})
+			local msg = string.format("Language server %s started!", client.name)
+			vim.notify(msg, "info", { title = "LSP Info" })
+		end
 	end,
 })
 
@@ -185,11 +200,11 @@ end
 lsp.tsserver.setup({
 	capabilities = capabilities,
 	on_attach = function(client, bufnr)
-		client.resolved_capabilities.document_formatting = false
-		client.resolved_capabilities.document_range_formatting = false
+		client.server_capabilities.document_formatting = false
+		client.server_capabilities.document_range_formatting = false
 
 		local ts_utils = require("nvim-lsp-ts-utils")
-		ts_utils.setup({})
+		ts_utils.setup({ import_all_timeout = 5000, enable_formatting = false })
 		ts_utils.setup_client(client)
 
 		buf_map(bufnr, "n", "gs", ":TSLspOrganize<CR>")
@@ -249,10 +264,8 @@ lsp.rust_analyzer.setup({
 	},
 
 	on_attach = function(client, bufnr)
-		require("lsp-inlayhints").on_attach(bufnr, client)
-		navic.attach(client, bufnr)
-		vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>cb", "<cmd>belowright 10sp | term cargo build<cr>", {})
-		vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>cc", "<cmd>belowright 10sp | term cargo clippy<cr>", {})
+		vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>cb", "<cmd>belowright 17sp | term cargo build<cr>", {})
+		vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>cc", "<cmd>belowright 17sp | term cargo clippy<cr>", {})
 		vim.api.nvim_buf_set_keymap(
 			bufnr,
 			"n",
@@ -281,8 +294,17 @@ lsp.rust_analyzer.setup({
 			"<cmd>belowright 10sp | term rustup doc --std<cr>",
 			{}
 		)
-		vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>cr", "<cmd>belowright 10sp | term cargo run<cr>", {})
-		vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>ct", "<cmd>belowright 13sp | term cargo t<cr>", {})
+		vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>cr", "<cmd>belowright 17sp | term cargo run<cr>", {})
+		vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>ct", "<cmd>belowright 17sp | term cargo t<cr>", {})
+		vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>ctq", "<cmd>belowright 17sp | term cargo t -q<cr>", {})
+		vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>cm", "<cmd>belowright 17sp | term cargo t ::<cr>", {})
+		vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>cmq", "<cmd>belowright 17sp | term cargo t -q ::<cr>", {})
+
+		require("lsp-inlayhints").on_attach(client, bufnr)
+		navic.attach(client, bufnr)
+
+		local msg = string.format("Language server %s started.", client.name)
+		vim.notify(msg, "info")
 
 		return lsp_attach()(client, bufnr)
 	end,
