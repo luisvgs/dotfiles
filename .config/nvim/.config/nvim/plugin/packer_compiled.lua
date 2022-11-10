@@ -99,25 +99,38 @@ _G.packer_plugins = {
     path = "/home/luis/.local/share/nvim/site/pack/packer/start/dirbuf.nvim",
     url = "https://github.com/elihunter173/dirbuf.nvim"
   },
-  ["doom-one.nvim"] = {
+  ["doom-one.vim"] = {
     loaded = true,
-    path = "/home/luis/.local/share/nvim/site/pack/packer/start/doom-one.nvim",
-    url = "https://github.com/NTBBloodbath/doom-one.nvim"
+    path = "/home/luis/.local/share/nvim/site/pack/packer/start/doom-one.vim",
+    url = "https://github.com/romgrk/doom-one.vim"
+  },
+  edge = {
+    loaded = true,
+    path = "/home/luis/.local/share/nvim/site/pack/packer/start/edge",
+    url = "https://github.com/sainnhe/edge"
   },
   ["fidget.nvim"] = {
     loaded = true,
     path = "/home/luis/.local/share/nvim/site/pack/packer/start/fidget.nvim",
     url = "https://github.com/j-hui/fidget.nvim"
   },
-  ["fzf-lua"] = {
-    loaded = true,
-    path = "/home/luis/.local/share/nvim/site/pack/packer/start/fzf-lua",
-    url = "https://github.com/ibhagwan/fzf-lua"
-  },
   ["git-conflict.nvim"] = {
+    config = { 'require("config/git-conflict")' },
     loaded = true,
     path = "/home/luis/.local/share/nvim/site/pack/packer/start/git-conflict.nvim",
     url = "https://github.com/akinsho/git-conflict.nvim"
+  },
+  ["git-worktree.nvim"] = {
+    config = { 'require("config/git-worktree")' },
+    loaded = true,
+    path = "/home/luis/.local/share/nvim/site/pack/packer/start/git-worktree.nvim",
+    url = "https://github.com/ThePrimeagen/git-worktree.nvim"
+  },
+  ["goto-preview"] = {
+    config = { 'require("config/goto-preview")' },
+    loaded = true,
+    path = "/home/luis/.local/share/nvim/site/pack/packer/start/goto-preview",
+    url = "https://github.com/rmagatti/goto-preview"
   },
   ["hlargs.nvim"] = {
     loaded = true,
@@ -145,11 +158,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/luis/.local/share/nvim/site/pack/packer/start/lspkind.nvim",
     url = "https://github.com/onsails/lspkind.nvim"
-  },
-  ["lspsaga.nvim"] = {
-    loaded = true,
-    path = "/home/luis/.local/share/nvim/site/pack/packer/start/lspsaga.nvim",
-    url = "https://github.com/glepnir/lspsaga.nvim"
   },
   ["lualine.nvim"] = {
     loaded = true,
@@ -251,6 +259,22 @@ _G.packer_plugins = {
     path = "/home/luis/.local/share/nvim/site/pack/packer/start/tabular",
     url = "https://github.com/godlygeek/tabular"
   },
+  ["telescope-file-browser.nvim"] = {
+    loaded = true,
+    path = "/home/luis/.local/share/nvim/site/pack/packer/start/telescope-file-browser.nvim",
+    url = "https://github.com/nvim-telescope/telescope-file-browser.nvim"
+  },
+  ["telescope-fzf-native.nvim"] = {
+    loaded = true,
+    path = "/home/luis/.local/share/nvim/site/pack/packer/start/telescope-fzf-native.nvim",
+    url = "https://github.com/nvim-telescope/telescope-fzf-native.nvim"
+  },
+  ["telescope.nvim"] = {
+    config = { 'require("config/telescope")' },
+    loaded = true,
+    path = "/home/luis/.local/share/nvim/site/pack/packer/start/telescope.nvim",
+    url = "https://github.com/nvim-telescope/telescope.nvim"
+  },
   ["tokyonight.nvim"] = {
     loaded = true,
     path = "/home/luis/.local/share/nvim/site/pack/packer/start/tokyonight.nvim",
@@ -285,10 +309,26 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
+-- Config for: git-conflict.nvim
+time([[Config for git-conflict.nvim]], true)
+require("config/git-conflict")
+time([[Config for git-conflict.nvim]], false)
 -- Config for: trouble.nvim
 time([[Config for trouble.nvim]], true)
 try_loadstring("\27LJ\2\n9\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\ftrouble\frequire\0", "config", "trouble.nvim")
 time([[Config for trouble.nvim]], false)
+-- Config for: telescope.nvim
+time([[Config for telescope.nvim]], true)
+require("config/telescope")
+time([[Config for telescope.nvim]], false)
+-- Config for: goto-preview
+time([[Config for goto-preview]], true)
+require("config/goto-preview")
+time([[Config for goto-preview]], false)
+-- Config for: git-worktree.nvim
+time([[Config for git-worktree.nvim]], true)
+require("config/git-worktree")
+time([[Config for git-worktree.nvim]], false)
 vim.cmd [[augroup packer_load_aucmds]]
 vim.cmd [[au!]]
   -- Filetype lazy-loads

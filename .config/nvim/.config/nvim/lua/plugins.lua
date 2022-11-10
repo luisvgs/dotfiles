@@ -1,6 +1,8 @@
 vim.cmd([[packadd packer.nvim]])
+local function get_config(name)
+	return string.format('require("config/%s")', name)
+end
 return require("packer").startup(function(use)
-	-- Util
 	use("wbthomason/packer.nvim")
 	use("elihunter173/dirbuf.nvim")
 	use("rcarriga/nvim-notify")
@@ -9,10 +11,11 @@ return require("packer").startup(function(use)
 	use({ "qnighy/lalrpop.vim", ft = "lalrpop" })
 	use("windwp/nvim-ts-autotag")
 	use("tpope/vim-fugitive")
-	use("ThePrimeagen/git-worktree.nvim")
+	use({ "ThePrimeagen/git-worktree.nvim", config = get_config("git-worktree") })
 	use({
 		"akinsho/git-conflict.nvim",
 		tag = "*",
+		config = get_config("git-conflict"),
 	})
 	use({
 		"nvim-treesitter/nvim-treesitter",
@@ -50,7 +53,9 @@ return require("packer").startup(function(use)
 		"nvim-telescope/telescope.nvim",
 		tag = "0.1.0",
 		requires = { { "nvim-lua/plenary.nvim" } },
+		config = get_config("telescope"),
 	})
+	use({ "nvim-telescope/telescope-file-browser.nvim" })
 	use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
 	use("tpope/vim-commentary")
 	use("JoosepAlviste/nvim-ts-context-commentstring")
@@ -71,12 +76,9 @@ return require("packer").startup(function(use)
 	use("onsails/lspkind.nvim")
 	use({
 		"rmagatti/goto-preview",
+		config = get_config("goto-preview"),
 	})
 	use("lvimuser/lsp-inlayhints.nvim")
-	use({
-		"glepnir/lspsaga.nvim",
-		branch = "main",
-	})
 	use({
 		"SmiteshP/nvim-navic",
 		requires = "neovim/nvim-lspconfig",
