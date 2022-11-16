@@ -4,7 +4,7 @@ require("treesitter-config")
 require("keybindings")
 require("configs")
 require("colorscheme")
--- require("statusline")
+require("statusline")
 require("fidget").setup({})
 require("nvim-navic").setup({})
 require("nvim-autopairs").setup({})
@@ -19,4 +19,4 @@ require("notify").setup({
 	render = "minimal",
 })
 
-require("status_custom")
+-- require("status_custom")
