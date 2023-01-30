@@ -5,7 +5,12 @@ end
 return require("packer").startup(function(use)
 	use("wbthomason/packer.nvim")
 	use("elihunter173/dirbuf.nvim")
-	use("rcarriga/nvim-notify")
+	use({ "matbme/JABS.nvim", config = get_config("jabs") })
+	use({
+		"vigoux/notifier.nvim",
+		disable = true,
+		config = get_config("notifier"),
+	})
 	use("j-hui/fidget.nvim")
 	use("norcalli/nvim-colorizer.lua")
 	use({ "qnighy/lalrpop.vim", ft = "lalrpop" })
@@ -16,6 +21,12 @@ return require("packer").startup(function(use)
 		"akinsho/git-conflict.nvim",
 		tag = "*",
 		config = get_config("git-conflict"),
+	})
+	use({
+		"lewis6991/gitsigns.nvim",
+		config = function()
+			require("gitsigns").setup()
+		end,
 	})
 	use({
 		"nvim-treesitter/nvim-treesitter",
@@ -39,9 +50,10 @@ return require("packer").startup(function(use)
 	use("rktjmp/lush.nvim")
 	use({ "folke/tokyonight.nvim", branch = "main" })
 	use("tjdevries/colorbuddy.vim")
+	use({ "catppuccin/nvim", config = get_config("catpuccin"), as = "catppuccin" })
 	use({
 		"NTBBloodbath/doom-one.nvim",
-		commit = "60eb78255472bd9a2ca483ce70757cfda57cc706",
+		disable = true,
 		setup = function()
 			-- Add color to cursor
 			vim.g.doom_one_cursor_coloring = true
@@ -52,7 +64,7 @@ return require("packer").startup(function(use)
 			-- Enable TS support
 			vim.g.doom_one_enable_treesitter = true
 			-- Color whole diagnostic text or only underline
-			vim.g.doom_one_diagnostics_text_color = false
+			vim.g.doom_one_diagnostics_text_color = true
 			-- Enable transparent background
 			vim.g.doom_one_transparent_background = false
 
@@ -77,14 +89,18 @@ return require("packer").startup(function(use)
 			vim.cmd("colorscheme doom-one")
 		end,
 	})
-	use("sainnhe/edge")
 
 	-- Languages
-	use("rust-lang/rust.vim")
+	use({ "rust-lang/rust.vim", disable = true })
 
 	-- Workflow
 	use("tpope/vim-surround")
-	use("voldikss/vim-floaterm")
+	use({ "voldikss/vim-floaterm", disable = true })
+	use({
+		"akinsho/toggleterm.nvim",
+		tag = "*",
+		config = get_config("toggleterm"),
+	})
 	use({ "ibhagwan/fzf-lua", disable = true, requires = { "kyazdani42/nvim-web-devicons" } })
 	use({
 		"nvim-telescope/telescope.nvim",
@@ -115,6 +131,12 @@ return require("packer").startup(function(use)
 		"rmagatti/goto-preview",
 		config = get_config("goto-preview"),
 	})
+	use({
+		"scalameta/nvim-metals",
+		disable = true,
+		config = get_config("metals"),
+		requires = { "nvim-lua/plenary.nvim" },
+	})
 	use("lvimuser/lsp-inlayhints.nvim")
 	use({
 		"SmiteshP/nvim-navic",
@@ -123,6 +145,7 @@ return require("packer").startup(function(use)
 	-- Packer
 	use("neovim/nvim-lspconfig")
 	use("jose-elias-alvarez/null-ls.nvim")
+	use({ "jose-elias-alvarez/typescript.nvim" })
 	use("jose-elias-alvarez/nvim-lsp-ts-utils")
 	use("hrsh7th/nvim-cmp")
 	use("dcampos/nvim-snippy")

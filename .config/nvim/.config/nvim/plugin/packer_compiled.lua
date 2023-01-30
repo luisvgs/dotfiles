@@ -74,6 +74,18 @@ end
 time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
+  ["JABS.nvim"] = {
+    config = { 'require("config/jabs")' },
+    loaded = true,
+    path = "/home/luis/.local/share/nvim/site/pack/packer/start/JABS.nvim",
+    url = "https://github.com/matbme/JABS.nvim"
+  },
+  catppuccin = {
+    config = { 'require("config/catpuccin")' },
+    loaded = true,
+    path = "/home/luis/.local/share/nvim/site/pack/packer/start/catppuccin",
+    url = "https://github.com/catppuccin/nvim"
+  },
   ["cmp-buffer"] = {
     loaded = true,
     path = "/home/luis/.local/share/nvim/site/pack/packer/start/cmp-buffer",
@@ -99,18 +111,6 @@ _G.packer_plugins = {
     path = "/home/luis/.local/share/nvim/site/pack/packer/start/dirbuf.nvim",
     url = "https://github.com/elihunter173/dirbuf.nvim"
   },
-  ["doom-one.nvim"] = {
-    config = { "\27LJ\2\n8\0\0\3\0\3\0\0056\0\0\0009\0\1\0'\2\2\0B\0\2\1K\0\1\0\25colorscheme doom-one\bcmd\bvim\0" },
-    loaded = true,
-    needs_bufread = false,
-    path = "/home/luis/.local/share/nvim/site/pack/packer/opt/doom-one.nvim",
-    url = "https://github.com/NTBBloodbath/doom-one.nvim"
-  },
-  edge = {
-    loaded = true,
-    path = "/home/luis/.local/share/nvim/site/pack/packer/start/edge",
-    url = "https://github.com/sainnhe/edge"
-  },
   ["fidget.nvim"] = {
     loaded = true,
     path = "/home/luis/.local/share/nvim/site/pack/packer/start/fidget.nvim",
@@ -127,6 +127,12 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/luis/.local/share/nvim/site/pack/packer/start/git-worktree.nvim",
     url = "https://github.com/ThePrimeagen/git-worktree.nvim"
+  },
+  ["gitsigns.nvim"] = {
+    config = { "\27LJ\2\n6\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\rgitsigns\frequire\0" },
+    loaded = true,
+    path = "/home/luis/.local/share/nvim/site/pack/packer/start/gitsigns.nvim",
+    url = "https://github.com/lewis6991/gitsigns.nvim"
   },
   ["goto-preview"] = {
     config = { 'require("config/goto-preview")' },
@@ -206,11 +212,6 @@ _G.packer_plugins = {
     path = "/home/luis/.local/share/nvim/site/pack/packer/start/nvim-navic",
     url = "https://github.com/SmiteshP/nvim-navic"
   },
-  ["nvim-notify"] = {
-    loaded = true,
-    path = "/home/luis/.local/share/nvim/site/pack/packer/start/nvim-notify",
-    url = "https://github.com/rcarriga/nvim-notify"
-  },
   ["nvim-snippy"] = {
     loaded = true,
     path = "/home/luis/.local/share/nvim/site/pack/packer/start/nvim-snippy",
@@ -251,11 +252,6 @@ _G.packer_plugins = {
     path = "/home/luis/.local/share/nvim/site/pack/packer/start/replacer.nvim",
     url = "https://github.com/gabrielpoca/replacer.nvim"
   },
-  ["rust.vim"] = {
-    loaded = true,
-    path = "/home/luis/.local/share/nvim/site/pack/packer/start/rust.vim",
-    url = "https://github.com/rust-lang/rust.vim"
-  },
   tabular = {
     loaded = true,
     path = "/home/luis/.local/share/nvim/site/pack/packer/start/tabular",
@@ -277,6 +273,12 @@ _G.packer_plugins = {
     path = "/home/luis/.local/share/nvim/site/pack/packer/start/telescope.nvim",
     url = "https://github.com/nvim-telescope/telescope.nvim"
   },
+  ["toggleterm.nvim"] = {
+    config = { 'require("config/toggleterm")' },
+    loaded = true,
+    path = "/home/luis/.local/share/nvim/site/pack/packer/start/toggleterm.nvim",
+    url = "https://github.com/akinsho/toggleterm.nvim"
+  },
   ["tokyonight.nvim"] = {
     loaded = true,
     path = "/home/luis/.local/share/nvim/site/pack/packer/start/tokyonight.nvim",
@@ -288,15 +290,15 @@ _G.packer_plugins = {
     path = "/home/luis/.local/share/nvim/site/pack/packer/start/trouble.nvim",
     url = "https://github.com/folke/trouble.nvim"
   },
+  ["typescript.nvim"] = {
+    loaded = true,
+    path = "/home/luis/.local/share/nvim/site/pack/packer/start/typescript.nvim",
+    url = "https://github.com/jose-elias-alvarez/typescript.nvim"
+  },
   ["vim-commentary"] = {
     loaded = true,
     path = "/home/luis/.local/share/nvim/site/pack/packer/start/vim-commentary",
     url = "https://github.com/tpope/vim-commentary"
-  },
-  ["vim-floaterm"] = {
-    loaded = true,
-    path = "/home/luis/.local/share/nvim/site/pack/packer/start/vim-floaterm",
-    url = "https://github.com/voldikss/vim-floaterm"
   },
   ["vim-fugitive"] = {
     loaded = true,
@@ -311,21 +313,6 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
--- Setup for: doom-one.nvim
-time([[Setup for doom-one.nvim]], true)
-try_loadstring("\27LJ\2\n»\6\0\0\2\0\21\0M6\0\0\0009\0\1\0+\1\2\0=\1\2\0006\0\0\0009\0\1\0+\1\2\0=\1\3\0006\0\0\0009\0\1\0+\1\1\0=\1\4\0006\0\0\0009\0\1\0+\1\2\0=\1\5\0006\0\0\0009\0\1\0+\1\1\0=\1\6\0006\0\0\0009\0\1\0+\1\1\0=\1\a\0006\0\0\0009\0\1\0+\1\1\0=\1\b\0006\0\0\0009\0\1\0)\1\20\0=\1\t\0006\0\0\0009\0\1\0+\1\1\0=\1\n\0006\0\0\0009\0\1\0+\1\1\0=\1\v\0006\0\0\0009\0\1\0+\1\2\0=\1\f\0006\0\0\0009\0\1\0+\1\1\0=\1\r\0006\0\0\0009\0\1\0+\1\1\0=\1\14\0006\0\0\0009\0\1\0+\1\1\0=\1\15\0006\0\0\0009\0\1\0+\1\1\0=\1\16\0006\0\0\0009\0\1\0+\1\1\0=\1\17\0006\0\0\0009\0\1\0+\1\1\0=\1\18\0006\0\0\0009\0\1\0+\1\1\0=\1\19\0006\0\0\0009\0\1\0+\1\1\0=\1\20\0K\0\1\0\28doom_one_plugin_lspsaga#doom_one_plugin_vim_illuminate%doom_one_plugin_indent_blankline\29doom_one_plugin_whichkey\29doom_one_plugin_startify\30doom_one_plugin_dashboard\30doom_one_plugin_nvim_tree\27doom_one_plugin_neogit\30doom_one_plugin_telescope\27doom_one_plugin_barbar\26doom_one_plugin_neorg#doom_one_pumblend_transparency\29doom_one_pumblend_enable$doom_one_transparent_background$doom_one_diagnostics_text_color\31doom_one_enable_treesitter\29doom_one_italic_comments\29doom_one_terminal_colors\29doom_one_cursor_coloring\6g\bvim\0", "setup", "doom-one.nvim")
-time([[Setup for doom-one.nvim]], false)
-time([[packadd for doom-one.nvim]], true)
-vim.cmd [[packadd doom-one.nvim]]
-time([[packadd for doom-one.nvim]], false)
--- Config for: git-worktree.nvim
-time([[Config for git-worktree.nvim]], true)
-require("config/git-worktree")
-time([[Config for git-worktree.nvim]], false)
--- Config for: doom-one.nvim
-time([[Config for doom-one.nvim]], true)
-try_loadstring("\27LJ\2\n8\0\0\3\0\3\0\0056\0\0\0009\0\1\0'\2\2\0B\0\2\1K\0\1\0\25colorscheme doom-one\bcmd\bvim\0", "config", "doom-one.nvim")
-time([[Config for doom-one.nvim]], false)
 -- Config for: telescope.nvim
 time([[Config for telescope.nvim]], true)
 require("config/telescope")
@@ -334,14 +321,34 @@ time([[Config for telescope.nvim]], false)
 time([[Config for goto-preview]], true)
 require("config/goto-preview")
 time([[Config for goto-preview]], false)
--- Config for: trouble.nvim
-time([[Config for trouble.nvim]], true)
-try_loadstring("\27LJ\2\n9\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\ftrouble\frequire\0", "config", "trouble.nvim")
-time([[Config for trouble.nvim]], false)
+-- Config for: JABS.nvim
+time([[Config for JABS.nvim]], true)
+require("config/jabs")
+time([[Config for JABS.nvim]], false)
 -- Config for: git-conflict.nvim
 time([[Config for git-conflict.nvim]], true)
 require("config/git-conflict")
 time([[Config for git-conflict.nvim]], false)
+-- Config for: trouble.nvim
+time([[Config for trouble.nvim]], true)
+try_loadstring("\27LJ\2\n9\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\ftrouble\frequire\0", "config", "trouble.nvim")
+time([[Config for trouble.nvim]], false)
+-- Config for: catppuccin
+time([[Config for catppuccin]], true)
+require("config/catpuccin")
+time([[Config for catppuccin]], false)
+-- Config for: toggleterm.nvim
+time([[Config for toggleterm.nvim]], true)
+require("config/toggleterm")
+time([[Config for toggleterm.nvim]], false)
+-- Config for: git-worktree.nvim
+time([[Config for git-worktree.nvim]], true)
+require("config/git-worktree")
+time([[Config for git-worktree.nvim]], false)
+-- Config for: gitsigns.nvim
+time([[Config for gitsigns.nvim]], true)
+try_loadstring("\27LJ\2\n6\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\rgitsigns\frequire\0", "config", "gitsigns.nvim")
+time([[Config for gitsigns.nvim]], false)
 vim.cmd [[augroup packer_load_aucmds]]
 vim.cmd [[au!]]
   -- Filetype lazy-loads

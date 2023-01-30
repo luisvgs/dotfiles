@@ -18,9 +18,9 @@ map("n", "<leader>gq", "<cmd>GitConflictListQf<cr>")
 map("n", "<leader>h", ':lua require("replacer").run()<cr>')
 
 -- Focus
-map("n", "<leader>l", ":FocusSplitRight<cr>")
-map("n", "<leader>j", ":FocusSplitDown<cr>")
-map("n", "<leader>k", ":FocusSplitUp<cr>")
+-- map("n", "<leader>l", ":FocusSplitRight<cr>")
+-- map("n", "<leader>j", ":FocusSplitDown<cr>")
+-- map("n", "<leader>k", ":FocusSplitUp<cr>")
 
 -- Hop
 

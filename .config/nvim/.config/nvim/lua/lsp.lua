@@ -2,7 +2,7 @@ local lsp = require("lspconfig")
 local lsp_status = require("lsp-status")
 local null_ls = require("null-ls")
 local navic = require("nvim-navic")
-vim.notify = require("notify")
+-- vim.notify = require("notifier")
 
 lsp_status.register_progress()
 lsp_status.config({
@@ -69,15 +69,14 @@ local lsp_attach = function()
 			"<cmd>lua vim.lsp.stop_client(vim.lsp.get_active_clients())<cr>",
 			{}
 		)
-		vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>cd", "<cmd>lua vim.lsp.buf.definition()<cr>", {})
-		vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>ch", "<cmd>lua vim.lsp.buf.signature_help()<cr>", {})
-		-- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gd', '<cmd>lua vim.lsp.buf.declaration()<cr>', {})
+		vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>cd", "<cmd>lua vim.lsp.buf.type_definition()<cr", {})
+		vim.api.nvim_buf_set_keymap(bufnr, "n", "<C-h>", "<cmd>lua vim.lsp.buf.signature_help()<cr>", {})
 		vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>K", "<cmd>lua vim.lsp.buf.hover()<cr>", {})
 		vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>gi", "<cmd>lua vim.lsp.buf.implementation()<cr>", {})
-		vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<cr>", {})
-		vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>cn", "<cmd>lua vim.lsp.diagnostic.goto_next()<cr>", {})
-		vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>cp", "<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>", {})
-		vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>a", "<cmd>lua vim.lsp.buf.code_action()<cr>", {})
+		vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>cr", "<cmd>lua vim.lsp.buf.rename()<cr>", {})
+		vim.api.nvim_buf_set_keymap(bufnr, "n", "<C-K>", "<cmd>lua vim.diagnostic.goto_next()<cr>", {})
+		vim.api.nvim_buf_set_keymap(bufnr, "n", "<C-J>", "<cmd>lua vim.diagnostic.goto_prev()<cr>", {})
+		vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>aa", "<cmd>lua vim.buf.code_action()<cr>", {})
 		vim.api.nvim_buf_set_keymap(
 			bufnr,
 			"n",
@@ -87,7 +86,13 @@ local lsp_attach = function()
 		)
 		vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>gr", "<cmd>Telescope lsp_references<cr>", {})
 		vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>cs", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", {})
-		vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>cx", "<cmd>Telescope lsp_workspace_diagnostics<cr>", {})
+		vim.api.nvim_buf_set_keymap(
+			bufnr,
+			"n",
+			"<leader>td",
+			"<cmd>Telescope diagnostics border=false layout_config={height=0.3}<cr>",
+			{}
+		)
 		vim.api.nvim_buf_set_keymap(
 			bufnr,
 			"x",
@@ -95,8 +100,6 @@ local lsp_attach = function()
 			"<cmd>Telescope lsp_range_code_actions theme=get_dropdown<cr>",
 			{}
 		)
-		vim.api.nvim_buf_set_keymap(bufnr, "i", "<C-a>", "<cmd>Telescope lsp_code_actions theme=get_dropdown<cr>", {})
-		vim.api.nvim_buf_set_keymap(bufnr, "i", "<C-h>", "<cmd>lua vim.lsp.buf.signature_help()<cr>", {})
 	end
 end
 
@@ -186,7 +189,7 @@ null_ls.setup({
 				end,
 			})
 			local msg = string.format("Language server %s started!", client.name)
-			vim.notify(msg, "info", { title = "LSP Info" })
+			vim.notify(msg)
 		end
 	end,
 })
@@ -197,24 +200,24 @@ local buf_map = function(bufnr, mode, lhs, rhs, opts)
 	})
 end
 
-lsp.tsserver.setup({
-	capabilities = capabilities,
-	on_attach = function(client, bufnr)
-		client.server_capabilities.document_formatting = false
-		client.server_capabilities.document_range_formatting = false
+require("typescript").setup({
+	disable_commands = false,
+	debug = false,
+	go_to_source_definition = {
+		fallback = true,
+	},
+	server = {
+		on_attach = function(client, bufnr)
+			client.server_capabilities.document_formatting = false
+			client.server_capabilities.document_range_formatting = false
 
-		local ts_utils = require("nvim-lsp-ts-utils")
-		ts_utils.setup({ import_all_timeout = 5000, enable_formatting = false })
-		ts_utils.setup_client(client)
-
-		buf_map(bufnr, "n", "gs", ":TSLspOrganize<CR>")
-		buf_map(bufnr, "n", "gi", ":TSLspRenameFile<CR>")
-		buf_map(bufnr, "n", "go", ":TSLspImportAll<CR>")
-
-		return lsp_attach()(client, bufnr)
-	end,
+			local ts_utils = require("nvim-lsp-ts-utils")
+			ts_utils.setup({ import_all_timeout = 5000, enable_formatting = false })
+			ts_utils.setup_client(client)
+			return lsp_attach()(client, bufnr)
+		end,
+	},
 })
-
 -- Rust
 lsp.rust_analyzer.setup({
 	capabilities = capabilities,
@@ -227,6 +230,7 @@ lsp.rust_analyzer.setup({
 			},
 
 			checkOnSave = {
+				command = "clippy",
 				enable = false,
 				allFeatures = false,
 			},
@@ -240,6 +244,9 @@ lsp.rust_analyzer.setup({
 				autoimport = {
 					enable = false,
 				},
+			},
+			rustfmt = {
+				enableRangeFormatting = true,
 			},
 
 			diagnostics = {
@@ -304,7 +311,7 @@ lsp.rust_analyzer.setup({
 		navic.attach(client, bufnr)
 
 		local msg = string.format("Language server %s started.", client.name)
-		vim.notify(msg, "info")
+		vim.notify(msg)
 
 		return lsp_attach()(client, bufnr)
 	end,

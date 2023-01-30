@@ -85,5 +85,5 @@ map(
 	"<leader>gw",
 	"<cmd>Telescope git_worktree git_worktrees previewer=false border=false layout_config={height=0.2}<CR>"
 )
-map("n", "<leader>gl", "<cmd>Telescope git_commits previewer=false border=false layout_config={height=0.2}<CR>")
+map("n", "<leader>gl", "<cmd>Telescope git_commits border=false layout_config={height=0.3}<CR>")
 map("n", "<leader>gb", "<cmd>Telescope git_branches previewer=false border=false layout_config={height=0.2}<CR>")
