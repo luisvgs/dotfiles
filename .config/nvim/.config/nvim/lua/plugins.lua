@@ -48,7 +48,6 @@ return require("packer").startup(function(use)
 	use("godlygeek/tabular")
 	-- Colorschemes
 	use("rktjmp/lush.nvim")
-	use({ "folke/tokyonight.nvim", branch = "main" })
 	use("tjdevries/colorbuddy.vim")
 	use({ "catppuccin/nvim", config = get_config("catpuccin"), as = "catppuccin" })
 	use({
@@ -133,13 +132,14 @@ return require("packer").startup(function(use)
 	})
 	use({
 		"scalameta/nvim-metals",
-		disable = true,
+		disable = false,
 		config = get_config("metals"),
 		requires = { "nvim-lua/plenary.nvim" },
 	})
 	use("lvimuser/lsp-inlayhints.nvim")
 	use({
 		"SmiteshP/nvim-navic",
+		config = get_config("navic"),
 		requires = "neovim/nvim-lspconfig",
 	})
 	-- Packer

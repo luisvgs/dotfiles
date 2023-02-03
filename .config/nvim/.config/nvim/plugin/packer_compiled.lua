@@ -207,7 +207,14 @@ _G.packer_plugins = {
     path = "/home/luis/.local/share/nvim/site/pack/packer/start/nvim-lspconfig",
     url = "https://github.com/neovim/nvim-lspconfig"
   },
+  ["nvim-metals"] = {
+    config = { 'require("config/metals")' },
+    loaded = true,
+    path = "/home/luis/.local/share/nvim/site/pack/packer/start/nvim-metals",
+    url = "https://github.com/scalameta/nvim-metals"
+  },
   ["nvim-navic"] = {
+    config = { 'require("config/navic")' },
     loaded = true,
     path = "/home/luis/.local/share/nvim/site/pack/packer/start/nvim-navic",
     url = "https://github.com/SmiteshP/nvim-navic"
@@ -279,11 +286,6 @@ _G.packer_plugins = {
     path = "/home/luis/.local/share/nvim/site/pack/packer/start/toggleterm.nvim",
     url = "https://github.com/akinsho/toggleterm.nvim"
   },
-  ["tokyonight.nvim"] = {
-    loaded = true,
-    path = "/home/luis/.local/share/nvim/site/pack/packer/start/tokyonight.nvim",
-    url = "https://github.com/folke/tokyonight.nvim"
-  },
   ["trouble.nvim"] = {
     config = { "\27LJ\2\n9\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\ftrouble\frequire\0" },
     loaded = true,
@@ -317,34 +319,42 @@ time([[Defining packer_plugins]], false)
 time([[Config for telescope.nvim]], true)
 require("config/telescope")
 time([[Config for telescope.nvim]], false)
--- Config for: goto-preview
-time([[Config for goto-preview]], true)
-require("config/goto-preview")
-time([[Config for goto-preview]], false)
--- Config for: JABS.nvim
-time([[Config for JABS.nvim]], true)
-require("config/jabs")
-time([[Config for JABS.nvim]], false)
--- Config for: git-conflict.nvim
-time([[Config for git-conflict.nvim]], true)
-require("config/git-conflict")
-time([[Config for git-conflict.nvim]], false)
--- Config for: trouble.nvim
-time([[Config for trouble.nvim]], true)
-try_loadstring("\27LJ\2\n9\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\ftrouble\frequire\0", "config", "trouble.nvim")
-time([[Config for trouble.nvim]], false)
--- Config for: catppuccin
-time([[Config for catppuccin]], true)
-require("config/catpuccin")
-time([[Config for catppuccin]], false)
 -- Config for: toggleterm.nvim
 time([[Config for toggleterm.nvim]], true)
 require("config/toggleterm")
 time([[Config for toggleterm.nvim]], false)
+-- Config for: JABS.nvim
+time([[Config for JABS.nvim]], true)
+require("config/jabs")
+time([[Config for JABS.nvim]], false)
+-- Config for: trouble.nvim
+time([[Config for trouble.nvim]], true)
+try_loadstring("\27LJ\2\n9\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\ftrouble\frequire\0", "config", "trouble.nvim")
+time([[Config for trouble.nvim]], false)
+-- Config for: nvim-navic
+time([[Config for nvim-navic]], true)
+require("config/navic")
+time([[Config for nvim-navic]], false)
+-- Config for: git-conflict.nvim
+time([[Config for git-conflict.nvim]], true)
+require("config/git-conflict")
+time([[Config for git-conflict.nvim]], false)
+-- Config for: catppuccin
+time([[Config for catppuccin]], true)
+require("config/catpuccin")
+time([[Config for catppuccin]], false)
+-- Config for: nvim-metals
+time([[Config for nvim-metals]], true)
+require("config/metals")
+time([[Config for nvim-metals]], false)
 -- Config for: git-worktree.nvim
 time([[Config for git-worktree.nvim]], true)
 require("config/git-worktree")
 time([[Config for git-worktree.nvim]], false)
+-- Config for: goto-preview
+time([[Config for goto-preview]], true)
+require("config/goto-preview")
+time([[Config for goto-preview]], false)
 -- Config for: gitsigns.nvim
 time([[Config for gitsigns.nvim]], true)
 try_loadstring("\27LJ\2\n6\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\rgitsigns\frequire\0", "config", "gitsigns.nvim")

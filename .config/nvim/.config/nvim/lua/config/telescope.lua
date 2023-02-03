@@ -61,8 +61,6 @@ for hl, col in pairs(TelescopePrompt) do
 	vim.api.nvim_set_hl(0, hl, col)
 end
 
-telescope.load_extension("file_browser")
-
 map(
 	"n",
 	"<C-F>",
@@ -87,3 +85,6 @@ map(
 )
 map("n", "<leader>gl", "<cmd>Telescope git_commits border=false layout_config={height=0.3}<CR>")
 map("n", "<leader>gb", "<cmd>Telescope git_branches previewer=false border=false layout_config={height=0.2}<CR>")
+
+telescope.load_extension("file_browser")
+telescope.load_extension("fzf")

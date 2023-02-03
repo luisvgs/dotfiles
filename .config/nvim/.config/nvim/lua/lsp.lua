@@ -2,7 +2,6 @@ local lsp = require("lspconfig")
 local lsp_status = require("lsp-status")
 local null_ls = require("null-ls")
 local navic = require("nvim-navic")
--- vim.notify = require("notifier")
 
 lsp_status.register_progress()
 lsp_status.config({
