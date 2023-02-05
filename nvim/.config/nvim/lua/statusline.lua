@@ -87,16 +87,16 @@ ins_left({
 ins_left({
 	-- mode component
 	function()
-		return ""
+		return "●"
 	end,
 	color = function()
 		-- auto change color according to neovims mode
 		local mode_color = {
-			n = colors.red,
-			i = colors.green,
+			n = colors.green,
+			i = colors.blue,
 			v = colors.blue,
 			[""] = colors.blue,
-			V = colors.blue,
+			V = colors.yellow,
 			c = colors.magenta,
 			no = colors.red,
 			s = colors.orange,
@@ -120,6 +120,7 @@ ins_left({
 
 ins_left({
 	"filename",
+	path = 1,
 	cond = conditions.buffer_not_empty,
 	color = { fg = colors.magenta, gui = "bold" },
 })
@@ -145,51 +146,56 @@ ins_left({
 	end,
 })
 
-ins_left({
-	-- Lsp server name .
-	function()
-		local msg = "No Active Lsp"
-		local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
-		local clients = vim.lsp.get_active_clients()
-		if next(clients) == nil then
-			return msg
-		end
-		for _, client in ipairs(clients) do
-			local filetypes = client.config.filetypes
-			if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-				return client.name
-			end
-		end
-		return msg
-	end,
-	icon = " :",
-	color = { fg = colors.green, gui = "bold" },
-})
-
--- Add components to right sections
--- ins_right {
---     'o:encoding', -- option component same as &encoding in viml
---     fmt = string.upper, -- I'm not sure why it's upper case either ;)
---     cond = conditions.hide_in_width,
---     color = { fg = colors.green, gui = 'bold' },
--- }
-
 -- ins_right({
--- 	"fileformat",
--- 	fmt = string.upper,
--- 	icons_enabled = false, -- I think icons are cool but Eviline doesn't have them. sigh
--- 	color = { fg = colors.green, gui = "bold" },
+-- 	"buffers",
+-- 	show_filename_only = true, -- Shows shortened relative path when set to false.
+-- 	hide_filename_extension = false, -- Hide filename extension when set to true.
+-- 	show_modified_status = true, -- Shows indicator when the buffer is modified.
+
+-- 	mode = 1, -- 0: Shows buffer name
+-- 	-- 1: Shows buffer index
+-- 	-- 2: Shows buffer name + buffer index
+-- 	-- 3: Shows buffer number
+-- 	-- 4: Shows buffer name + buffer number
+
+-- 	max_length = vim.o.columns * 2 / 2,
+-- 	filetype_names = {
+-- 		TelescopePrompt = "Telescope",
+-- 		dashboard = "Dashboard",
+-- 		packer = "Packer",
+-- 		fzf = "FZF",
+-- 		alpha = "Alpha",
+-- 	},
+
+-- 	-- buffers_color = {
+-- 	-- 	active = colors.green, -- Color for active buffer.
+-- 	-- 	inactive = colors.red, -- Color for inactive buffer.
+-- 	-- },
+
+-- 	symbols = {
+-- 		modified = " ●", -- Text to show when the buffer is modified
+-- 		alternate_file = "*", -- Text to show to identify the alternate file
+-- 		directory = "", -- Text to show when the buffer is a directory
+-- 	},
+-- 	color = { fg = colors.magenta },
 -- })
+ins_right({
+	function()
+		return string.format(" %s ", vim.bo.filetype)
+	end,
+	color = { fg = colors.blue, gui = "bold" },
+	cond = conditions.buffer_not_empty,
+	padding = { left = 1 },
+})
 
 ins_right({
 	"branch",
-	icon = "",
-	color = { fg = colors.violet, gui = "bold" },
+	icon = "",
+	color = { fg = colors.green, gui = "bold" },
 })
 
 ins_right({
 	"diff",
-	-- Is it me or the symbol for modified us really weird
 	symbols = { added = " ", modified = "柳", removed = " " },
 	diff_color = {
 		added = { fg = colors.green },
@@ -209,5 +215,4 @@ ins_right({
 	padding = { left = 1 },
 })
 
--- Now don't forget to initialize lualine
 lualine.setup(config)

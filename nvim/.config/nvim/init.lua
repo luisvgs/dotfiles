@@ -9,21 +9,12 @@ require("fidget").setup({})
 require("goto-preview").setup({})
 require("nvim-navic").setup({})
 require("nvim-autopairs").setup({})
-require("fzf-lua").setup({
-	winopts = {
-		split = "belowright new",
-	},
-	grep = {
-		previewer = false,
-		cmd = "rg --color=always --smart-case -g '!{.git,node_modules}/'",
-	},
-	files = {
-		previewer = false,
-		cmd = "find -type f -not -path '*/node_modules/*' -printf '%P\n'",
-	},
-	oldfiles = {
-		previewer = false,
+require("git-conflict").setup({
+	default_mappings = true, -- disable buffer local mapping created by this plugin
+	disable_diagnostics = false, -- This will disable the diagnostics in a buffer whilst it is conflicted
+	highlights = { -- They must have background color, otherwise the default color will be used
+		incoming = "DiffText",
+		current = "DiffAdd",
 	},
 })
-require("git-conflict").setup()
-require("hop").setup()
+require("dirbuf").setup({})

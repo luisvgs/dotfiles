@@ -1,7 +1,12 @@
 vim.cmd([[packadd packer.nvim]])
+local function get_config(name)
+	return string.format('require("config/%s")', name)
+end
 return require("packer").startup(function(use)
 	-- Util
 	use("wbthomason/packer.nvim")
+	use({ "rcarriga/nvim-notify", disable = true, config = get_config("notify") })
+	use("elihunter173/dirbuf.nvim")
 	use({
 		"rmagatti/goto-preview",
 	})
@@ -9,8 +14,14 @@ return require("packer").startup(function(use)
 	use({ "qnighy/lalrpop.vim", ft = "lalrpop" })
 	use("windwp/nvim-ts-autotag")
 	use("tpope/vim-fugitive")
+	use({ "ThePrimeagen/git-worktree.nvim", config = get_config("git-worktree") })
 	use({
 		"akinsho/git-conflict.nvim",
+		tag = "*",
+	})
+	use({
+		"lewis6991/gitsigns.nvim",
+		config = get_config("gitsigns"),
 	})
 	use({
 		"nvim-treesitter/nvim-treesitter",
@@ -24,42 +35,38 @@ return require("packer").startup(function(use)
 			require("trouble").setup({})
 		end,
 	})
-	-- Motions
-	use({
-		"phaazon/hop.nvim",
-		branch = "v2", -- optional but strongly recommended
-		config = function()
-			-- you can configure Hop the way you like here; see :h hop-config
-			require("hop").setup({ keys = "etovxqpdygfblzhckisuran" })
-		end,
-	})
 	-- Colorschemes
 	use("rktjmp/lush.nvim")
+	use({ "NvChad/nvim-colorizer.lua", config = get_config("colorizer") })
 	use("tjdevries/colorbuddy.vim")
-	use("folke/tokyonight.nvim")
-	use("NTBBloodbath/doom-one.nvim")
+	use({ "catppuccin/nvim", config = get_config("catpuccin"), as = "catppuccin" })
+	use({
+		"NTBBloodbath/doom-one.nvim",
+		disable = true,
+		config = get_config("doom"),
+	})
+	use("metalelf0/jellybeans-nvim")
 	-- Languages
-	use("rust-lang/rust.vim")
+	use({ "rust-lang/rust.vim", ft = { "rust" }, config = get_config("rust") })
 
 	use({
-		"neovimhaskell/haskell-vim",
-		ft = "haskell",
-		disable = true,
+		"scalameta/nvim-metals",
+		config = get_config("metals"),
+		disable = false,
+		requires = { "nvim-lua/plenary.nvim" },
 	})
-	use({
-		"alx741/vim-stylishask",
-		disable = true,
-	})
-	use({
-		"itchyny/vim-haskell-indent",
-		ft = "haskell",
-		disable = true,
-	})
-	use({ "scalameta/nvim-metals", disable = true, requires = { "nvim-lua/plenary.nvim" } })
 	-- Workflow
 	use("tpope/vim-surround")
-	use({ "ibhagwan/fzf-lua", requires = { "kyazdani42/nvim-web-devicons" } })
 	use("tpope/vim-commentary")
+	use({
+		"nvim-telescope/telescope.nvim",
+		tag = "0.1.0",
+		requires = { { "nvim-lua/plenary.nvim" } },
+		config = get_config("telescope"),
+	})
+	use({ "nvim-telescope/telescope-file-browser.nvim" })
+	use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
+
 	use("JoosepAlviste/nvim-ts-context-commentstring")
 	use({ "tjdevries/express_line.nvim", disable = true })
 	use("voldikss/vim-floaterm")
@@ -84,10 +91,13 @@ return require("packer").startup(function(use)
 		requires = "neovim/nvim-lspconfig",
 	})
 	use("neovim/nvim-lspconfig")
-	use("jose-elias-alvarez/null-ls.nvim")
+	use({ "jose-elias-alvarez/null-ls.nvim", config = get_config("null-ls") })
+	use({ "jose-elias-alvarez/typescript.nvim", config = get_config("typescript") })
 	use("jose-elias-alvarez/nvim-lsp-ts-utils")
-	use("hrsh7th/nvim-cmp")
+	use({ "hrsh7th/nvim-cmp", config = get_config("cmp") })
 	use("hrsh7th/cmp-nvim-lsp")
+	use("hrsh7th/cmp-nvim-lsp-signature-help")
 	use("hrsh7th/cmp-buffer")
+	use("dcampos/nvim-snippy")
 	use("nvim-lua/lsp-status.nvim")
 end)
