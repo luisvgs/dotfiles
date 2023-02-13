@@ -49,10 +49,10 @@ return require("packer").startup(function(use)
 	-- Colorschemes
 	use("rktjmp/lush.nvim")
 	use("tjdevries/colorbuddy.vim")
-	use({ "catppuccin/nvim", config = get_config("catpuccin"), as = "catppuccin" })
+	use({ "catppuccin/nvim", disable = true, config = get_config("catpuccin"), as = "catppuccin" })
 	use({
 		"NTBBloodbath/doom-one.nvim",
-		disable = true,
+		disable = false,
 		setup = function()
 			-- Add color to cursor
 			vim.g.doom_one_cursor_coloring = true
@@ -132,7 +132,6 @@ return require("packer").startup(function(use)
 	})
 	use({
 		"scalameta/nvim-metals",
-		disable = false,
 		config = get_config("metals"),
 		requires = { "nvim-lua/plenary.nvim" },
 	})

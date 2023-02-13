@@ -147,7 +147,7 @@ lsp.bashls.setup({
 })
 
 -- Lua
-lsp.sumneko_lua.setup({
+lsp.lua_ls.setup({
 	cmd = { "/usr/bin/lua-language-server" },
 	capabilities = capabilities,
 	settings = {
