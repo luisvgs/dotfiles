@@ -26,7 +26,7 @@ alias gpom='git push origin main'
 alias gbd='git push origin --delete'
 alias gr='git remote'
 alias gs='git status'
-alias gp='!git push origin $(git rev-parse --abbrev-ref HEAD)'
+alias gp='git push origin $(git rev-parse --abbrev-ref HEAD)'
 alias gpl='git pull origin $(git rev-parse --abbrev-ref HEAD)'
 alias gtest='git merge dev --no-ff --no-commit'
 alias ls='exa -l --icons'
@@ -34,6 +34,7 @@ alias l='exa -lah --icons'
 alias lg='exa --git -l --icons'
 alias lt='exa --tree --level=2 --long'
 alias n='nnn -e'
+alias sc='scala-cli run'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 

@@ -109,9 +109,7 @@ map("i", "<c-e>", "<c-o>$")
 map("v", "<c-e>", "$")
 
 -- Packer
-map("n", "<leader>pi", "<cmd>PackerInstall<cr>")
-map("n", "<leader>pu", "<cmd>PackerUpdate<cr>")
-map("n", "<leader>pc", "<cmd>PackerClean<cr>")
+map("n", "<leader>pu", "<cmd>Lazy<cr>")
 
 -- Quick access to common files.
 map("n", "<leader>oci", "<cmd>edit ~/.config/nvim/init.lua<cr>")
