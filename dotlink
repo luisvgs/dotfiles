@@ -7,3 +7,4 @@
 resume,resume
 .xprofile,.xprofile
 .tmux.conf,.tmux.conf
+.config/doom,.config/doom

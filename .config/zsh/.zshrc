@@ -27,6 +27,7 @@ alias ltxw='latexmk -pdf -pvc'
 alias sz="source $HOME/.config/zsh/.zshrc"
 alias doom="$HOME/.emacs.d/bin/doom"
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/.bare/ --work-tree=$HOME'
+alias e='emacs'
 alias v='nvim'
 alias vim='nvim'
 alias vim-home="$HOME/.config/nvim"
