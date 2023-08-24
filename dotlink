@@ -1,0 +1,9 @@
+.config/nvim,.config/nvim
+.config/kitty,.config/kitty
+.config/dunst,.config/dunst
+.config/i3,.config/i3
+.config/polybar,.config/polybar
+.config/zsh,.config/zsh
+resume,resume
+.xprofile,.xprofile
+.tmux.conf,.tmux.conf

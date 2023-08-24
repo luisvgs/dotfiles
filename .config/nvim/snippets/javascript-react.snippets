@@ -1,0 +1,29 @@
+# Import
+snippet ir import React
+	import React from 'react';
+
+# Component
+snippet fc
+	const ${1:ComponentName} = (${2:props}) => {
+
+		return (
+			<>
+				${5}
+			</>
+		);
+	};
+
+        expor default ${1:ComponentName}
+
+# Hooks
+snippet uses useState
+	const [${1:state}, set${2}] = useState(${3:initialState});
+
+snippet usee useEffect
+	useEffect(() => {
+		${1}
+	}, []);
+
+snippet userf useRef
+	const ${1:refContainer} = useRef(${2:initialValue});
+

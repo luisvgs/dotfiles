@@ -1,0 +1,6 @@
+font_size 13.5
+font_family JetBrainsMono-Medium
+# BEGIN_KITTY_THEME
+# Doom Vibrant
+include current-theme.conf
+# END_KITTY_THEME

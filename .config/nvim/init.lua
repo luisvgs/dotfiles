@@ -1,0 +1,6 @@
+require("configs")
+require("plugins")
+require("treesitter-config")
+require("keybindings")
+require("lsp")
+-- require("evilline")

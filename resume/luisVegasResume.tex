@@ -1,0 +1,224 @@
+%-------------------------
+% Resume in Latex
+% Author : Jake Gutierrez
+% Based off of: https://github.com/sb2nov/resume
+% License : MIT
+%------------------------
+
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\input{glyphtounicode}
+
+
+%----------FONT OPTIONS----------
+% sans-serif
+% \usepackage[sfdefault]{FiraSans}
+% \usepackage[sfdefault]{roboto}
+% \usepackage[sfdefault]{noto-sans}
+% \usepackage[default]{sourcesanspro}
+
+% serif
+% \usepackage{CormorantGaramond}
+% \usepackage{charter}
+
+
+\pagestyle{fancy}
+\fancyhf{} % clear all header and footer fields
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Adjust margins
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.5in}
+\addtolength{\textheight}{1.0in}
+
+\urlstyle{same}
+
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Sections formatting
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+% Ensure that generate pdf is machine readable/ATS parsable
+\pdfgentounicode=1
+
+%-------------------------
+% Custom commands
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    {#1 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubSubheading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \textit{\small#1} & \textit{\small #2} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeProjectHeading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \small#1 & #2 \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubItem}[1]{\resumeItem{#1}\vspace{-4pt}}
+
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+%-------------------------------------------
+%%%%%%  RESUME STARTS HERE  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+%----------HEADING----------
+% \begin{tabular*}{\textwidth}{l@{\extracolsep{\fill}}r}
+%   \textbf{\href{http://sourabhbajaj.com/}{\Large Sourabh Bajaj}} & Email : \href{mailto:sourabh@sourabhbajaj.com}{sourabh@sourabhbajaj.com}\\
+%   \href{http://sourabhbajaj.com/}{http://www.sourabhbajaj.com} & Mobile : +1-123-456-7890 \\
+% \end{tabular*}
+
+\begin{center}
+    \textbf{\Huge \scshape Luis Vegas} \\ \vspace{1pt}
+    \small (+58) 416-621-3500 $|$ \href{mailto:x@x.com}{\underline{luisvegasmor@gmail.com}} $|$
+    \href{https://linkedin.com/in/luisvsg}{\underline{linkedin.com/in/luisvsg}} $|$
+    \href{https://github.com/luisvgs}{\underline{github.com/luisvgs}}
+\end{center}
+
+
+%-----------EDUCATION-----------
+\section{Education}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {Universidad Bicentenaria de Aragua}{Miranda, Venezuela}
+      {BSc in Systems Engineering}{2016 -- 2021}
+  \resumeSubHeadingListEnd
+
+%-----------EXPERIENCE-----------
+\section{Experience}
+  \resumeSubHeadingListStart
+
+    \resumeSubheading
+      {Full Stack Engineer}{2021 -- Present}
+      {Sitio Uno}{Caracas, Venezuela}
+      \resumeItemListStart
+        \resumeItem{Developed a web application using React and ThreeJS to schedule a demo for users whom wants to try the employer's product.}
+        \resumeItem{Developed a full stack MERN application that serves as both
+        landing page portfolio and platform in which users can apply for vacancies.}
+        \resumeItem{Developed a MERN application in which users can share their memories after they pass away with a public
+        or private friend circle, and also perform payments for subscriptions.}
+        \resumeItem{Mantained, deployed and contributed to new features for my employer's applications.}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {Backend Engineer Intern}{2020}
+      {Vikua}{Caracas, Venezuela}
+      \resumeItemListStart
+        \resumeItem{Maintained, documented and refactored my employer's Ruby based application}
+        \resumeItem{I obtained invaluable software development experience, as well as agile practices from the engineering team and my mentor.}
+      \resumeItemListEnd
+
+  \resumeSubHeadingListEnd
+
+
+%-----------PROJECTS-----------
+\section{Projects}
+    \resumeSubHeadingListStart
+      \resumeProjectHeading
+          {\textbf{Marta} $|$ \emph{Rust}}{}
+          \resumeItemListStart
+            \resumeItem{A statically-typed programming language with functional programming features: \href{https://github.com/luisvgs/martta}{\underline{github.com/luisvgs/martta}}}
+    \resumeItemListEnd
+    \resumeProjectHeading
+          {\textbf{Evidence} $|$ \emph{Scala, Akka}}{}
+          \resumeItemListStart
+            \resumeItem{A CLI tool for easily tracking and visualizing the latest bugs
+        reported: \href{https://github.com/luisvgs/evidence}{\underline{github.com/luisvgs/evidence}}}
+    \resumeItemListEnd
+    \resumeProjectHeading
+          {\textbf{Vimer} $|$ \emph{Rust, Tokyo, Twitter API}}{}
+          \resumeItemListStart
+            \resumeItem{A Telegram client that fetches tips and tweets from VimTricks on Twitter. It is possible to
+            visualize the data from the terminal as well if needed:
+        \href{https://github.com/luisvgs/vimers}{\underline{github.com/luisvgs/vimers}}}
+    \resumeItemListEnd
+    \resumeProjectHeading
+          {\textbf{Nocion} $|$ \emph{Rust, Tokyo, Notion API}}{}
+          \resumeItemListStart
+            \resumeItem{A wrapper library around the NotionAPI for easy page and database handling:
+            \href{https://github.com/luisvgs/nocion}{\underline{github.com/luisvgs/nocion}}}
+    \resumeItemListEnd
+    \resumeSubHeadingListEnd
+
+%
+%-----------Relevant Courses-----------
+\section{Relevant Courses}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {NestJS and MongoDB backend developer.}{}
+      {Platzi}{2023}
+    \resumeSubheading
+      {MongoDB Associate Developer.}{}
+      {Mongo University}{Currently enrolled}
+    \resumeSubheading
+      {Firebase and Google Cloud Platform.}{}
+      {Platzi}{2022}
+  \resumeSubHeadingListEnd
+
+%
+%-----------PROGRAMMING SKILLS-----------
+\section{Technical Skills}
+ \begin{itemize}[leftmargin=0.15in, label={}]
+    \small{\item{
+     \textbf{Languages}{: Rust, Scala, OCaml, Typescript, Javascript, Haskell, Python, Bash.} \\
+     \textbf{Databases}{: MongoDB, PostgreSQL, SQL} \\
+     \textbf{Developer Tools}{: Git, Docker, Kubernetes, Google Cloud Platform, Firebase, Virtual Machines, Linux environments.} \\
+    }}
+ \end{itemize}
+
+%-----------Languages-----------
+\section{Languages}
+ \begin{itemize}[leftmargin=0.15in, label={}]
+    \small{\item{
+     \textbf{Spanish: }{Native.} \\
+     \textbf{English: }{Advanced.} \\
+     \textbf{German: }{Basic.} \\
+    }}
+ \end{itemize}
+
+
+%-------------------------------------------
+\end{document}
