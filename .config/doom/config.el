@@ -1,6 +1,6 @@
 (setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 18 :weight 'Medium))
 (setq doom-modeline-height 22)
-
+(setq doom-modeline-persp-name t)
 (setq doom-theme 'doom-one)
 
 (map! :leader
@@ -8,9 +8,9 @@
       :desc "Open .dotfiles folder"
       :n "p" #'dired "$HOME/.dotfiles/.config")
 
+(use-package! request)
 (setq display-line-numbers-type 'relative)
-(after! doom-modeline
-  (setq doom-modeline-persp-name t))
+
 (setq so-long-minor-mode t)
 (setq initial-major-mode (quote fundamental-mode))
 (setq org-directory "~/org/")
@@ -23,19 +23,20 @@
   (setq which-key-idle-delay 0.5))
 
 (setq-default
- delete-by-moving-to-trash t                      ; Delete files to trash
- window-combination-resize t                      ; take new window space from all other windows (not just current)
- x-stretch-cursor t)                              ; Stretch cursor to the glyph width
+ delete-by-moving-to-trash t
+ window-combination-resize t
+ x-stretch-cursor t)
 
-(display-time-mode 1)                             ; Enable time in the mode-line
-
-(unless (string-match-p "^Power N/A" (battery))   ; On laptops...
-  (display-battery-mode 1))                       ; it's nice to know how much power you have
-(global-subword-mode 1)
+(display-time-mode 1)
+(setq doom-modeline-time nil)
+;; (unless (string-match-p "^Power N/A" (battery))
+;;   (display-battery-mode 1))
+;; (global-subword-mode 1)
 
 (use-package! lsp-mode
   :hook
   (rustic-mode . lsp)
+  (javascript-mode. lsp)
   (rust-mode . lsp)
   :commands lsp
   :custom
@@ -71,6 +72,7 @@
 
 (use-package! magit
   :commands magit-status)
+
 (use-package! vterm :commands vterm)
 
 (use-package! company
@@ -78,7 +80,6 @@
   :diminish
   :hook (lsp-mode . company-mode))
 
-(setq rustic-indent-offset 2)
 (use-package! tree-sitter
   :config
   (global-tree-sitter-mode)
