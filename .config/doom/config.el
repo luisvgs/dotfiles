@@ -1,15 +1,17 @@
 (setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 18 :weight 'Medium))
-(setq doom-modeline-height 22)
-(setq doom-modeline-persp-name t)
+(setq doom-modeline-height 28)
 (setq doom-theme 'doom-one)
+(setq doom-modeline-time nil)
+(display-time-mode nil)
 
 (map! :leader
       :prefix "o"
       :desc "Open .dotfiles folder"
       :n "p" #'dired "$HOME/.dotfiles/.config")
 
-(use-package! request)
 (setq display-line-numbers-type 'relative)
+
+;; (setq doom-modeline-persp-name t)
 
 (setq so-long-minor-mode t)
 (setq initial-major-mode (quote fundamental-mode))
@@ -27,8 +29,6 @@
  window-combination-resize t
  x-stretch-cursor t)
 
-(display-time-mode 1)
-(setq doom-modeline-time nil)
 ;; (unless (string-match-p "^Power N/A" (battery))
 ;;   (display-battery-mode 1))
 ;; (global-subword-mode 1)
@@ -81,6 +81,36 @@
   :hook (lsp-mode . company-mode))
 
 (use-package! tree-sitter
+  :after lsp-mode
   :config
   (global-tree-sitter-mode)
   (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode))
+
+(setq evil-vsplit-window-right t
+      evil-split-window-below t)
+
+(defadvice! prompt-for-buffer (&rest _)
+  :after '(evil-window-split evil-window-vsplit)
+  (consult-buffer))
+
+(map! :map evil-window-map
+      "SPC" #'rotate-layout
+      "<left>"     #'evil-window-left
+      "<down>"     #'evil-window-down
+      "<up>"       #'evil-window-up
+      "<right>"    #'evil-window-right
+      "C-<left>"       #'+evil/window-move-left
+      "C-<down>"       #'+evil/window-move-down
+      "C-<up>"         #'+evil/window-move-up
+      "C -<right>"      #'+evil/window-move-right)
+
+
+(map! "C-c C-c" #'keyboard-quit)
+
+;; (use-package! edwina
+;;   :config
+;;   (setq display-buffer-base-action '(display-buffer-below-selected))
+;;   (edwina-setup-dwm-keys)
+;;   (edwina-mode 1))
+
+;; (use-package! request)

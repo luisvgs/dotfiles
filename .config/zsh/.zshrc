@@ -25,9 +25,10 @@ alias drt='dune runtest'
 alias ltxw='latexmk -pdf -pvc'
 
 alias sz="source $HOME/.config/zsh/.zshrc"
-alias doom="$HOME/.emacs.d/bin/doom"
+alias doom="$HOME/.config/emacs/bin/doom"
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/.bare/ --work-tree=$HOME'
-alias e='emacs'
+alias e='emacsclient -c'
+alias emacs='emacsclient -c'
 alias v='nvim'
 alias vim='nvim'
 alias vim-home="$HOME/.config/nvim"

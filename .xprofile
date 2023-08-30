@@ -29,6 +29,7 @@ while true; do
 done &
 
 feh --no-fehbg --bg-fill ~/Pictures/comment.png &
+emacs --daemon &
 redshift -O 4500 &
 nm-applet &
 
