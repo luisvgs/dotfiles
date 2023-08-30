@@ -1,0 +1,180 @@
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\input{glyphtounicode}
+
+
+
+
+\pagestyle{fancy}
+\fancyhf{} % clear all header and footer fields
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Adjust margins
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.5in}
+\addtolength{\textheight}{1.0in}
+
+\urlstyle{same}
+
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+\pdfgentounicode=1
+
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    {#1 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubSubheading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \textit{\small#1} & \textit{\small #2} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeProjectHeading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \small#1 & #2 \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubItem}[1]{\resumeItem{#1}\vspace{-4pt}}
+
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+
+\begin{document}
+
+\begin{center}
+    \textbf{\Huge \scshape Luis Vegas} \\ \vspace{1pt}
+    \small (+58) 416-621-3500 $|$ \href{mailto:x@x.com}{\underline{luisvegasmor@gmail.com}} $|$
+    \href{https://linkedin.com/in/luisvsg}{\underline{linkedin.com/in/luisvsg}} $|$
+    \href{https://github.com/luisvgs}{\underline{github.com/luisvgs}}
+\end{center}
+
+
+\section{Education}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {Universidad Bicentenaria de Aragua}{Miranda, Venezuela}
+      {BSc in Systems Engineering}{2016 -- 2021}
+  \resumeSubHeadingListEnd
+
+\section{Erleben sie}
+  \resumeSubHeadingListStart
+
+\resumeSubheading
+  {Full Stack Entwickler}{2021 -- Gegenwart}
+  {Sitio Uno}{Caracas, Venezuela}
+  \resumeItemListStart
+    \resumeItem{Entwickelte einer Webanwendung, in der die Nutzer eine Demo planen können, um die Produkte des Arbeitgebers auszuprobieren, nach Stellen zu suchen und sich zu bewerben.}
+    \resumeItem{Ich habe an der Entwicklung einer Anwendung mitgewirkt, die es Nutzern ermöglicht, ihre Erinnerungen zu bewahren und posthum mit einem ausgewählten Netzwerk von Freunden zu teilen. Ich habe eine sichere Zahlungsfunktionalität implementiert, um Abonnementdienste zu erleichtern.}
+    \resumeItem{Aktive Mitwirkung an der Modernisierung unserer bestehenden Infrastruktur durch die Entwicklung neuer und die Verbesserung bestehender Microservices.}
+  \resumeItemListEnd
+
+\resumeSubheading
+  {Backend Entwickler Praktikant}{2020}
+  {Vikua}{Caracas, Venezuela}
+  \resumeItemListStart
+    \resumeItem{Ich habe neue Funktionen für die nächste größere Version des Produkts meines Arbeitgebers, einer Ruby on Rails-Anwendung, implementiert.}
+    \resumeItem{Das Ingenieurteam und mein Mentor vermittelten mir unschätzbare Erfahrungen in der Softwareentwicklung und in der Anwendung agiler Methoden.}
+  \resumeItemListEnd
+
+\resumeSubHeadingListEnd
+
+
+\section{Projekte}
+    \resumeSubHeadingListStart
+      \resumeProjectHeading
+ {\textbf{Marta} $|$ \emph{Rust}}{}
+          \resumeItemListStart
+            \resumeItem{Eine statische Programmiersprache mit funktionalen Programmiereingeschaften: \href{https://github.com/luisvgs/martta}{\underline{github.com/luisvgs/martta}}}
+    \resumeItemListEnd
+    \resumeProjectHeading
+ {\textbf{Evidence} $|$ \emph{Scala, Akka}}{}
+          \resumeItemListStart
+            \resumeItem{Ein Tool zur einfachen Verfolgung und Visualisierung der zuletzt gemeldeten Bugs: \href{https://github.com/luisvgs/evidence}{\underline{github.com/luisvgs/evidence}}}
+    \resumeItemListEnd
+    \resumeProjectHeading
+{\textbf{Vimer} $|$ \emph{Rust, Tokyo, Twitter API}}{}
+          \resumeItemListStart
+            \resumeItem{Ein Telegram-Client, der Informationen aus VimTricks auf Twitter extrahiert. Bei Bedarf ist es auch möglich, die Daten vom Terminal aus zu visualisieren:
+        \href{https://github.com/luisvgs/vimers}{\underline{github.com/luisvgs/vimers}}}
+    \resumeItemListEnd
+    \resumeProjectHeading
+{\textbf{Nocion} $|$ \emph{Rust, Tokyo, Notion API}}{}
+          \resumeItemListStart
+          \resumeItem{Eine Wrapper um die Notion API zur einfachen handhabung von Databanken und Seiten:     \href{https://github.com/luisvgs/nocion}{\underline{github.com/luisvgs/nocion}}}
+    \resumeItemListEnd
+    \resumeSubHeadingListEnd
+
+\section{Relevante Kurse}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {NestJS and MongoDB backend developer}{\footnotesize Platzi}
+      {\footnotesize \upshape NestJS und MongoDB backend Entwickler}{2023}
+    \resumeSubheading
+      {MongoDB Associate Developer.}{\footnotesize Mongo University}
+      {\footnotesize \upshape MongoDB Assistenzentwickler}{2023}
+    \resumeSubheading
+      {Firebase and Google Cloud Platform.}{\footnotesize Platzi}
+      {\footnotesize \upshape Firebase und Google Cloud Platform Assistenzentwickler}{2022}
+  \resumeSubHeadingListEnd
+
+\section{Technische Fähigkeiten}
+\begin{itemize}[leftmargin=0.15in, label={}]
+   \small{\item{
+    \textbf{Programmiersprachen}{: Rust, OCaml, Typescript, Javascript, Scala, Haskell, Python, Bash.} \\
+    \textbf{Datenbanken}{: MongoDB, PostgreSQL, SQL} \\
+    \textbf{Entwicklertools}{: Git, Docker, Kubernetes, Google Cloud Platform, Firebase, Virtual Machines, Linux environments.} \\
+   }}
+\end{itemize}
+
+\section{Sprachen}
+\begin{itemize}[leftmargin=0.15in, label={}]
+   \small{\item{
+    \textbf{Spanisch: }{Muttersprachler.} \\
+    \textbf{Englisch: }{Fortgeschrittenes Niveau.} \\
+    \textbf{Deutsch: }{Einfaches Sprachniveau.} \\
+   }}
+\end{itemize}
+
+
+\end{document}
+\end{document}

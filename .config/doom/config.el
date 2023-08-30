@@ -2,8 +2,11 @@
 (setq doom-modeline-height 28)
 (setq doom-theme 'doom-one)
 (setq doom-modeline-time nil)
-(display-time-mode nil)
 
+(custom-set-faces!
+  '(doom-modeline-buffer-modified :foreground "orange"))
+(display-time-mode nil)
+(latex-preview-pane-enable)
 (map! :leader
       :prefix "o"
       :desc "Open .dotfiles folder"
