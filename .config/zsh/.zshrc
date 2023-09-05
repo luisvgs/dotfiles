@@ -27,8 +27,13 @@ alias ltxw='latexmk -pdf -pvc'
 alias sz="source $HOME/.config/zsh/.zshrc"
 alias doom="$HOME/.config/emacs/bin/doom"
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/.bare/ --work-tree=$HOME'
+
+#emacs
 alias e='emacsclient -c'
-alias emacs='emacsclient -c'
+alias emacs='emacsclient -nw'
+alias emacs-server='systemctl start --user emacs'
+alias emacs-server-stop="emacsclient -e '(kill-emacs)'"
+
 alias v='nvim'
 alias vim='nvim'
 alias vim-home="$HOME/.config/nvim"

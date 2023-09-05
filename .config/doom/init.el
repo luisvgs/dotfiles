@@ -1,27 +1,21 @@
 (doom! :input
-       ;;bidi              ; (tfel ot) thgir etirw uoy gnipleh
-       ;;chinese
-       ;;japanese
-       ;;layout            ; auie,ctsrnm is the superior home row
-
        :completion
-       company           ; the ultimate code completion backend
+       ( company )           ; the ultimate code completion backend
        ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
        ( vertico +icons)           ; the search engine of the future
-
        :ui
        ;;deft              ; notational velocity for Emacs
        doom              ; what makes DOOM look the way it does
-       ;; doom-dashboard    ; a nifty splash screen for Emacs
+       doom-dashboard    ; a nifty splash screen for Emacs
        ;; doom-quit         ; DOOM quit-message prompts when you quit Emacs
        ;;(emoji +unicode)  ; 🙂
-       hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
+       ;; hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
        ;;hydra
-       indent-guides     ; highlighted indent columns
+       ;; indent-guides     ; highlighted indent columns
        ( ligatures)         ; ligatures and symbols to make your code pretty again
        ;;minimap           ; show a map of the code on the side
-       ( modeline +light)          ; snazzy, Atom-inspired modeline, plus API
+       ( modeline )          ; snazzy, Atom-inspired modeline, plus API
        ;;nav-flash         ; blink cursor line after big motions
        ;;neotree           ; a project drawer, like NERDTree for vim
        ophints           ; highlight the region an operation acts on
@@ -34,7 +28,6 @@
        window-select     ; visually switch windows
        workspaces        ; tab emulation, persistence & separate workspaces
        ;;zen               ; distraction-free coding or writing
-
        :editor
        (evil +everywhere); come to the dark side, we have cookies
        ;; file-templates    ; auto-snippets for empty files
@@ -52,21 +45,18 @@
        :emacs
        (dired +icons)             ; making dired pretty [functional]
        ;; electric          ; smarter, keyword-based electric-indent
-       ;;ibuffer         ; interactive buffer management
+       ( ibuffer +icons)         ; interactive buffer management
        undo              ; persistent, smarter undo for your inevitable mistakes
        vc                ; version-control and Emacs, sitting in a tree
-
        :term
        ;;eshell            ; the elisp shell that works everywhere
        ;;shell             ; simple shell REPL for Emacs
        ;;term              ; basic terminal emulator for Emacs
        vterm             ; the best terminal emulation in Emacs
-
        :checkers
        syntax              ; tasing you for every semicolon you forget
        ;;(spell +flyspell) ; tasing you for misspelling mispelling
        ;;grammar           ; tasing grammar mistake every you make
-
        :tools
        ;;ansible
        ;;biblio            ; Writes a PhD for you (citation needed)
@@ -91,11 +81,9 @@
        ;; tmux              ; an API for interacting with tmux
        tree-sitter       ; syntax and parsing, sitting in a tree...
        ;;upload            ; map local to remote projects via ssh/ftp
-
        :os
        ;; (:if IS-MAC macos)  ; improve compatibility with macOS
        ;; tty               ; improve the terminal Emacs experience
-
        :lang
        ;;agda              ; types of types of types of types...
        ;;beancount         ; mind the GAAP
@@ -151,7 +139,7 @@
        (rust +lsp)       ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
        ;;scala             ; java, but good
        ;;(scheme +guile)   ; a fully conniving family of lisps
-       ;; sh                ; she sells {ba,z,fi}sh shells on the C xor
+       sh                ; she sells {ba,z,fi}sh shells on the C xor
        ;;sml
        ;;solidity          ; do you need a blockchain? No.
        ;;swift             ; who asked for emoji variables?
@@ -159,12 +147,10 @@
        ;;web               ; the tubes
        ;;yaml              ; JSON, but readable
        ;;zig               ; C, but simpler
-
        :email
        ;;(mu4e +org +gmail)
        ;;notmuch
        ;;(wanderlust +gmail)
-
        :app
        ;;calendar
        ;;emms
@@ -172,7 +158,6 @@
        ;;irc               ; how neckbeards socialize
        ;;(rss +org)        ; emacs as an RSS reader
        ;;twitter           ; twitter client https://twitter.com/vnought
-
        :config
        ;;literate
        (default +bindings +smartparens))
