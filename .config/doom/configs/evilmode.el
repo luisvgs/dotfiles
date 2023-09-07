@@ -11,3 +11,6 @@
 
 (setq evil-vsplit-window-right t
       evil-split-window-below t)
+
+(map! :map evil-normal-state-map "C-j" #'next-buffer)
+(map! :map evil-normal-state-map "C-k" #'previous-buffer)

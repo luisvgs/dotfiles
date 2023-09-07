@@ -4,29 +4,17 @@
 (use-package! doom)
 (setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 18 :weight 'Medium))
 (setq doom-theme 'doom-one)
-
-
 (setq ibuffer-show-empty-filter-groups nil)
 (setq use-package-compute-statistics t)
-
-(global-set-key (kbd "C-x C-b") 'ibuffer)
-
-(use-package! latex-preview-pane-enable :after latex-mode :hook (latex-mode . lsp))
-(map! :leader
-      :prefix "o"
-      :desc "Open .dotfiles folder"
-      :n "p" #'dired "$HOME/.dotfiles/.config")
-
 (setq display-line-numbers-type 'relative)
-
+(global-set-key (kbd "C-x C-b") 'ibuffer)
 (setq so-long-minor-mode t)
 (setq initial-major-mode (quote fundamental-mode))
-(setq org-directory "~/org/")
-
 (setq-default
  delete-by-moving-to-trash t
  window-combination-resize t
  x-stretch-cursor t)
+
 
 (after! persp-mode
   (setq persp-emacsclient-init-frame-behaviour-override "main")
@@ -41,7 +29,17 @@
   :after '(evil-window-split evil-window-vsplit)
   (consult-buffer))
 
+(map! :leader
+      :prefix "o"
+      :desc "Open .dotfiles folder"
+      :n "p" #'dired "$HOME/.dotfiles/.config")
 
+(map! :leader
+      :desc "Perform Rg search"
+      "r g" #'counsel-rg)
+
+
+(use-package! latex-preview-pane-enable :after latex-mode :hook (latex-mode . lsp))
 (load! "configs/doom-modeline")
 (load! "configs/which-key")
 (load! "configs/lsp")
