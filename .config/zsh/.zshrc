@@ -67,6 +67,7 @@ alias cb='cargo build'
 alias sw-qa='cd v2-qa && git rebase v2 && gp && cd ..'
 alias sw-dev='cd v2-dev && git rebase v2 && gp && cd ..'
 alias pt='prettier --write "**/*.jsx"'
+alias ptt='prettier --write "**/*.js"'
 
 # Docker
 alias dk='sudo docker kill'
