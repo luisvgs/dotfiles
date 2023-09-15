@@ -29,10 +29,10 @@ alias doom="$HOME/.config/emacs/bin/doom"
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/.bare/ --work-tree=$HOME'
 
 #emacs
-alias e='emacsclient -c'
-alias emacs='emacsclient -nw'
-alias emacs-server='systemctl start --user emacs'
-alias emacs-server-stop="emacsclient -e '(kill-emacs)'"
+alias emacs='emacsclient -c'
+alias e='emacsclient -nw'
+alias es='systemctl start --user emacs'
+alias est="emacsclient -e '(kill-emacs)'"
 
 alias v='nvim'
 alias vim='nvim'
