@@ -2,19 +2,9 @@
       user-mail-address "luisvegasmor@gmail.com")
 
 (use-package! doom)
-(setq doom-big-font (font-spec :family "JetBrainsMono Nerd Font" :size 24 :weight 'Medium)
-      doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 18 :weight 'SemiBold)
+(setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 18 :weight 'SemiBold)
       doom-theme 'doom-one
       display-line-numbers-type 'relative)
-
-;; (use-package! modus-themes
-;;   :config
-;;   (setq modus-vivendi-tinted-palette-overrides
-;;         '(
-;;           (bg-main "#0f0e0e")
-;;           (bg-dim "#0f0e0e")
-;;           )))
-;; (setq doom-theme 'modus-vivendi-tinted)
 
 (setq use-package-compute-statistics t)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
@@ -61,3 +51,4 @@
 (load! "configs/vterm")
 (load! "configs/treesitter")
 ;; (load! "configs/eglot")
+(add-to-list 'image-types 'gif)

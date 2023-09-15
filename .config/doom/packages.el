@@ -1,5 +1,5 @@
 (package! latex-preview-pane)
-(disable-packages! modus-themes nerd-icons nodejs-repl coffee-mode skewer-mode)
+(disable-packages! nerd-icons nodejs-repl coffee-mode skewer-mode)
 (package! doom-modeline :pin "6125309c2caa")
 (package! lean4-mode :disable t
   :recipe

@@ -3,6 +3,7 @@
   (rustic-mode . lsp)
   (json-mode . lsp)
   (sh-mode . lsp)
+  (scala-mode . lsp)
   (typescript-mode . lsp)
   (latex-mode . lsp)
   (LaTeX-mode . lsp)
