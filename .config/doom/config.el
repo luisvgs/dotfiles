@@ -3,12 +3,14 @@
 
 (use-package! doom)
 (setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 18 :weight 'SemiBold)
+      ;; doom-theme 'doom-solarized-dark-high-contrast
       doom-theme 'doom-one
+      use-package-compute-statistics t
+      so-long-minor-mode t
+      split-width-threshold 10
       display-line-numbers-type 'relative)
 
-(setq use-package-compute-statistics t)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
-(setq so-long-minor-mode t)
 (setq initial-major-mode (quote fundamental-mode))
 (setq-default
  delete-by-moving-to-trash t
