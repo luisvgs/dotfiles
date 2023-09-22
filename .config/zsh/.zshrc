@@ -79,9 +79,10 @@ alias docker-clean='docker rmi $(docker images --filter "dangling=true" -q --no-
 
 
 # Monitor management
+# alias dual='xrandr --output HDMI-2 --mode 2560x1080 --same-as eDP-1 && xrandr --output eDP-1 --off'
 alias dual='xrandr --output HDMI-2 --mode 1920x1080 --same-as eDP-1 && xrandr --output eDP-1 --off'
 alias monitor-on='xrandr --output eDP-1 --auto'
-# alias dual='xrandr --output HDMI-2 --mode 1920x1080 --same-as eDP-1'
+# alias dual='xrandr --output HDMI-2 --mode 2560x1080 --same-as eDP-1'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 

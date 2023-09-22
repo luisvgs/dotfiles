@@ -7,11 +7,14 @@
       doom-theme 'doom-one
       use-package-compute-statistics t
       so-long-minor-mode t
+      which-key-idle-delay 0.3
+      vterm-always-compile-module t
+      initial-major-mode (quote fundamental-mode)
       split-width-threshold 10
       display-line-numbers-type 'relative)
 
+(setq +ivy-buffer-preview t)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
-(setq initial-major-mode (quote fundamental-mode))
 (setq-default
  delete-by-moving-to-trash t
  window-combination-resize t

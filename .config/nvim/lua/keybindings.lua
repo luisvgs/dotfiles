@@ -42,6 +42,8 @@ map("n", "<C-w>", ":bprevious<cr>")
 map("n", "<C-e>", ":bnext<cr>")
 map("n", "<C-q>", ":q<cr>")
 
+
+map("i", "jk", "<ESC>")
 -- Copy and paste
 map("n", "p", "gp")
 map("n", "P", "gP")

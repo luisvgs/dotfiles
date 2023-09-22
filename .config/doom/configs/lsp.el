@@ -30,6 +30,7 @@
   (setq lsp-rust-analyzer-display-reborrow-hints nil))
 
 (after! lsp-ui
+  :hook lsp-mode
   :config
   (setq lsp-eldoc-enable-hover nil)
   (setq eldoc-documentation-functions nil)
