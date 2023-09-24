@@ -13,7 +13,9 @@
       split-width-threshold 10
       display-line-numbers-type 'relative)
 
-(setq +ivy-buffer-preview t)
+(advice-add #'add-node-modules-path :override #'ignore)
+
+;; (setq +ivy-buffer-preview t)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 (setq-default
  delete-by-moving-to-trash t
@@ -40,7 +42,7 @@
 
 (map! :leader
       :desc "Perform Rg search"
-      "r g" #'counsel-rg)
+      "r g" #'+ivy/project-search)
 
 ;; (use-package! lean4-mode
 ;;   :commands (lean4-mode)

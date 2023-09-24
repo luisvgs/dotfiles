@@ -8,6 +8,7 @@
   (latex-mode . lsp)
   (LaTeX-mode . lsp)
   (javascript-mode . lsp)
+  (tuareg-mode . lsp)
   (js2-mode . lsp)
   (rjsx-mode . lsp)
   (rust-mode . lsp)
@@ -29,8 +30,8 @@
   (setq lsp-rust-analyzer-display-parameter-hints nil)
   (setq lsp-rust-analyzer-display-reborrow-hints nil))
 
-(after! lsp-ui
-  :hook lsp-mode
+(use-package! lsp-ui
+  :hook (lsp-mode . lsp-ui-mode)
   :config
   (setq lsp-eldoc-enable-hover nil)
   (setq eldoc-documentation-functions nil)
@@ -40,5 +41,4 @@
   (setq lsp-ui-peek-always-show nil)
   (setq lsp-eldoc-render-all nil)
   (setq lsp-eldoc-enable-hover nil)
-  (setq lsp-ui-doc-enable nil)
-  )
+  (setq lsp-ui-doc-enable nil))
