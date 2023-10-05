@@ -1,11 +1,13 @@
 export PATH="~/.cargo/bin:$PATH"
 export PATH="$HOME/.npm-global/bin:$PATH"
+export PATH="/opt/idea-IC-232.9559.62/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export READER='zathura'
 export EDITOR='nvim'
 BLK="04" CHR="04" DIR="04" EXE="00" REG="00" HARDLINK="00" SYMLINK="06" MISSING="00" ORPHAN="01" FIFO="0F" SOCK="0F" OTHER="02"
 export NNN_FCOLORS="$BLK$CHR$DIR$EXE$REG$HARDLINK$SYMLINK$MISSING$ORPHAN$FIFO$SOCK$OTHER"
 
+alias idea='idea.sh'
 # Scala
 alias sc='scala-cli run'
 alias sn='scala-helper $@'
