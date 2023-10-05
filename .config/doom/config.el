@@ -4,7 +4,8 @@
 (use-package! doom)
 (setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 18 :weight 'SemiBold)
       ;; doom-theme 'doom-solarized-dark-high-contrast
-      doom-theme 'doom-one
+      ;; doom-theme 'doom-one
+      doom-theme 'doom-wilmersdorf
       use-package-compute-statistics t
       so-long-minor-mode t
       which-key-idle-delay 0.3
