@@ -9,8 +9,16 @@
       "C-<up>"         #'+evil/window-move-up
       "C -<right>"      #'+evil/window-move-right)
 
-(setq evil-vsplit-window-right t
-      evil-split-window-below t)
+(map! :map evil-window-map
+      :leader
+      :prefix "w"
+      :desc "evil-window-increase-width" "," (cmd! (evil-window-increase-width 20))
+      :desc "evil-window-decrease-width" "." (cmd! (evil-window-decrease-width 20))
+      :desc "evil-window-increase-height" "'" (cmd! (evil-window-increase-height 5))
+      :desc "evil-window-decrease-height" ";" (cmd! (evil-window-decrease-height 5)))
 
 (map! :map evil-normal-state-map "C-j" #'next-buffer)
 (map! :map evil-normal-state-map "C-k" #'previous-buffer)
+
+(setq evil-vsplit-window-right t
+      evil-split-window-below t)
