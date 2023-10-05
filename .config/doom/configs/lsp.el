@@ -15,6 +15,7 @@
   :commands lsp
   :config
   (setq lsp-rust-analyzer-cargo-watch-command "clippy")
+  (setq lsp-log-io nil)
   (setq lsp-eldoc-render-all nil)
   (setq lsp-inlay-hint-enable nil)
   (setq lsp-lens-enable nil)
