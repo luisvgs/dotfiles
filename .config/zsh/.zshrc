@@ -36,6 +36,9 @@ alias e='emacsclient -nw'
 alias es='systemctl start --user emacs'
 alias est="emacsclient -e '(kill-emacs)'"
 
+alias ssql='systemctl start mysqld'
+alias lsql='mysql -u root -p'
+
 alias v='nvim'
 alias vim='nvim'
 alias vim-home="$HOME/.config/nvim"
