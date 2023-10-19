@@ -1,9 +1,9 @@
 (after! doom-modeline
   :config
-  (setq doom-modeline-height 16)
-  (setq doom-modeline-time nil)
-  (setq doom-modeline-workspace-name t)
-  (setq doom-modeline-persp-name t)
+  (setq doom-modeline-height 22
+        doom-modeline-time nil
+        doom-modeline-battery t
+        doom-modeline-workspace-name t
+        doom-modeline-persp-name t)
   (custom-set-faces!
-    '(doom-modeline-buffer-modified :foreground "orange"))
-  )
+    '(doom-modeline-buffer-modified :foreground "orange")))
