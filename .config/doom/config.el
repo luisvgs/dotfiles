@@ -3,42 +3,24 @@
 
 (use-package! doom)
 (setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 18 :weight 'SemiBold)
+      doom-theme 'ef-dark
       ;; doom-theme 'doom-solarized-dark-high-contrast
       ;; doom-theme 'modus-vivendi-deuteranopia
       ;; doom-theme 'doom-one
-      doom-theme 'ef-dark
+      ;; doom-theme 'doom-zenburn
+      ;; doom-theme 'doom-tomorrow-night
+      ;; doom-theme 'ef-winter
       ;; doom-theme 'doom-wilmersdorf
       use-package-compute-statistics t
+                                        ; display-battery-mode t
       so-long-minor-mode t
       which-key-idle-delay 0.3
       vterm-always-compile-module t
       initial-major-mode (quote fundamental-mode)
       display-line-numbers-type 'relative)
 
-(add-hook 'window-setup-hook #'toggle-frame-fullscreen)
-
-(defun my-weebery-is-always-greater ()
-  (let* ((banner '(
-  "______ _____ ____ ___ ___"
-  "`  _  V  _  V  _ \\|  V  ´"
-  "| | | | | | | | | |     |"
-  "| | | | | | | | | | . . |"
-  "| |/ / \\ \\| | |/ /\\ |V| |"
-  "|   /   \\__/ \\__/  \\| | |"
-  "|  /                ' | |"
-  "| /     E M A C S     \\ |"
-  "´´                     ``"))
-         (longest-line (apply #'max (mapcar #'length banner))))
-    (put-text-property
-     (point)
-     (dolist (line banner (point))
-       (insert (+doom-dashboard--center
-                +doom-dashboard--width
-                (concat line (make-string (max 0 (- longest-line (length line))) 32)))
-               "\n"))
-     'face 'doom-dashboard-banner)))
-
-(setq +doom-dashboard-ascii-banner-fn #'my-weebery-is-always-greater)
+;; (add-hook 'window-setup-hook #'toggle-frame-fullscreen)
+                                        ; (fset 'battery-update #'ignore)
 
 (advice-add #'add-node-modules-path :override #'ignore)
 
@@ -71,15 +53,19 @@
       :desc "Perform Rg search"
       "r g" #'+ivy/project-search)
 
+(map! :g "C-z" #'undo)
+
+(add-to-list 'image-types 'gif)
 (use-package! latex-preview-pane-enable :after latex-mode :hook (latex-mode . lsp))
+
 (load! "configs/doom-modeline")
 (load! "configs/which-key")
-(load! "configs/lsp")
 (load! "configs/evilmode")
 (load! "configs/company")
 (load! "configs/magit")
 (load! "configs/vterm")
 (load! "configs/treesitter")
 (load! "configs/org")
-;; (load! "configs/eglot")
-(add-to-list 'image-types 'gif)
+(load! "configs/eglot")
+(load! "configs/+dashboard")
+;; (load! "configs/lsp")
