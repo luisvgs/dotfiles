@@ -3,7 +3,7 @@
 
 (use-package! doom)
 (setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 18 :weight 'SemiBold)
-      doom-theme 'ef-dark
+      ;; doom-theme 'ef-dark
       ;; doom-theme 'doom-solarized-dark-high-contrast
       ;; doom-theme 'modus-vivendi-deuteranopia
       ;; doom-theme 'doom-one
@@ -11,20 +11,22 @@
       ;; doom-theme 'doom-tomorrow-night
       ;; doom-theme 'ef-winter
       ;; doom-theme 'doom-wilmersdorf
+      doom-theme 'doom-flatwhite
       use-package-compute-statistics t
-                                        ; display-battery-mode t
+      auto-save-default t
       so-long-minor-mode t
       which-key-idle-delay 0.3
       vterm-always-compile-module t
       initial-major-mode (quote fundamental-mode)
       display-line-numbers-type 'relative)
 
-;; (add-hook 'window-setup-hook #'toggle-frame-fullscreen)
-                                        ; (fset 'battery-update #'ignore)
+(add-hook 'window-setup-hook #'toggle-frame-fullscreen)
+(unless (equal "Battery status not available"
+               (battery))
+  (display-battery-mode 1))
 
 (advice-add #'add-node-modules-path :override #'ignore)
 
-;; (setq +ivy-buffer-preview t)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 (setq-default
  delete-by-moving-to-trash t
@@ -44,20 +46,6 @@
   :after '(evil-window-split evil-window-vsplit)
   (consult-buffer))
 
-(map! :leader
-      :prefix "o"
-      :desc "Open .dotfiles folder"
-      :n "p" #'dired "$HOME/.dotfiles/.config")
-
-(map! :leader
-      :desc "Perform Rg search"
-      "r g" #'+ivy/project-search)
-
-(map! :g "C-z" #'undo)
-
-(add-to-list 'image-types 'gif)
-(use-package! latex-preview-pane-enable :after latex-mode :hook (latex-mode . lsp))
-
 (load! "configs/+modeline")
 (load! "configs/+which-key")
 (load! "configs/+evilmode")
@@ -68,4 +56,7 @@
 (load! "configs/+org")
 (load! "configs/+eglot")
 (load! "configs/+dashboard")
+(load! "configs/+utility")
+(load! "configs/+keybindings")
+(load! "configs/+latex")
 ;; (load! "configs/+lsp")
