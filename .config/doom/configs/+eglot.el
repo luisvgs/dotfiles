@@ -1,5 +1,7 @@
 (use-package! eglot
   :defer t
+  :init
+  (setq eglot-autoshutdown t)
   :config
   (setq eglot-ignored-server-capabilities '(:hoverProvider :documentLinkProvider :inlayHintProvider :documentOnTypeFormattingProvider))
   (add-to-list 'eglot-server-programs '(rustic-mode "rust-analyzer"))
