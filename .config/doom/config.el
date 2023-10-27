@@ -7,12 +7,12 @@
       ;; doom-theme 'doom-solarized-dark-high-contrast
       ;; doom-theme 'modus-vivendi-deuteranopia
       ;; doom-theme 'doom-one
-      doom-theme 'doom-vibrant
+      ;; doom-theme 'doom-vibrant
       ;; doom-theme 'doom-zenburn
       ;; doom-theme 'doom-tomorrow-night
       ;; doom-theme 'ef-winter
       ;; doom-theme 'doom-wilmersdorf
-      ;; doom-theme 'doom-flatwhite
+      doom-theme 'doom-flatwhite
       use-package-compute-statistics t
       auto-save-default t
       so-long-minor-mode t
@@ -44,9 +44,9 @@
 
 (add-hook 'window-setup-hook #'toggle-frame-fullscreen)
 
-(unless (equal "Battery status not available"
-               (battery))
-  (display-battery-mode 1))
+;; (unless (equal "Battery status not available"
+;;                (battery))
+;;   (display-battery-mode 1))
 
 (advice-add #'add-node-modules-path :override #'ignore)
 
