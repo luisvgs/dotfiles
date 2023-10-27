@@ -1,6 +1,6 @@
 (after! doom-modeline
   :config
-  (setq doom-modeline-height 30
+  (setq doom-modeline-height 32
         doom-modeline-time nil
         doom-modeline-battery t
         doom-themes-padded-modeline t
