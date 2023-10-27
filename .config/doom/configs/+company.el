@@ -1,5 +1,6 @@
 (use-package! company
-  :after lsp-mode
+  :after eglot
   :diminish
-  :hook (lsp-mode . company-mode)
-  )
+  :hook (eglot . company-mode)
+  :config
+  (setq company-idle-delay 0.5))
