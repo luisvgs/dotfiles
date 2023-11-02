@@ -28,7 +28,7 @@ while true; do
    sleep 1m
 done &
 
-feh --no-fehbg --bg-fill ~/Pictures/comment.png &
+feh --no-fehbg --bg-fill ~/Pictures/dusk.jpg &
 emacs --daemon &
 redshift -O 4500 &
 nm-applet &

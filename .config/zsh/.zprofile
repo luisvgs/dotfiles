@@ -7,3 +7,5 @@ export PATH="$PATH:/home/luis/.cache/coursier/arc/https/github.com/AdoptOpenJDK/
 # >>> coursier install directory >>>
 export PATH="$PATH:/home/luis/.local/share/coursier/bin"
 # <<< coursier install directory <<<
+
+export PATH="$PATH:/home/luis/.cache/scalacli/local-repo/bin/scala-cli"

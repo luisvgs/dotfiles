@@ -21,9 +21,10 @@
  initial-major-mode (quote fundamental-mode)
  display-line-numbers-type 'relative)
 
-(add-hook 'window-setup-hook #'toggle-frame-fullscreen)
+;; (add-hook 'window-setup-hook #'toggle-frame-fullscreen)
 
 (advice-add #'add-node-modules-path :override #'ignore)
+(advice-add 'jsonrpc--log-event :override #'ignore)
 
 (setq-default
  delete-by-moving-to-trash t
