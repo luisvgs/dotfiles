@@ -5,9 +5,10 @@
  doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 18 :weight 'SemiBold)
  ;; doom-theme 'ef-dark
  ;; doom-theme 'doom-solarized-dark-high-contrast
+ doom-theme 'doom-solarized-light
  ;; doom-theme 'modus-vivendi-deuteranopia
  ;; doom-theme 'doom-one
- doom-theme 'doom-vibrant
+ ;; doom-theme 'doom-vibrant
  ;; doom-theme 'doom-zenburn
  ;; doom-theme 'doom-tomorrow-night
  ;; doom-theme 'ef-winter
@@ -21,10 +22,10 @@
  initial-major-mode (quote fundamental-mode)
  display-line-numbers-type 'relative)
 
-;; (add-hook 'window-setup-hook #'toggle-frame-fullscreen)
 
 (advice-add #'add-node-modules-path :override #'ignore)
 (advice-add 'jsonrpc--log-event :override #'ignore)
+;; (add-hook 'window-setup-hook #'toggle-frame-fullscreen)
 
 (setq-default
  delete-by-moving-to-trash t
@@ -45,5 +46,5 @@
 (load! "configs/+keybindings")
 (load! "configs/+latex")
 (load! "configs/+utility")
-;; (load! "configs/+treemacs")
+(load! "configs/+projectile")
 ;; (load! "configs/+lsp")
