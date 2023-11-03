@@ -15,7 +15,6 @@ function scala-helper() {
     echo '@main def hello: Unit = println("Hello world!")' > src/main/scala/Main.scala
     echo 'sbt.version=1.6.2' > ./project/build.properties
     echo 'name := "NewProject"
-    version := "1.8.2"
-    scalaVersion := "3.2.2"' > build.sbt
-    v src/main/scala/Main.scala
+    version := "1.9.7"
+    scalaVersion := "3.3.1"' > build.sbt
 }
