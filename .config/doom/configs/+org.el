@@ -48,3 +48,19 @@
 (use-package! org-fancy-priorities
   :defer t
   :hook (org-mode . org-fancy-priorities-mode))
+
+;; TODO conditionally change the bg depending on current theme.
+(custom-set-faces!
+  '(org-level-4 :inherit outline-4 :height 1.0)
+  '(org-level-3 :inherit outline-3 :height 1.0)
+  '(org-level-2 :inherit outline-2 :height 1.1)
+  '(org-level-1 :inherit outline-1 :height 1.45 :background "#222222")
+  '(org-document-title :height 1.1 :underline nil :foreground "#8B8B8B"))
+
+(custom-theme-set-faces!
+  'doom-flatwhite
+  '(org-level-4 :inherit outline-4 :height 1.0)
+  '(org-level-3 :inherit outline-3 :height 1.0)
+  '(org-level-2 :inherit outline-2 :height 1.1)
+  '(org-level-1 :inherit outline-1 :height 1.45 :background "#feeed2")
+  '(org-document-title :height 1.1 :underline nil :foreground "#8B8B8B"))
