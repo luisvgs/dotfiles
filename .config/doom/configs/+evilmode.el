@@ -17,8 +17,11 @@
       :desc "evil-window-increase-height" "'" (cmd! (evil-window-increase-height 5))
       :desc "evil-window-decrease-height" ";" (cmd! (evil-window-decrease-height 5)))
 
-(map! :map evil-normal-state-map "C-j" #'next-buffer)
-(map! :map evil-normal-state-map "C-k" #'previous-buffer)
+(map! :map evil-normal-state-map "C-k" #'next-buffer)
+(map! :map evil-normal-state-map "C-j" #'previous-buffer)
+;; (map! :map evil-normal-state-map "s-]" #'next-buffer)
+;; (map! :map evil-normal-state-map "s-[" #'previous-buffer)
+
 
 (setq evil-vsplit-window-right t
       evil-split-window-below t)
