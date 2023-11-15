@@ -5,10 +5,9 @@
  doom-font (font-spec :family "JetBrains Mono" :size 18 :weight 'SemiBold)
  doom-big-font (font-spec :family "JetBrains Mono" :size 36 :weight 'Bold)
  ;; fav themes:
- doom-theme 'doom-solarized-light
+ ;; doom-theme 'doom-solarized-light
  ;; doom-theme 'ef-dark
- ;; doom-theme 'doom-solarized-dark-high-contrast
- ;; doom-theme 'modus-vivendi-deuteranopia
+ doom-theme 'doom-solarized-dark-high-contrast
  ;; doom-theme 'doom-one
  ;; doom-theme 'doom-vibrant
  ;; doom-theme 'doom-zenburn
@@ -17,7 +16,6 @@
  ;; doom-theme 'doom-wilmersdorf
  ;; doom-theme 'doom-flatwhite
  use-package-compute-statistics t
- display-battery-mode t
  auto-save-default t
  so-long-minor-mode t
  which-key-idle-delay 0.3
