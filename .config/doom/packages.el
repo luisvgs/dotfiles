@@ -6,4 +6,5 @@
    :files ("*.el" "data")))
 (package! corfu)
 (package! nerd-icons-corfu)
-(disable-packages! jbeans-theme nodejs-repl coffee-mode skewer-mode all-the-icons)
+;; (package! dashboard)
+(disable-packages! dashboard jbeans-theme nodejs-repl coffee-mode skewer-mode all-the-icons)
