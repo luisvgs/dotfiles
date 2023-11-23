@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t -*-
 (use-package! doom)
 (setq
  user-full-name "Luis Vegas"

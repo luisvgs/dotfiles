@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t -*-
 (doom! :input
        :completion
        ( ivy +icons)
