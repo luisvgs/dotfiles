@@ -8,10 +8,10 @@
  ;; doom-fallback-buffer-name "*dashboard*"
  ;; initial-buffer-choice (lambda () (get-buffer-create "*dashboard*"))
  ;; fav themes:
- ;; doom-theme 'doom-solarized-light
+ doom-theme 'doom-solarized-light
  ;; doom-theme 'ef-dark
  ;; doom-theme 'doom-solarized-dark-high-contrast
- doom-theme 'doom-one
+ ;; doom-theme 'doom-one
  ;; doom-theme 'doom-vibrant
  ;; doom-theme 'doom-zenburn
  ;; doom-theme 'doom-tomorrow-night
@@ -27,6 +27,7 @@
  savehist-mode 1
  vterm-always-compile-module t
  initial-major-mode (quote fundamental-mode)
+ ;; flymake-allowed-file-name-masks nil
  display-line-numbers-type 'relative)
 
 (define-key evil-normal-state-map (kbd "-") 'dired-jump)

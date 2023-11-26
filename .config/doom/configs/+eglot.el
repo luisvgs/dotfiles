@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t -*-
 ;; TODO figure out how to lazy load lean4-mode
 (use-package! eglot
   :defer t
@@ -5,11 +6,11 @@
   (setq eglot-autoshutdown t)
   :config
   (setq eglot-ignored-server-capabilities '(:documentLinkProvider :inlayHintProvider :documentOnTypeFormattingProvider))
-  (setq-default eglot-workspace-configuration
-                '((haskell
-                   (plugin
-                    (stan
-                     (globalOn . :json-false))))))
+  ;; (setq-default eglot-workspace-configuration
+  ;;               '((haskell
+  ;;                  (plugin
+  ;;                   (stan
+  ;;                    (globalOn . :json-false))))))
   (add-to-list 'eglot-server-programs '(rust-mode "rust-analyzer"))
   (add-to-list 'eglot-server-programs '(scala-mode "metals"))
   (add-to-list 'eglot-server-programs '(tuareg-mode "ocamllsp"))
