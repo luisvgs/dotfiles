@@ -6,15 +6,10 @@
   (setq eglot-autoshutdown t)
   :config
   (setq eglot-ignored-server-capabilities '(:documentLinkProvider :inlayHintProvider :documentOnTypeFormattingProvider))
-  ;; (setq-default eglot-workspace-configuration
-  ;;               '((haskell
-  ;;                  (plugin
-  ;;                   (stan
-  ;;                    (globalOn . :json-false))))))
   (add-to-list 'eglot-server-programs '(rust-mode "rust-analyzer"))
   (add-to-list 'eglot-server-programs '(scala-mode "metals"))
   (add-to-list 'eglot-server-programs '(tuareg-mode "ocamllsp"))
-  ;; (add-to-list 'eglot-server-programs '(haskell-mode . ("haskell-language-server-wrapper" "--lsp")))
+  (add-to-list 'eglot-server-programs '(haskell-mode . ("haskell-language-server-wrapper" "--lsp")))
   (add-hook 'eglot-managed-mode-hook
             (lambda ()
               (setq eldoc-documentation-functions
@@ -24,7 +19,8 @@
   :hook
   ((rjsx-mode tuareg-mode rust-mode typescript-mode js2-mode scala-mode) . eglot-ensure))
 
-
+;; (use-package! flymode-proc
+;;   :commands (flymake-allowed-file-name-masks))
 
 (use-package! scala-mode
   :mode ("\\.sc\\'" "\\.scala\\'")

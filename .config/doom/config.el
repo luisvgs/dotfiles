@@ -3,21 +3,12 @@
 (setq
  user-full-name "Luis Vegas"
  user-mail-address "luisvegasmor@gmail.com"
- doom-font (font-spec :family "JetBrains Mono" :size 18 :weight 'SemiBold)
+ doom-font (font-spec :family "JetBrains Mono" :size 18 :weight 'Medium)
  doom-big-font (font-spec :family "JetBrains Mono" :size 36 :weight 'Bold)
  ;; doom-fallback-buffer-name "*dashboard*"
  ;; initial-buffer-choice (lambda () (get-buffer-create "*dashboard*"))
- ;; fav themes:
  doom-theme 'doom-solarized-light
- ;; doom-theme 'ef-dark
- ;; doom-theme 'doom-solarized-dark-high-contrast
- ;; doom-theme 'doom-one
- ;; doom-theme 'doom-vibrant
  ;; doom-theme 'doom-zenburn
- ;; doom-theme 'doom-tomorrow-night
- ;; doom-theme 'ef-winter
- ;; doom-theme 'doom-wilmersdorf
- ;; doom-theme 'doom-flatwhite
  +latex-viewers '(pdf-tools)
  use-package-compute-statistics t
  auto-save-default t
@@ -27,7 +18,6 @@
  savehist-mode 1
  vterm-always-compile-module t
  initial-major-mode (quote fundamental-mode)
- ;; flymake-allowed-file-name-masks nil
  display-line-numbers-type 'relative)
 
 (define-key evil-normal-state-map (kbd "-") 'dired-jump)
@@ -39,7 +29,6 @@
  delete-by-moving-to-trash t
  window-combination-resize t
  x-stretch-cursor t)
-
 
 (load! "configs/+modeline")
 (load! "configs/+which-key")
