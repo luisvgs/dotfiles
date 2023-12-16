@@ -1,5 +1,3 @@
-;; -*- lexical-binding: t -*-
-;; TODO figure out how to lazy load lean4-mode
 (use-package! eglot
   :defer t
   :init
@@ -17,10 +15,20 @@
                           (remove #'flymake-eldoc-function eldoc-documentation-functions)))
               (setq eldoc-documentation-strategy #'eldoc-documentation-compose)))
   :hook
-  ((rjsx-mode tuareg-mode rust-mode typescript-mode js2-mode scala-mode) . eglot-ensure))
+  ((rjsx-mode tuareg-mode rust-mode typescript-mode js2-mode scala-mode agda2-mode haskell-mode) . eglot-ensure))
 
-;; (use-package! flymode-proc
-;;   :commands (flymake-allowed-file-name-masks))
+(use-package! agda2-mode :mode (("\\.l?agda\\'" . agda2-mode)
+                                ("\\.lagda.md\\'" . agda2-mode)))
+(after! lsp-haskell
+  (setq lsp-haskell-formatting-provider "brittany"
+        haskell-stylish-on-save t
+        haskell-mode-stylish-haskell-path "brittany"
+        tab-width 2))
+;; (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+(use-package! idris-mode
+  :mode ("\\.idr\\'")
+  :custom
+  (idris-interpreter-path "idris2"))
 
 (use-package! scala-mode
   :mode ("\\.sc\\'" "\\.scala\\'")

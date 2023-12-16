@@ -16,4 +16,5 @@
  ;; If there is more than one, they won't work right.
  '(magit-todos-insert-after '(bottom) nil nil "Changed by setter of obsolete option `magit-todos-insert-at'")
  '(org-agenda-files '("~/org/todo.org"))
- '(package-selected-packages '(flymake)))
+ '(package-selected-packages '(flymake))
+ '(safe-local-variable-values '((eval turn-off-auto-fill))))

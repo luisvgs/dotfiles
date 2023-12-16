@@ -7,8 +7,12 @@
  doom-big-font (font-spec :family "JetBrains Mono" :size 36 :weight 'Bold)
  ;; doom-fallback-buffer-name "*dashboard*"
  ;; initial-buffer-choice (lambda () (get-buffer-create "*dashboard*"))
- doom-theme 'doom-solarized-light
- ;; doom-theme 'doom-zenburn
+ doom-theme 'doom-one
+ ;; doom-theme 'doom-solarized-light
+ ;; doom-theme 'doom-solarized-dark-high-contrast
+ ;; doom-theme 'doom-solarized-dark
+ ;; doom-theme 'ef-dark
+ ;; doom-theme 'doom-flatwhite
  +latex-viewers '(pdf-tools)
  use-package-compute-statistics t
  auto-save-default t
@@ -19,12 +23,10 @@
  vterm-always-compile-module t
  initial-major-mode (quote fundamental-mode)
  display-line-numbers-type 'relative)
-
 (define-key evil-normal-state-map (kbd "-") 'dired-jump)
 (advice-add #'add-node-modules-path :override #'ignore)
 (advice-add 'jsonrpc--log-event :override #'ignore)
 ;; (add-hook 'window-setup-hook #'toggle-frame-fullscreen)
-
 (setq-default
  delete-by-moving-to-trash t
  window-combination-resize t
@@ -45,3 +47,4 @@
 (load! "configs/+latex")
 (load! "configs/+utility")
 (load! "configs/+projectile")
+;; (load! "configs/ghcid")

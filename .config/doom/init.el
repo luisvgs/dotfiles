@@ -36,7 +36,7 @@
        ;; fold              ; (nigh) universal code folding
        (format +onsave)  ; automated prettiness
        ;;god               ; run Emacs commands without modifier keys
-       ;;lispy             ; vim for lisp, for people who don't like vim
+       lispy             ; vim for lisp, for people who don't like vim
        ;;multiple-cursors  ; editing in many places at once
        ;;objed             ; text object editing for the innocent
        ;;parinfer          ; turn lisp into python, sort of
@@ -86,7 +86,7 @@
        ;; (:if IS-MAC macos)  ; improve compatibility with macOS
        tty               ; improve the terminal Emacs experience
        :lang
-       ;;agda              ; types of types of types of types...
+       ( agda +local)              ; types of types of types of types...
        ;;beancount         ; mind the GAAP
        ;;(cc +lsp)         ; C > C++ == 1
        ;;clojure           ; java with a lisp
@@ -110,9 +110,9 @@
        ;;gdscript          ; the language you waited for
        ;;(go +lsp)         ; the hipster dialect
        ;;(graphql +lsp)    ; Give queries a REST
-       ;; (haskell +lsp)    ; a language that's lazier than I am
+       (haskell +lsp)    ; a language that's lazier than I am
        ;;hy                ; readability of scheme w/ speed of python
-       ;;idris             ; a language you can depend on
+       idris             ; a language you can depend on
        json              ; At least it ain't XML
        ;;(java +lsp)       ; the poster child for carpal tunnel syndrome
        ( javascript +lsp)        ; all(hope(abandon(ye(who(enter(here))))))

@@ -28,12 +28,12 @@ alias drt='dune runtest'
 alias ltxw='latexmk -pdf -pvc'
 
 alias sz="source $HOME/.config/zsh/.zshrc"
-alias doom="$HOME/.config/emacs/bin/doom"
+alias doom="$HOME/.emacs.d/bin/doom"
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/.bare/ --work-tree=$HOME'
 
 #emacs
-alias emacs='emacsclient -c'
-alias e='emacsclient -nw'
+# alias emacs='emacsclient -c'
+# alias e='emacsclient -nw'
 alias es='systemctl start --user emacs'
 alias est="emacsclient -e '(kill-emacs)'"
 
@@ -110,3 +110,8 @@ source $HOME/.config/zsh/scripts/scala-helper/scala-helper.zsh
 [ -f "/home/luis/.ghcup/env" ] && source "/home/luis/.ghcup/env" # ghcup-env
 
 eval $(opam env)
+
+# >>> scala-cli completions >>>
+fpath=("/home/luis/.local/share/scalacli/completions/zsh" $fpath)
+compinit
+# <<< scala-cli completions <<<

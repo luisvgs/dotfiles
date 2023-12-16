@@ -27,7 +27,7 @@
 
 ;; (add-hook! '+doom-dashboard-functions :append
 ;;   (insert "\n" (+doom-dashboard--center +doom-dashboard--width "Welcome to Emacs!")))
-(setq fancy-splash-image (concat doom-user-dir "misc/gnu.svg"))
+(setq fancy-splash-image (concat doom-user-dir "misc/e-logo.svg"))
 (setq +doom-dashboard-menu-sections nil)
 (defun doom-dashboard-widget-shortmenu ())
 (defun doom-dashboard-widget-footer ())
