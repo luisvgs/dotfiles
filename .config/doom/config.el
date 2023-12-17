@@ -7,9 +7,9 @@
  doom-big-font (font-spec :family "JetBrains Mono" :size 36 :weight 'Bold)
  ;; doom-fallback-buffer-name "*dashboard*"
  ;; initial-buffer-choice (lambda () (get-buffer-create "*dashboard*"))
- doom-theme 'doom-one
+ ;; doom-theme 'doom-one
  ;; doom-theme 'doom-solarized-light
- ;; doom-theme 'doom-solarized-dark-high-contrast
+ doom-theme 'doom-solarized-dark-high-contrast
  ;; doom-theme 'doom-solarized-dark
  ;; doom-theme 'ef-dark
  ;; doom-theme 'doom-flatwhite
