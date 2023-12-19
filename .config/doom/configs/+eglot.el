@@ -24,7 +24,7 @@
         haskell-stylish-on-save t
         haskell-mode-stylish-haskell-path "brittany"
         tab-width 2))
-;; (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+
 (use-package! idris-mode
   :mode ("\\.idr\\'")
   :custom
