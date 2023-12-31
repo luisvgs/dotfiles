@@ -7,13 +7,7 @@
  doom-big-font (font-spec :family "JetBrains Mono" :size 36 :weight 'Bold)
  ;; doom-fallback-buffer-name "*dashboard*"
  ;; initial-buffer-choice (lambda () (get-buffer-create "*dashboard*"))
- ;; doom-theme 'doom-one
- ;; doom-theme 'doom-solarized-light
- doom-theme 'doom-solarized-dark
- ;; doom-theme 'doom-tokyo-night
- ;; doom-theme 'ef-dark
- ;; doom-theme 'doom-flatwhite
- ;; doom-theme 'doom-wilmersdorf
+ doom-theme 'doom-solarized-light
  +latex-viewers '(pdf-tools)
  use-package-compute-statistics t
  auto-save-default t
