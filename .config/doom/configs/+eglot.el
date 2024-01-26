@@ -15,7 +15,7 @@
                           (remove #'flymake-eldoc-function eldoc-documentation-functions)))
               (setq eldoc-documentation-strategy #'eldoc-documentation-compose)))
   :hook
-  ((rjsx-mode tuareg-mode rust-mode typescript-mode js2-mode scala-mode agda2-mode haskell-mode) . eglot-ensure))
+  ((rjsx-mode tuareg-mode rust-mode typescript-mode js2-mode scala-mode agda2-mode haskell-mode idris-mode) . eglot-ensure))
 
 (use-package! agda2-mode :mode (("\\.l?agda\\'" . agda2-mode)
                                 ("\\.lagda.md\\'" . agda2-mode)))

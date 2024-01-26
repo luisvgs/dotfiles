@@ -8,6 +8,7 @@
  ;; doom-fallback-buffer-name "*dashboard*"
  ;; initial-buffer-choice (lambda () (get-buffer-create "*dashboard*"))
  doom-theme 'doom-solarized-light
+ ;; doom-theme 'doom-flatwhite
  +latex-viewers '(pdf-tools)
  use-package-compute-statistics t
  auto-save-default t
@@ -21,11 +22,21 @@
 (define-key evil-normal-state-map (kbd "-") 'dired-jump)
 (advice-add #'add-node-modules-path :override #'ignore)
 (advice-add 'jsonrpc--log-event :override #'ignore)
-;; (add-hook 'window-setup-hook #'toggle-frame-fullscreen)
 (setq-default
  delete-by-moving-to-trash t
  window-combination-resize t
  x-stretch-cursor t)
+
+(unless (display-graphic-p)
+  (corfu-terminal-mode +1))
+
+;; Investigate why emacs is not finding pdf.el
+(use-package! pdf-tools
+  :config
+  (pdf-tools-install)
+  (setq-default pdf-view-display-size 'fit-page)
+  (setq pdf-annot-activate-created-annotations t)
+  (define-key pdf-view-mode-map (kbd "C-s") 'isearch-forward))
 
 (load! "configs/+modeline")
 (load! "configs/+which-key")
