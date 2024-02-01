@@ -29,7 +29,7 @@ while true; do
 done &
 
 feh --no-fehbg --bg-fill ~/Pictures/cat.png &
-emacs --daemon &
+# emacs --daemon &
 redshift -O 4500 &
 nm-applet &
 
