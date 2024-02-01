@@ -32,10 +32,10 @@ alias doom="$HOME/.emacs.d/bin/doom"
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/.bare/ --work-tree=$HOME'
 
 #emacs
-alias emacs='emacsclient -c'
-alias e='emacsclient -nw'
-alias es='systemctl start --user emacs'
-alias est="emacsclient -e '(kill-emacs)'"
+# alias emacs='emacsclient -c'
+# alias e='emacsclient -nw'
+# alias es='systemctl start --user emacs'
+# alias est="emacsclient -e '(kill-emacs)'"
 
 alias ssql='systemctl start mysqld'
 alias lsql='mysql -u root -p'

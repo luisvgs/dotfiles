@@ -6,8 +6,10 @@
   (setq eglot-ignored-server-capabilities '(:documentLinkProvider :inlayHintProvider :documentOnTypeFormattingProvider))
   (add-to-list 'eglot-server-programs '(rust-mode "rust-analyzer"))
   (add-to-list 'eglot-server-programs '(scala-mode "metals"))
+  (add-to-list 'eglot-server-programs '(rjsx-mode .("typescript-language-server" "--stdio")))
   (add-to-list 'eglot-server-programs '(tuareg-mode "ocamllsp"))
   (add-to-list 'eglot-server-programs '(haskell-mode . ("haskell-language-server-wrapper" "--lsp")))
+  (add-to-list 'eglot-server-programs '(tsx-ts-mode . ("typescript-language-server" "--stdio")))
   (add-hook 'eglot-managed-mode-hook
             (lambda ()
               (setq eldoc-documentation-functions
@@ -15,7 +17,19 @@
                           (remove #'flymake-eldoc-function eldoc-documentation-functions)))
               (setq eldoc-documentation-strategy #'eldoc-documentation-compose)))
   :hook
-  ((rjsx-mode tuareg-mode rust-mode typescript-mode js2-mode scala-mode agda2-mode haskell-mode idris-mode) . eglot-ensure))
+  ((rjsx-mode tuareg-mode rust-mode tsx-ts-mode typescript-mode js2-mode scala-mode agda2-mode haskell-mode idris-mode) . eglot-ensure))
+
+(use-package! typescript-ts-mode
+  :mode (("\\.ts\\'" . typescript-ts-mode)
+         ("\\.tsx\\'" . tsx-ts-mode))
+  :config
+  (add-hook! '(typescript-ts-mode-hook tsx-ts-mode-hook) #'lsp!))
+
+(after! treesit
+  (setq treesit-language-source-alist
+        '((typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src" nil nil)
+          (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src" nil nil))))
+
 
 (use-package! agda2-mode :mode (("\\.l?agda\\'" . agda2-mode)
                                 ("\\.lagda.md\\'" . agda2-mode)))
