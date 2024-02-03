@@ -33,7 +33,7 @@ alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/.bare/ --work-tree=$HOME'
 
 #emacs
 # alias emacs='emacsclient -c'
-# alias e='emacsclient -nw'
+alias e='emacsclient -nw'
 # alias es='systemctl start --user emacs'
 # alias est="emacsclient -e '(kill-emacs)'"
 

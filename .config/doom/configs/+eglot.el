@@ -10,6 +10,7 @@
   (add-to-list 'eglot-server-programs '(tuareg-mode "ocamllsp"))
   (add-to-list 'eglot-server-programs '(haskell-mode . ("haskell-language-server-wrapper" "--lsp")))
   (add-to-list 'eglot-server-programs '(tsx-ts-mode . ("typescript-language-server" "--stdio")))
+  (add-to-list 'eglot-server-programs '(typescript-ts-mode . ("typescript-language-server" "--stdio")))
   (add-hook 'eglot-managed-mode-hook
             (lambda ()
               (setq eldoc-documentation-functions
@@ -19,6 +20,7 @@
   :hook
   ((rjsx-mode tuareg-mode rust-mode tsx-ts-mode typescript-mode js2-mode scala-mode agda2-mode haskell-mode idris-mode) . eglot-ensure))
 
+(use-package! scala-mode :mode (("\\.scala\\'" . scala-mode) ("\\.sc\\'" . scala-mode)))
 (use-package! typescript-ts-mode
   :mode (("\\.ts\\'" . typescript-ts-mode)
          ("\\.tsx\\'" . tsx-ts-mode))
