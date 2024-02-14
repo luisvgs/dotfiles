@@ -97,6 +97,7 @@ compinit
 
 export DOT_REPO="https://github.com/luisvgs/dotfiles.git"
 export DOT_DIR="$HOME/.dotfiles"
+source /usr/share/nvm/init-nvm.sh
 fpath=($HOME/.config/zsh/scripts/dot/dot.sh $fpath)
 source $HOME/.config/zsh/scripts/dot/dot.sh
 source $HOME/.config/zsh/scripts/zsh-autosuggestions/zsh-autosuggestions.zsh
