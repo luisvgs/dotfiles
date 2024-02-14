@@ -12,3 +12,4 @@
  :leader
  :desc "View" "v" #'TeX-view)
 
+(map! :g "C-t" #'+treemacs/toggle)
