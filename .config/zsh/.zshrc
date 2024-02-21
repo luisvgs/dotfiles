@@ -1,6 +1,7 @@
 export PATH="~/.cargo/bin:$PATH"
 export PATH="$HOME/.npm-global/bin:$PATH"
 export PATH="/opt/idea-IC-232.9559.62/bin:$PATH"
+export PATH="/opt/sqlectron:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export READER='zathura'
 export EDITOR='nvim'
@@ -9,6 +10,7 @@ export NNN_FCOLORS="$BLK$CHR$DIR$EXE$REG$HARDLINK$SYMLINK$MISSING$ORPHAN$FIFO$SO
 
 # export COURSIER_REPOSITORIES="https://packages.corp.com/artifactory/maven/"
 alias idea='idea.sh'
+alias sqe='sqlectron'
 # Scala
 alias sc='scala-cli run --jvm 17'
 alias sn='scala-helper $@'
@@ -34,7 +36,7 @@ alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/.bare/ --work-tree=$HOME'
 #emacs
 # alias emacs='emacsclient -c'
 alias e='emacsclient -nw'
-# alias es='systemctl start --user emacs'
+alias es='emacs --init-directory=$HOME/.emacs-custom.d'
 # alias est="emacsclient -e '(kill-emacs)'"
 
 alias ssql='systemctl start mysqld'

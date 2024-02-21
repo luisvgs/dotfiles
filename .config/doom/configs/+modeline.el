@@ -9,7 +9,7 @@
         doom-plain-brighter-modeline nil
         doom-modeline-major-mode-icon t
         doom-modeline-major-mode-color-icon t
-        doom-modeline-buffer-file-name-style 'truncate-from-project
+        doom-modeline-buffer-file-name-style 'truncate-with-project
         doom-modeline-workspace-name t
         doom-modeline-buffer-state-icon t
         doom-modeline-buffer-modification-icon t
@@ -18,6 +18,7 @@
         doom-modeline-modal-modern-icon nil
         doom-modeline-modal-icon t
         doom-modeline-lsp-icon t
+        doom-modeline-lsp nil
         doom-modeline-modal nil
         doom-modeline-persp-name t)
   (custom-set-faces!
