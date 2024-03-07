@@ -5,9 +5,9 @@
  user-mail-address "luisvegasmor@gmail.com"
  doom-font (font-spec :family "JetBrains Mono" :size 18 :weight 'Medium)
  doom-big-font (font-spec :family "JetBrains Mono" :size 36 :weight 'Bold)
- ;; doom-theme 'doom-solarized-light
+ doom-theme 'doom-solarized-light
  ;; doom-theme 'modus-operandi
- doom-theme 'spacemacs-light
+ ;; doom-theme 'spacemacs-light
  ;; doom-theme 'doom-flatwhite
  ;; doom-theme 'doom-one
  +latex-viewers '(pdf-tools)
