@@ -7,7 +7,7 @@ export READER='zathura'
 export EDITOR='nvim'
 BLK="04" CHR="04" DIR="04" EXE="00" REG="00" HARDLINK="00" SYMLINK="06" MISSING="00" ORPHAN="01" FIFO="0F" SOCK="0F" OTHER="02"
 export NNN_FCOLORS="$BLK$CHR$DIR$EXE$REG$HARDLINK$SYMLINK$MISSING$ORPHAN$FIFO$SOCK$OTHER"
-
+export VST3_SDK_DIR="$HOME/programming/foremost/vst3sdk"
 # export COURSIER_REPOSITORIES="https://packages.corp.com/artifactory/maven/"
 alias idea='idea.sh'
 alias sqe='sqlectron'
