@@ -20,6 +20,10 @@
   :hook
   ((rjsx-mode tuareg-mode rust-mode tsx-ts-mode typescript-mode js2-mode scala-mode agda2-mode haskell-mode idris-mode) . eglot-ensure))
 
+(use-package! eglot-booster
+  :after eglot
+  :config (eglot-booster-mode))
+
 (use-package! scala-mode :mode (("\\.scala\\'" . scala-mode) ("\\.sc\\'" . scala-mode)))
 (use-package! typescript-ts-mode
   :mode (("\\.ts\\'" . typescript-ts-mode)

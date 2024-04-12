@@ -4,6 +4,10 @@
 (package! modus-themes)
 (package! spacemacs-theme)
 (package! nerd-icons-corfu)
+(package! nyan-mode)
+(package! eglot-booster
+  :recipe (:host github :repo "jdtsmith/eglot-booster"
+           :files ("*")))
 (package! corfu-terminal
   :recipe (:host nil :repo "https://codeberg.org/akib/emacs-corfu-terminal"))
 (disable-packages! dashboard jbeans-theme nodejs-repl coffee-mode skewer-mode all-the-icons)

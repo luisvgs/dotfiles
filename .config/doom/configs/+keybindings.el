@@ -13,3 +13,9 @@
  :desc "View" "v" #'TeX-view)
 
 (map! :g "C-t" #'+treemacs/toggle)
+
+(map! :g "C-c x" #'query-replace)
+
+(map! :leader
+      :desc "Toggle treemacs"
+      "-" #'+treemacs/toggle)

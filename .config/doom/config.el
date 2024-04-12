@@ -5,17 +5,18 @@
  user-mail-address "luisvegasmor@gmail.com"
  doom-font (font-spec :family "JetBrains Mono" :size 18 :weight 'Medium)
  doom-big-font (font-spec :family "JetBrains Mono" :size 36 :weight 'Bold)
- doom-theme 'modus-operandi
+ doom-theme 'modus-operandi-tinted
  ;; doom-theme 'spacemacs-light
- ;; doom-theme 'doom-flatwhite
- ;; doom-theme 'doom-one
+ ;; doom-theme 'doom-solarized-light
+ ;; doom-theme 'doom-one-light
  +latex-viewers '(pdf-tools)
  use-package-compute-statistics t
+ haskell-interactive-popup-errors nil
  auto-save-default t
  so-long-minor-mode t
  which-key-idle-delay 0.3
  history-length 20
- split-height-threshold 790
+ ;; split-height-threshold 790
  savehist-mode 1
  ;; doom-fallback-buffer-name "*dashboard*"
  ;; initial-buffer-choice (lambda () (get-buffer-create "*dashboard*"))
@@ -42,6 +43,10 @@
   (setq-default pdf-view-display-size 'fit-page)
   (setq pdf-annot-activate-created-annotations t)
   (define-key pdf-view-mode-map (kbd "C-s") 'isearch-forward))
+
+(after! ivy
+  (setq-default ivy-fixed-height-minibuffer t
+                ivy-height 12))
 
 (load! "configs/+modeline")
 (load! "configs/+which-key")

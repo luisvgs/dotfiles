@@ -22,7 +22,13 @@
 (after! org-capture
   (setq org-capture-templates
         '(("t" "todo" entry (file+headline "~/org/todo.org" "Tasks")
-           "* TODO [#A] %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n"))))
+           "* TODO [#A] %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n")
+          ("j" "Journal Entry"
+           entry (file+datetree "~/org/journal.org")
+           "* %?"
+           :empty-lines 1)
+          )
+        ))
 
 (setq org-agenda-custom-commands
       '(("v" "Custom agenda view"
