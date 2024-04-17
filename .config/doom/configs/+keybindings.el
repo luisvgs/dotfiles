@@ -14,6 +14,10 @@
 
 (map! :g "C-t" #'+treemacs/toggle)
 
+(map! :leader
+      :desc "Open journal file"
+      "o j" (lambda () (interactive) (find-file "~/org/journal.org")))
+
 (map! :g "C-c x" #'query-replace)
 
 (map! :leader

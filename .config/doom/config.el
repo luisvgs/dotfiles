@@ -4,6 +4,7 @@
  user-full-name "Luis Vegas"
  user-mail-address "luisvegasmor@gmail.com"
  doom-font (font-spec :family "JetBrains Mono" :size 18 :weight 'Medium)
+ ;; doom-font (font-spec :family "Iosevka Term" :size 20 :weight 'Medium)
  doom-big-font (font-spec :family "JetBrains Mono" :size 36 :weight 'Bold)
  doom-theme 'modus-operandi-tinted
  ;; doom-theme 'spacemacs-light
