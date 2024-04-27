@@ -6,8 +6,9 @@
  doom-font (font-spec :family "JetBrains Mono" :size 18 :weight 'Medium)
  ;; doom-font (font-spec :family "Iosevka Term" :size 20 :weight 'Medium)
  doom-big-font (font-spec :family "JetBrains Mono" :size 36 :weight 'Bold)
- doom-theme 'modus-operandi-tinted
- ;; doom-theme 'spacemacs-light
+ ;; doom-theme 'modus-operandi-tinted
+ ;; doom-theme 'ef-light
+ doom-theme 'spacemacs-light
  ;; doom-theme 'doom-solarized-light
  ;; doom-theme 'doom-one-light
  +latex-viewers '(pdf-tools)
@@ -47,7 +48,33 @@
 
 (after! ivy
   (setq-default ivy-fixed-height-minibuffer t
-                ivy-height 12))
+                ivy-height 12)
+  (map! :g "C-s" #'swiper-isearch))
+
+(use-package! rainbow-mode
+  :hook (org-mode . rainbow-mode))
+
+
+(defun isearch-forward-region-cleanup ()
+  "turn off variable, widen"
+  (if isearch-forward-region
+      (widen))
+  (setq isearch-forward-region nil))
+
+(defvar isearch-forward-region nil
+  "variable used to indicate we're in region search")
+
+(add-hook 'isearch-mode-end-hook 'isearch-forward-region-cleanup)
+
+(defun isearch-forward-region (&optional regexp-p no-recursive-edit)
+  "Do an isearch-forward, but narrow to region first."
+  (interactive "P\np")
+  (narrow-to-region (point) (mark))
+  (goto-char (point-min))
+  (setq isearch-forward-region t)
+  (isearch-mode t (not (null regexp-p)) nil (not no-recursive-edit)))
+
+(global-set-key (kbd "C-c s") 'isearch-forward-region)
 
 (load! "configs/+modeline")
 (load! "configs/+which-key")

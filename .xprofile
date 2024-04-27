@@ -28,8 +28,8 @@ while true; do
    sleep 1m
 done &
 
-feh --no-fehbg --bg-fill ~/Pictures/comment.png &
-redshift -O 4500 &
+feh --no-fehbg --bg-fill ~/Pictures/place.png &
+redshift -O 3500 &
 nm-applet &
 
 exec dwm

@@ -20,6 +20,7 @@
   :hook
   ((rjsx-mode tuareg-mode rust-mode tsx-ts-mode typescript-mode js2-mode scala-mode agda2-mode haskell-mode idris-mode) . eglot-ensure))
 
+
 (use-package! eglot-booster
   :after eglot
   :config (eglot-booster-mode))

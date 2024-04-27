@@ -23,3 +23,11 @@
 (map! :leader
       :desc "Toggle treemacs"
       "-" #'+treemacs/toggle)
+
+(map! :leader
+      :desc "Show diff for the file in the current buffer."
+      "g d" #'magit-diff-buffer-file)
+
+(map! :leader
+      :desc "Create a branch from current stash changes."
+      "g z" #'magit-stash-branch)
