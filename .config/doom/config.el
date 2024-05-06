@@ -6,24 +6,17 @@
  doom-font (font-spec :family "JetBrains Mono" :size 18 :weight 'Medium)
  ;; doom-font (font-spec :family "Iosevka Term" :size 20 :weight 'Medium)
  doom-big-font (font-spec :family "JetBrains Mono" :size 36 :weight 'Bold)
- ;; doom-theme 'modus-operandi-tinted
- ;; doom-theme 'ef-light
- doom-theme 'spacemacs-light
- ;; doom-theme 'doom-solarized-light
- ;; doom-theme 'doom-one-light
+ doom-theme 'modus-operandi
  +latex-viewers '(pdf-tools)
  use-package-compute-statistics t
- haskell-interactive-popup-errors nil
  auto-save-default t
  so-long-minor-mode t
  which-key-idle-delay 0.3
  history-length 20
- ;; split-height-threshold 790
  savehist-mode 1
- ;; doom-fallback-buffer-name "*dashboard*"
- ;; initial-buffer-choice (lambda () (get-buffer-create "*dashboard*"))
+ doom-fallback-buffer-name "*dashboard*"
+ initial-buffer-choice (lambda () (get-buffer-create "*dashboard*"))
  vterm-always-compile-module t
- ;;;; ediff-window-setup-function 'ediff-setup-windows-plain
  smerge-command-prefix "\C-cv"
  initial-major-mode (quote fundamental-mode)
  display-line-numbers-type 'relative)
@@ -75,6 +68,18 @@
   (isearch-mode t (not (null regexp-p)) nil (not no-recursive-edit)))
 
 (global-set-key (kbd "C-c s") 'isearch-forward-region)
+
+;;  Elisp language stuff
+;; (use-package! lispyville
+;;   :init
+;;   (general-add-hook '(emacs-lisp-mode-hook lisp-mode-hook) #'lispyville-mode)
+;;   :config
+;;   (lispyville-set-key-theme '(operators c-w additional)))
+
+;; (use-package! lispy
+;;   :mode ("\\.el\\'" . emacs-lisp-mode))
+
+(add-hook 'clojure-mode-hook #'evil-cleverparens-mode)
 
 (load! "configs/+modeline")
 (load! "configs/+which-key")

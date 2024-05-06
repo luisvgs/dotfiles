@@ -12,7 +12,7 @@
  :leader
  :desc "View" "v" #'TeX-view)
 
-(map! :g "C-t" #'+treemacs/toggle)
+;; (map! :g "C-t" #'+treemacs/toggle)
 
 (map! :leader
       :desc "Open journal file"
@@ -20,9 +20,9 @@
 
 (map! :g "C-c x" #'query-replace)
 
-(map! :leader
-      :desc "Toggle treemacs"
-      "-" #'+treemacs/toggle)
+;; (map! :leader
+;;       :desc "Toggle treemacs"
+;;       "-" #'+treemacs/toggle)
 
 (map! :leader
       :desc "Show diff for the file in the current buffer."
@@ -31,3 +31,5 @@
 (map! :leader
       :desc "Create a branch from current stash changes."
       "g z" #'magit-stash-branch)
+
+(map! :g "C-x v ~" #'magit-find-file-other-window)
