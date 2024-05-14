@@ -28,7 +28,7 @@ while true; do
    sleep 1m
 done &
 
-feh --no-fehbg --bg-fill ~/Pictures/tlt.png &
+feh --no-fehbg --bg-fill ~/Pictures/dusk.jpg &
 redshift -O 3570 &
 nm-applet &
 

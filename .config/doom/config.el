@@ -4,9 +4,11 @@
  user-full-name "Luis Vegas"
  user-mail-address "luisvegasmor@gmail.com"
  doom-font (font-spec :family "JetBrains Mono" :size 18 :weight 'Medium)
+ ;; doom-font (font-spec :family "Terminus" :size 18 :weight 'Medium)
  ;; doom-font (font-spec :family "Iosevka Term" :size 20 :weight 'Medium)
  doom-big-font (font-spec :family "JetBrains Mono" :size 36 :weight 'Bold)
  doom-theme 'modus-operandi
+ ;; doom-theme 'doom-solarized-dark-high-contrast
  +latex-viewers '(pdf-tools)
  use-package-compute-statistics t
  auto-save-default t
@@ -14,11 +16,10 @@
  which-key-idle-delay 0.3
  history-length 20
  savehist-mode 1
- doom-fallback-buffer-name "*dashboard*"
- initial-buffer-choice (lambda () (get-buffer-create "*dashboard*"))
+
  vterm-always-compile-module t
  smerge-command-prefix "\C-cv"
- initial-major-mode (quote fundamental-mode)
+ ;; initial-major-mode (quote fundamental-mode)
  display-line-numbers-type 'relative)
 (define-key evil-normal-state-map (kbd "-") 'dired-jump)
 (advice-add #'add-node-modules-path :override #'ignore)
@@ -27,7 +28,6 @@
  delete-by-moving-to-trash t
  window-combination-resize t
  x-stretch-cursor t)
-
 (unless (display-graphic-p)
   (corfu-terminal-mode +1))
 
@@ -80,6 +80,8 @@
 ;;   :mode ("\\.el\\'" . emacs-lisp-mode))
 
 (add-hook 'clojure-mode-hook #'evil-cleverparens-mode)
+
+
 
 (load! "configs/+modeline")
 (load! "configs/+which-key")

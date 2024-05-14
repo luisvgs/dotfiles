@@ -6,8 +6,8 @@
   (setq eglot-ignored-server-capabilities '(:documentLinkProvider :inlayHintProvider :documentOnTypeFormattingProvider))
   (add-to-list 'eglot-server-programs '(rust-mode "rust-analyzer"))
   (add-to-list 'eglot-server-programs '(scala-mode "metals"))
-  (add-to-list 'eglot-server-programs
-               '(clojure-mode "clojure-lsp"))
+  ;; (add-to-list 'eglot-server-programs
+  ;;              '(clojure-mode "clojure-lsp"))
   (add-to-list 'eglot-server-programs '(rjsx-mode .("typescript-language-server" "--stdio")))
   (add-to-list 'eglot-server-programs '(tuareg-mode "ocamllsp"))
   (add-to-list 'eglot-server-programs '(haskell-mode . ("haskell-language-server-wrapper" "--lsp")))
@@ -20,8 +20,7 @@
                           (remove #'flymake-eldoc-function eldoc-documentation-functions)))
               (setq eldoc-documentation-strategy #'eldoc-documentation-compose)))
   :hook
-  ((rjsx-mode tuareg-mode rust-mode tsx-ts-mode typescript-mode js2-mode scala-mode agda2-mode haskell-mode idris-mode clojure-mode) . eglot-ensure))
-
+  ((rjsx-mode tuareg-mode rust-mode tsx-ts-mode typescript-mode js2-mode scala-mode agda2-mode haskell-mode idris-mode) . eglot-ensure))
 
 (use-package! eglot-booster
   :after eglot
@@ -46,19 +45,19 @@
   :config (setq lsp-haskell-formatting-provider "fourmolu"
                 haskell-interactive-popup-errors nil
                 haskell-stylish-on-save t
-                haskell-mode-stylish-haskell-path "fourmolu"
+                ;; haskell-mode-stylish-haskell-path "fourmolu"
+                ;; haskell-mode-stylish-haskell-args  '("-m" "inplace")
                 haskell-indentation-layout-offset  4
                 haskell-indentation-starter-offset  4
                 haskell-indentation-left-offset  4
                 haskell-indentation-where-pre-offset  4
                 haskell-indentation-where-post-offset  4))
 
-(use-package! apheleia
-  :hook ((prog-mode . apheleia-mode))
-  :config
-  (setf (alist-get 'fourmolu apheleia-formatters) '("fourmolu" file))
-  (add-to-list 'apheleia-mode-alist '(haskell-mode . fourmolu)))
-
+;; (use-package! apheleia
+;;   :hook ((prog-mode . apheleia-mode))
+;;   :config
+;;   (setf (alist-get 'fourmolu apheleia-formatters) '("fourmolu" file))
+;;   (add-to-list 'apheleia-mode-alist '(haskell-mode . fourmolu)))
 (use-package! idris-mode
   :mode ("\\.idr\\'")
   :custom

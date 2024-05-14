@@ -5,7 +5,7 @@
 (package! spacemacs-theme)
 (package! nerd-icons-corfu)
 (package! nyan-mode)
-(package! dashboard)
+;; (package! dashboard)
 (package! evil-cleverparens)
 (package! eglot-booster
   :recipe (:host github :repo "jdtsmith/eglot-booster"
