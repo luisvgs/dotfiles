@@ -10,7 +10,7 @@ function scala-helper() {
     .scala-build/
     target/' > .gitignore
     touch .scalafmt.conf
-    echo 'version = 3.7.2
+    echo 'version = 3.8.1
     runner.dialect = scala3' > .scalafmt.conf
     mkdir -p src/{main,test}/{scala,resources} project
     touch src/main/scala/Main.scala

@@ -22,6 +22,4 @@
     '(doom-modeline-buffer-modified :foreground "orange")))
 
 (use-package! nyan-mode
-  ;; :after doom-modeline
   :hook (doom-modeline-mode . nyan-mode))
-;; :config (nyan-mode t))

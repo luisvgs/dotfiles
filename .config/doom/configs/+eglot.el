@@ -25,8 +25,7 @@
 (use-package! eglot-booster
   :after eglot
   :config (eglot-booster-mode))
-
-(use-package! scala-mode :mode (("\\.scala\\'" . scala-mode) ("\\.sc\\'" . scala-mode)))
+(use-package! scala-repl :after scala-mode)
 (use-package! typescript-ts-mode
   :mode (("\\.ts\\'" . typescript-ts-mode)
          ("\\.tsx\\'" . tsx-ts-mode))

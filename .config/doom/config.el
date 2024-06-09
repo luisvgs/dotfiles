@@ -4,11 +4,7 @@
  user-full-name "Luis Vegas"
  user-mail-address "luisvegasmor@gmail.com"
  doom-font (font-spec :family "JetBrains Mono" :size 18 :weight 'Medium)
- ;; doom-font (font-spec :family "Terminus" :size 18 :weight 'Medium)
- ;; doom-font (font-spec :family "Iosevka Term" :size 20 :weight 'Medium)
- doom-big-font (font-spec :family "JetBrains Mono" :size 36 :weight 'Bold)
- doom-theme 'modus-operandi
- ;; doom-theme 'doom-solarized-dark-high-contrast
+ doom-theme 'apropospriate-light
  +latex-viewers '(pdf-tools)
  use-package-compute-statistics t
  auto-save-default t
@@ -16,10 +12,9 @@
  which-key-idle-delay 0.3
  history-length 20
  savehist-mode 1
-
  vterm-always-compile-module t
  smerge-command-prefix "\C-cv"
- ;; initial-major-mode (quote fundamental-mode)
+ initial-major-mode (quote fundamental-mode)
  display-line-numbers-type 'relative)
 (define-key evil-normal-state-map (kbd "-") 'dired-jump)
 (advice-add #'add-node-modules-path :override #'ignore)
@@ -28,10 +23,9 @@
  delete-by-moving-to-trash t
  window-combination-resize t
  x-stretch-cursor t)
-(unless (display-graphic-p)
-  (corfu-terminal-mode +1))
+;; (unless (display-graphic-p)
+;;   (corfu-terminal-mode +1))
 
-;; Investigate why emacs is not finding pdf.el
 (use-package! pdf-tools
   :config
   (pdf-tools-install)
@@ -46,7 +40,6 @@
 
 (use-package! rainbow-mode
   :hook (org-mode . rainbow-mode))
-
 
 (defun isearch-forward-region-cleanup ()
   "turn off variable, widen"
@@ -80,8 +73,41 @@
 ;;   :mode ("\\.el\\'" . emacs-lisp-mode))
 
 (add-hook 'clojure-mode-hook #'evil-cleverparens-mode)
+(setq acme-theme-black-fg t)
+(defun my-align-single-equals ()
+  "Align on a single equals sign (with a space either side)."
+  (interactive)
+  (align-regexp
+   (region-beginning) (region-end)
+   "\\(\\s-*\\) = " 1 0 nil))
 
+(global-set-key (kbd "C-c C-a") 'my-align-single-equals)
 
+(after! magit
+  (setq magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1)
+
+  (defun my-magit-display-buffer (buffer)
+    "Displays the magit BUFFER in a vertical split."
+    (display-buffer
+     buffer (if (and (derived-mode-p 'magit-mode)
+                     (memq (with-current-buffer buffer major-mode)
+                           '(magit-process-mode
+                             magit-revision-mode
+                             magit-diff-mode
+                             magit-status-mode)))
+                '(display-buffer-same-window)
+              nil)))
+  (setq magit-display-buffer-function #'my-magit-display-buffer))
+
+(use-package! toggle-term
+  :bind (("M-o f" . toggle-term-find)
+         ;; ("C-\\" . toggle-term-toggle)
+         ("C-\\" . toggle-term-shell)
+         ("M-o e" . toggle-term-eshell)
+         ("M-o i" . toggle-term-ielm))
+  :config
+  (setq toggle-term-size 30)
+  (setq toggle-term-switch-upon-toggle t))
 
 (load! "configs/+modeline")
 (load! "configs/+which-key")
