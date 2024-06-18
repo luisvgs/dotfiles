@@ -33,3 +33,7 @@
       "g z" #'magit-stash-branch)
 
 (map! :g "C-x v ~" #'magit-find-file-other-window)
+
+(map! :g "C-w" #'kill-region)
+
+;; (map! :g "C-\\" #'vterm-toggle)

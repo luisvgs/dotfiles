@@ -4,11 +4,13 @@
 ;; (package! corfu-terminal
 ;;   :recipe (:host nil :repo "https://codeberg.org/akib/emacs-corfu-terminal"))
 (package! modus-themes)
+(package! ef-themes)
 (package! scala-repl)
 (package! apropospriate-theme)
+(package! treesit-auto)
+(package! jetbrains-darcula-theme)
 (package! dashboard)
-(package! nyan-mode)
-(package! toggle-term)
+(package! nyan-mode :disable t)
 (package! evil-cleverparens)
 (package! eglot-booster
   :recipe (:host github :repo "jdtsmith/eglot-booster"

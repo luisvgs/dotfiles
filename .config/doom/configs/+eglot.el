@@ -4,6 +4,7 @@
   (setq eglot-autoshutdown t)
   :config
   (setq eglot-ignored-server-capabilities '(:documentLinkProvider :inlayHintProvider :documentOnTypeFormattingProvider))
+  (electric-pair-mode)
   (add-to-list 'eglot-server-programs '(rust-mode "rust-analyzer"))
   (add-to-list 'eglot-server-programs '(scala-mode "metals"))
   ;; (add-to-list 'eglot-server-programs
@@ -20,21 +21,32 @@
                           (remove #'flymake-eldoc-function eldoc-documentation-functions)))
               (setq eldoc-documentation-strategy #'eldoc-documentation-compose)))
   :hook
-  ((rjsx-mode tuareg-mode rust-mode tsx-ts-mode typescript-mode js2-mode scala-mode agda2-mode haskell-mode idris-mode) . eglot-ensure))
+  ((rjsx-mode tuareg-mode rust-mode tsx-ts-mode typescript-ts-mode js2-mode scala-mode agda2-mode haskell-mode idris-mode) . eglot-ensure))
 
 (use-package! eglot-booster
   :after eglot
   :config (eglot-booster-mode))
+
 (use-package! scala-repl :after scala-mode)
+
+(use-package! treesit-auto
+  :custom
+  (treesit-auto-install 'prompt)
+  :config
+  (treesit-auto-add-to-auto-mode-alist 'all)
+  (global-treesit-auto-mode))
+
 (use-package! typescript-ts-mode
   :mode (("\\.ts\\'" . typescript-ts-mode)
          ("\\.tsx\\'" . tsx-ts-mode))
   :config
+  (setq typescript-ts-mode-indent-offset 4)
   (add-hook! '(typescript-ts-mode-hook tsx-ts-mode-hook) #'lsp!))
 
 (after! treesit
   (setq treesit-language-source-alist
         '((typescript "https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.3" "typescript/src")
+          (haskell "https://github.com/tree-sitter/tree-sitter-haskell")
           (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src" nil nil))))
 
 

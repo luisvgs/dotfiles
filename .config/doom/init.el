@@ -1,7 +1,7 @@
 ;; -*- lexical-binding: t -*-
 (doom! :input
        :completion
-       ( ivy +icons +fuzzy)
+       ( ivy +icons +fuzzy +prescient)
        ( company +childframe)           ; the ultimate code completion backend
        ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...

@@ -1,6 +1,6 @@
 (use-package! doom-modeline
   :config
-  (setq doom-modeline-height 32
+  (setq doom-modeline-height 38
         doom-modeline-unicode-fallback t
         doom-modeline-icon t
         doom-plain-brighter-modeline t
@@ -15,7 +15,7 @@
         doom-modeline-modal-modern-icon t
         doom-modeline-modal-icon t
         doom-modeline-lsp-icon t
-        doom-modeline-lsp nil
+        doom-modeline-lsp t
         doom-modeline-modal nil
         doom-modeline-persp-name nil)
   (custom-set-faces!

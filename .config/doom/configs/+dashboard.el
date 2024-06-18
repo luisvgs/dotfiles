@@ -4,12 +4,12 @@
 (use-package! dashboard
   :init
   (setq
-   dashboard-startup-banner (concat doom-user-dir "misc/e-logo.svg")
+   dashboard-startup-banner (concat doom-user-dir "misc/emacs.svg")
    dashboard-set-heading-icons t
    dashboard-set-file-icons t
    dashboard-show-shortcuts t
-   dashboard-center-content t
-   dashboard-vertically-center-content t
+   dashboard-center-content nil
+   dashboard-vertically-center-content nil
    dashboard-items '((recents  . 5)
                      (projects . 5))
    dashboard-projects-backend 'projectile

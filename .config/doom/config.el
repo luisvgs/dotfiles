@@ -3,8 +3,8 @@
 (setq
  user-full-name "Luis Vegas"
  user-mail-address "luisvegasmor@gmail.com"
- doom-font (font-spec :family "JetBrains Mono" :size 18 :weight 'Medium)
- doom-theme 'apropospriate-light
+ doom-font (font-spec :family "JetBrains Mono" :size 18 :weight 'Regular)
+ doom-theme 'modus-operandi-tinted
  +latex-viewers '(pdf-tools)
  use-package-compute-statistics t
  auto-save-default t
@@ -62,18 +62,7 @@
 
 (global-set-key (kbd "C-c s") 'isearch-forward-region)
 
-;;  Elisp language stuff
-;; (use-package! lispyville
-;;   :init
-;;   (general-add-hook '(emacs-lisp-mode-hook lisp-mode-hook) #'lispyville-mode)
-;;   :config
-;;   (lispyville-set-key-theme '(operators c-w additional)))
-
-;; (use-package! lispy
-;;   :mode ("\\.el\\'" . emacs-lisp-mode))
-
 (add-hook 'clojure-mode-hook #'evil-cleverparens-mode)
-(setq acme-theme-black-fg t)
 (defun my-align-single-equals ()
   "Align on a single equals sign (with a space either side)."
   (interactive)
@@ -98,16 +87,6 @@
                 '(display-buffer-same-window)
               nil)))
   (setq magit-display-buffer-function #'my-magit-display-buffer))
-
-(use-package! toggle-term
-  :bind (("M-o f" . toggle-term-find)
-         ;; ("C-\\" . toggle-term-toggle)
-         ("C-\\" . toggle-term-shell)
-         ("M-o e" . toggle-term-eshell)
-         ("M-o i" . toggle-term-ielm))
-  :config
-  (setq toggle-term-size 30)
-  (setq toggle-term-switch-upon-toggle t))
 
 (load! "configs/+modeline")
 (load! "configs/+which-key")
