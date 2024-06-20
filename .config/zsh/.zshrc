@@ -1,6 +1,6 @@
 export PATH="~/.cargo/bin:$PATH"
 export PATH="$HOME/.npm-global/bin:$PATH"
-export PATH="/opt/idea-IC-232.9559.62/bin:$PATH"
+export PATH="/opt/idea-IC-241.17890.1/bin:$PATH"
 export PATH="/opt/sqlectron:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export READER='zathura'

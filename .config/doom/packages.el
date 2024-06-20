@@ -9,7 +9,6 @@
 (package! apropospriate-theme)
 (package! treesit-auto)
 (package! jetbrains-darcula-theme)
-(package! dashboard)
 (package! nyan-mode :disable t)
 (package! evil-cleverparens)
 (package! eglot-booster

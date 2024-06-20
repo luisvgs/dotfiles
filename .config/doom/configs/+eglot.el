@@ -1,5 +1,6 @@
 (use-package! eglot
   :defer t
+  :disabled t
   :init
   (setq eglot-autoshutdown t)
   :config
@@ -7,8 +8,6 @@
   (electric-pair-mode)
   (add-to-list 'eglot-server-programs '(rust-mode "rust-analyzer"))
   (add-to-list 'eglot-server-programs '(scala-mode "metals"))
-  ;; (add-to-list 'eglot-server-programs
-  ;;              '(clojure-mode "clojure-lsp"))
   (add-to-list 'eglot-server-programs '(rjsx-mode .("typescript-language-server" "--stdio")))
   (add-to-list 'eglot-server-programs '(tuareg-mode "ocamllsp"))
   (add-to-list 'eglot-server-programs '(haskell-mode . ("haskell-language-server-wrapper" "--lsp")))
@@ -23,8 +22,12 @@
   :hook
   ((rjsx-mode tuareg-mode rust-mode tsx-ts-mode typescript-ts-mode js2-mode scala-mode agda2-mode haskell-mode idris-mode) . eglot-ensure))
 
+(use-package! flycheck
+  :config (flycheck-set-indication-mode 'left-fringe))
+
 (use-package! eglot-booster
   :after eglot
+  :disabled t
   :config (eglot-booster-mode))
 
 (use-package! scala-repl :after scala-mode)

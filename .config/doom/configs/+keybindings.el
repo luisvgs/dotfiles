@@ -20,10 +20,6 @@
 
 (map! :g "C-c x" #'query-replace)
 
-;; (map! :leader
-;;       :desc "Toggle treemacs"
-;;       "-" #'+treemacs/toggle)
-
 (map! :leader
       :desc "Show diff for the file in the current buffer."
       "g d" #'magit-diff-buffer-file)
