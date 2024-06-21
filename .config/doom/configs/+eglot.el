@@ -41,7 +41,9 @@
 
 (use-package! typescript-ts-mode
   :mode (("\\.ts\\'" . typescript-ts-mode)
-         ("\\.tsx\\'" . tsx-ts-mode))
+         ("\\.tsx\\'" . tsx-ts-mode)
+         ("\\.jsx\\'" . typescript-ts-mode)
+         )
   :config
   (setq typescript-ts-mode-indent-offset 4)
   (add-hook! '(typescript-ts-mode-hook tsx-ts-mode-hook) #'lsp!))
@@ -72,6 +74,7 @@
 ;;   :config
 ;;   (setf (alist-get 'fourmolu apheleia-formatters) '("fourmolu" file))
 ;;   (add-to-list 'apheleia-mode-alist '(haskell-mode . fourmolu)))
+
 (use-package! idris-mode
   :mode ("\\.idr\\'")
   :custom
@@ -80,11 +83,33 @@
 (use-package! scala-mode
   :mode ("\\.sc\\'" "\\.scala\\'")
   :interpreter ("scala" . scala-mode)
-  :init
-  (setq scala-indent:step 4)
+  :config
+  (setq scala-indent:step 2
+        scala-indent:indent-value-expression t
+        scala-indent:align-parameters t
+        scala-indent:align-forms t
+        scala-indent:default-run-on-strategy scala-indent:reluctant-strategy)
   (setq-local eglot-workspace-configuration
               '((metals (scalafmt-config-path ("scalafmt.conf")))))
   )
+
+;; Utility
+(defun k/scala-toggle-indent:step (arg)
+  "Toggle Scala indent step. When ARG is defined, set it as a step value."
+  (interactive "P")
+  (if arg
+      (setq scala-indent:step arg)
+    (if (equal scala-indent:step 2)
+        (setq scala-indent:step 4)
+      (setq scala-indent:step 2)))
+  (message (format "set scala-indent:step %s"
+                   (propertize (number-to-string scala-indent:step)
+                               'face 'font-lock-keyword-face))))
+
+(after! scala-mode
+  (setq-hook! 'scala-mode-hook
+    comment-line-break-function #'+scala-comment-indent-new-line-fn)
+  (set-formatter! 'scalafmt '("scalafmt" "--stdin") :modes '(scala-mode)))
 
 (use-package! sbt-mode
   :defer t

@@ -1,7 +1,7 @@
 (use-package! lsp-mode
   :defer t
   :hook
-  (rust-mode . lsp)
+  (rustic-mode . lsp)
   (json-mode . lsp)
   (sh-mode . lsp)
   (scala-mode . lsp)
