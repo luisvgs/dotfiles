@@ -10,6 +10,7 @@
 (package! treesit-auto)
 (package! jetbrains-darcula-theme)
 (package! nyan-mode :disable t)
+(package! mu4e-alert)
 (package! evil-cleverparens)
 (package! eglot-booster
   :recipe (:host github :repo "jdtsmith/eglot-booster"

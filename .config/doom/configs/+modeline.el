@@ -16,10 +16,12 @@
         doom-modeline-lsp t
         doom-modeline-modal-icon nil
         doom-modeline-modal t
+        doom-modeline-mu4e t
         doom-modeline-persp-icon t
-        doom-modeline-persp-name nil)
+        doom-modeline-persp-name t)
   (custom-set-faces!
     '(doom-modeline-buffer-modified :foreground "orange")))
-
+;; also enable the start of mu4e-alert
+(mu4e-alert-enable-mode-line-display)
 (use-package! nyan-mode
   :hook (doom-modeline-mode . nyan-mode))
