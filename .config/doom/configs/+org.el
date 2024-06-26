@@ -12,7 +12,7 @@
       org-log-done 'time)
 
 (after! org-fancy-priorities
-  (setq org-fancy-priorities-list '("[A]" "[B]" "[C]")
+  (setq org-fancy-priorities-list '("❗" "[B]" "[C]")
         org-priority-faces
         '((?A :foreground "#ff6c6b" :weight bold)
           (?B :foreground "#5C5CFF" :weight bold)
