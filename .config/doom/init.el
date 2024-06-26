@@ -33,7 +33,7 @@
        :editor
        (evil +everywhere); come to the dark side, we have cookies
        ;; file-templates    ; auto-snippets for empty files
-       ;; fold              ; (nigh) universal code folding
+       fold              ; (nigh) universal code folding
        (format +onsave)  ; automated prettiness
        ;;god               ; run Emacs commands without modifier keys
        ;; lispy             ; vim for lisp, for people who don't like vim
@@ -48,7 +48,7 @@
        (dired +icons)             ; making dired pretty [functional]
        ;; electric          ; smarter, keyword-based electric-indent
        ( ibuffer +icons)         ; interactive buffer management
-       undo              ; persistent, smarter undo for your inevitable mistakes
+       (undo +tree)              ; persistent, smarter undo for your inevitable mistakes
        vc                ; version-control and Emacs, sitting in a tree
        :term
        ;;shell             ; simple shell REPL for Emacs
@@ -113,7 +113,7 @@
        ;;hy                ; readability of scheme w/ speed of python
        idris             ; a language you can depend on
        json              ; At least it ain't XML
-       ;; (java +lsp)       ; the poster child for carpal tunnel syndrome
+       (java +lsp)       ; the poster child for carpal tunnel syndrome
        ( javascript +lsp)        ; all(hope(abandon(ye(who(enter(here))))))
        ;;julia             ; a better, faster MATLAB
        ;;kotlin            ; a better, slicker Java(Script)
@@ -125,7 +125,7 @@
        ;;nim               ; python + lisp at the speed of c
        ;;nix               ; I hereby declare "nix geht mehr!"
        ( ocaml +lsp)             ; an objective camel
-       ( org +pretty)               ; organize your plain life in plain text
+       ( org +pretty +journal)               ; organize your plain life in plain text
        ;;php               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional

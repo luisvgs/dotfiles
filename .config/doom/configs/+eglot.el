@@ -52,6 +52,7 @@
   (setq treesit-language-source-alist
         '((typescript "https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.3" "typescript/src")
           (haskell "https://github.com/tree-sitter/tree-sitter-haskell")
+          (agda "https://github.com/tree-sitter/tree-sitter-agda")
           (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src" nil nil))))
 
 

@@ -5,6 +5,7 @@
   (json-mode . lsp)
   (sh-mode . lsp)
   (scala-mode . lsp)
+  (java-mode . lsp)
   (typescript-ts-mode . lsp)
   (haskell-mode . lsp)
   (tsx-mode . lsp)
@@ -36,6 +37,9 @@
         lsp-eldoc-render-all nil
         lsp-modeline-code-actions-enable t
         ))
+
+(use-package! rustic-mode
+  :mode (("\\.rs\\'" . rustic-mode)))
 
 (use-package! lsp-ui
   :hook (lsp-mode . lsp-ui-mode)
