@@ -2,33 +2,33 @@
 
 # Source global X session scripts.
 if [ -d /etc/X11/xinit/xinitrc.d ]; then
-  for f in /etc/X11/xinit/xinitrc.d/*; do
-    [ -x "$f" ] && . "$f"
-  done
-  unset f
+    for f in /etc/X11/xinit/xinitrc.d/*; do
+        [ -x "$f" ] && . "$f"
+    done
+    unset f
 fi
 
 battery() {
-  battery='/sys/class/power_supply/BAT0'
+    battery='/sys/class/power_supply/BAT0'
 
-  if [ -d "$battery" ]; then
-    echo ' '
+    if [ -d "$battery" ]; then
+        echo ' '
 
-    if grep -q 'Charging' "$battery/status"; then
-      echo ''
+        if grep -q 'Charging' "$battery/status"; then
+            echo ''
+        fi
+
+        cat "$battery/capacity"
+        echo '%'
     fi
-
-    cat "$battery/capacity"
-    echo '%'
-  fi
 }
 
 while true; do
-   xsetroot -name "luis :: $(date '+%a %d de %b, %I:%M %p') :: $(battery)"
-   sleep 1m
+    xsetroot -name "luis :: $(date '+%a %d de %b, %I:%M %p') :: $(battery)"
+    sleep 1m
 done &
 
-feh --no-fehbg --bg-fill ~/Pictures/cat.png &
+feh --no-fehbg --bg-fill ~/Pictures/kolibri.png &
 redshift -O 3600 &
 nm-applet &
 
