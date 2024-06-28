@@ -38,8 +38,30 @@
         lsp-modeline-code-actions-enable t
         ))
 
-(use-package! rustic-mode
-  :mode (("\\.rs\\'" . rustic-mode)))
+;; (setq lsp-java-vmargs
+;;       (list
+;;        "-noverify"
+;;        "-Xmx1G"
+;;        "-XX:+UseG1GC"
+;;        "-XX:+UseStringDeduplication"
+;;        "-javaagent:/home/luis/Downloads/lombok.jar"))
+;; Java Configuration
+(after! lsp-java
+  (setq lombok-library-path (concat doom-data-dir "lombok.jar"))
+  (unless (file-exists-p lombok-library-path)
+    (url-copy-file "https://projectlombok.org/downloads/lombok.jar" lombok-library-path))
+  (setq lsp-java-vmargs '("-XX:+UseParallelGC" "-XX:GCTimeRatio=4" "-XX:AdaptiveSizePolicyWeight=90" "-Dsun.zip.disableMemoryMapping=true" "-Xmx4G" "-Xms100m"))
+  (push (concat "-javaagent:"
+                (expand-file-name lombok-library-path))
+        lsp-java-vmargs))
+
+(defvar java-lombok-jar-path (concat doom-data-dir "lombok.jar")
+  "The path of lombok.jar")
+(use-package! lsp-java
+  :config
+  (when (file-exists-p java-lombok-jar-path)
+    (add-to-list 'lsp-java-vmargs (concat "-javaagent:" java-lombok-jar-path))))
+
 
 (use-package! lsp-ui
   :hook (lsp-mode . lsp-ui-mode)
