@@ -15,4 +15,4 @@
 (package! eglot-booster
   :recipe (:host github :repo "jdtsmith/eglot-booster"
            :files ("*")))
-(disable-packages! android-mode groovy-mode nodejs-repl coffee-mode skewer-mode all-the-icons)
+(disable-packages! rust-mode android-mode groovy-mode nodejs-repl coffee-mode skewer-mode all-the-icons)
