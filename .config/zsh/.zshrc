@@ -7,7 +7,10 @@ export READER='zathura'
 export EDITOR='nvim'
 BLK="04" CHR="04" DIR="04" EXE="00" REG="00" HARDLINK="00" SYMLINK="06" MISSING="00" ORPHAN="01" FIFO="0F" SOCK="0F" OTHER="02"
 export NNN_FCOLORS="$BLK$CHR$DIR$EXE$REG$HARDLINK$SYMLINK$MISSING$ORPHAN$FIFO$SOCK$OTHER"
+export JAVA_HOME='/usr/lib/jvm/java-17-openjdk'
+export PATH="$JAVA_HOME/bin:$PATH"
 
+alias spr='./mvnw spring-boot:run'
 alias idea='idea.sh'
 alias sqe='sqlectron'
 # Scala
