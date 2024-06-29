@@ -1,6 +1,6 @@
 (use-package! doom-modeline
   :config
-  (setq doom-modeline-height 36
+  (setq doom-modeline-height 35
         doom-modeline-unicode-fallback nil
         doom-modeline-icon t
         doom-plain-brighter-modeline nil

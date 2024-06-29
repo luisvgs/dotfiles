@@ -3,7 +3,7 @@
 (setq
  user-full-name "Luis Vegas"
  user-mail-address "luisvegasmor@gmail.com"
- doom-font (font-spec :family "JetBrains Mono Nerd Font" :size 18 :weight 'Regular)
+ ;; Iosevka Comfy :height 160 :weight 'thin
  doom-theme 'doom-one
  +latex-viewers '(pdf-tools)
  use-package-compute-statistics t
@@ -25,6 +25,7 @@
  x-stretch-cursor t)
 ;; (unless (display-graphic-p)
 ;;   (corfu-terminal-mode +1))
+(set-face-attribute 'default nil :font "Iosevka Comfy" :height 150 :weight 'Regular)
 
 (use-package! pdf-tools
   :config
@@ -166,4 +167,5 @@
 (load! "configs/+latex")
 (load! "configs/+utility")
 (load! "configs/+projectile")
+(load! "configs/+avy")
 ;; (load! "configs/ghcid")

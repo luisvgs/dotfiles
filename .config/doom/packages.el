@@ -5,6 +5,7 @@
 ;;   :recipe (:host nil :repo "https://codeberg.org/akib/emacs-corfu-terminal"))
 (package! modus-themes)
 (package! ef-themes)
+(package! spacious-padding)
 (package! scala-repl)
 (package! apropospriate-theme)
 (package! treesit-auto)
