@@ -14,7 +14,7 @@
         doom-modeline-modal-modern-icon t
         doom-modeline-lsp-icon t
         doom-modeline-lsp t
-        doom-modeline-modal-icon nil
+        doom-modeline-modal-icon t
         doom-modeline-modal t
         doom-modeline-mu4e t
         doom-modeline-persp-icon nil
@@ -25,3 +25,23 @@
 (mu4e-alert-enable-mode-line-display)
 (use-package! nyan-mode
   :hook (doom-modeline-mode . nyan-mode))
+
+;; (set-face-attribute 'mode-line nil  :height 165)
+;; (setq-default mode-line-format
+;;               '("%e"
+;;                 mode-line-front-space
+;;                 mode-line-mule-info
+;;                 mode-line-client-mode
+;;                 mode-line-modified
+;;                 mode-line-remote
+;;                 mode-line-frame-indentifcation
+;;                 " "
+;;                 mode-line-buffer-identification
+;;                 "  "
+;;                 vc-mode
+;;                 " "
+;;                 mode-line-modes
+;;                 " "
+;;                 mode-line-misc-info
+;;                 mode-line-end-spaces))
+;; (setq minor-mode-alist nil)

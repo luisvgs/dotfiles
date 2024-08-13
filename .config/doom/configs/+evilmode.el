@@ -22,6 +22,9 @@
 ;; (map! :map evil-normal-state-map "s-]" #'next-buffer)
 ;; (map! :map evil-normal-state-map "s-[" #'previous-buffer)
 
+(use-package! evil-multiedit
+  :config
+  (evil-multiedit-default-keybinds))
 
 (setq evil-vsplit-window-right t
       evil-split-window-below t)

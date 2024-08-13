@@ -2,6 +2,7 @@
   :defer t
   :mode ("\\.org\\'" . org-mode))
 
+(use-package! rainbow-mode :after org-mode)
 (after! org org-directory "~/org/")
 
 (setq org-agenda-deadline-leaders '("" "" "%2d d. ago: ")
@@ -60,7 +61,6 @@
   '(org-level-4 :inherit outline-4 :height 1.0)
   '(org-level-3 :inherit outline-3 :height 1.0)
   '(org-level-2 :inherit outline-2 :height 1.1)
-  '(org-level-1 :inherit outline-1 :height 1.45 :background "#8E7AB5")
   '(org-document-title :height 1.1 :underline nil :foreground "#8B8B8B"))
 
 (custom-theme-set-faces!
@@ -70,3 +70,40 @@
   '(org-level-2 :inherit outline-2 :height 1.1)
   '(org-level-1 :inherit outline-1 :height 1.45 :background "#feeed2")
   '(org-document-title :height 1.1 :underline nil :foreground "#8B8B8B"))
+
+(org-super-agenda-mode)
+(use-package! org-super-agenda
+  :config
+  (setq org-super-agenda-groups
+        '(;; Each group has an implicit boolean OR operator between its selectors.
+          (:name " Overdue "  ; Optionally specify section name
+           :scheduled past
+           :children t
+           :time-grid t
+           :face (:background "black" :underline t)
+           :order 2
+           :face 'error)
+
+          (:name "Personal "
+           :order 3)
+
+          (:name " Today "
+           :time-grid t
+           :habit t
+           :date today
+           :scheduled today
+           :order 1
+ :transformer (--> it
+                                  (upcase it)
+                                  (propertize it 'face '(:foreground "RosyBrown1"))))
+          )
+        )
+  )
+
+(map! :desc "Next line"
+      :map org-super-agenda-header-map
+      "j" 'org-agenda-next-line)
+
+(map! :desc "Next line"
+      :map org-super-agenda-header-map
+      "k" 'org-agenda-previous-line)

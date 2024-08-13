@@ -12,7 +12,7 @@
  :leader
  :desc "View" "v" #'TeX-view)
 
-;; (map! :g "C-t" #'+treemacs/toggle)
+(map! :g "C-\\" #'+treemacs/toggle)
 
 (map! :leader
       :desc "Open journal file"

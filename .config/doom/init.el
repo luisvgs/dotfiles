@@ -23,7 +23,7 @@
        ophints           ; highlight the region an operation acts on
        (popup +defaults +all)   ; tame sudden yet inevitable temporary windows
        ;; tabs              ; a tab bar for Emacs
-       ;; treemacs          ; a project drawer, like neotree but cooler
+       ( treemacs)          ; a project drawer, like neotree but cooler
        ;;unicode           ; extended unicode support for various languages
        (vc-gutter +pretty) ; vcs diff in the fringe
        ;; vi-tilde-fringe   ; fringe tildes to mark beyond EOB
@@ -34,13 +34,13 @@
        (evil +everywhere); come to the dark side, we have cookies
        ;; file-templates    ; auto-snippets for empty files
        fold              ; (nigh) universal code folding
-       (format +onsave)  ; automated prettiness
+       (format)  ; automated prettiness
        ;;god               ; run Emacs commands without modifier keys
        ;; lispy             ; vim for lisp, for people who don't like vim
-       ;;multiple-cursors  ; editing in many places at once
+       multiple-cursors  ; editing in many places at once
        ;;objed             ; text object editing for the innocent
        ;;parinfer          ; turn lisp into python, sort of
-       ;;rotate-text       ; cycle region at point between text candidates
+       rotate-text       ; cycle region at point between text candidates
        snippets          ; my elves. They type so I don't have to
        ;;word-wrap         ; soft wrapping with language-aware indent
 
@@ -70,7 +70,7 @@
        ;; (eval +overlay)     ; run code, run (also, repls)
        ;;gist              ; interacting with github gists
        lookup              ; navigate your code and its documentation
-       ( lsp +peek)               ; M-x vscode
+       (lsp +eglot)               ; M-x vscode
        magit             ; a git porcelain for Emacs
        ;;make              ; run make tasks from Emacs
        ;;pass              ; password manager for nerds
@@ -109,12 +109,12 @@
        ;;gdscript          ; the language you waited for
        ;;(go +lsp)         ; the hipster dialect
        ;;(graphql +lsp)    ; Give queries a REST
-       (haskell +lsp)    ; a language that's lazier than I am
+       (haskell +lsp +tree-sitter)    ; a language that's lazier than I am
        ;;hy                ; readability of scheme w/ speed of python
        idris             ; a language you can depend on
        json              ; At least it ain't XML
        (java +lsp)       ; the poster child for carpal tunnel syndrome
-       ( javascript +lsp)        ; all(hope(abandon(ye(who(enter(here))))))
+       ( javascript +lsp +tree-sitter)        ; all(hope(abandon(ye(who(enter(here))))))
        ;;julia             ; a better, faster MATLAB
        ;;kotlin            ; a better, slicker Java(Script)
        (latex +lsp +latexmk)             ; writing papers in Emacs has never been so fun
@@ -136,7 +136,7 @@
        ;; rest              ; Emacs as a REST client
        ;;rst               ; ReST in peace
        ;;(ruby +rails)     ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
-       (rust +lsp)       ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
+       (rust +lsp +tree-sitter)       ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
        ( scala +lsp)             ; java, but good
        ;;(scheme +guile)   ; a fully conniving family of lisps
        ;; sh                ; she sells {ba,z,fi}sh shells on the C xor
@@ -144,7 +144,7 @@
        ;;solidity          ; do you need a blockchain? No.
        ;;swift             ; who asked for emoji variables?
        ;;terra             ; Earth and Moon in alignment for performance.
-       ;;web               ; the tubes
+       ( web +lsp +tree-sitter)               ; the tubes
        yaml              ; JSON, but readable
        ;;zig               ; C, but simpler
        :email

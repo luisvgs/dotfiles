@@ -4,7 +4,7 @@
  user-full-name "Luis Vegas"
  user-mail-address "luisvegasmor@gmail.com"
  ;; Iosevka Comfy :height 160 :weight 'thin
- doom-theme 'doom-one
+ doom-theme 'doom-wilmersdorf
  +latex-viewers '(pdf-tools)
  use-package-compute-statistics t
  auto-save-default t
@@ -23,8 +23,6 @@
  delete-by-moving-to-trash t
  window-combination-resize t
  x-stretch-cursor t)
-;; (unless (display-graphic-p)
-;;   (corfu-terminal-mode +1))
 (set-face-attribute 'default nil :font "Iosevka Comfy" :height 150 :weight 'Regular)
 
 (use-package! pdf-tools
@@ -63,7 +61,6 @@
 
 (global-set-key (kbd "C-c s") 'isearch-forward-region)
 
-(add-hook 'clojure-mode-hook #'evil-cleverparens-mode)
 (defun my-align-single-equals ()
   "Align on a single equals sign (with a space either side)."
   (interactive)
@@ -72,84 +69,6 @@
    "\\(\\s-*\\) = " 1 0 nil))
 
 (global-set-key (kbd "C-c C-a") 'my-align-single-equals)
-
-(after! magit
-  (setq magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1)
-
-  (defun my-magit-display-buffer (buffer)
-    "Displays the magit BUFFER in a vertical split."
-    (display-buffer
-     buffer (if (and (derived-mode-p 'magit-mode)
-                     (memq (with-current-buffer buffer major-mode)
-                           '(magit-process-mode
-                             magit-revision-mode
-                             magit-diff-mode
-                             magit-status-mode)))
-                '(display-buffer-same-window)
-              nil)))
-  (setq magit-display-buffer-function #'my-magit-display-buffer))
-
-(defun lsp-booster--advice-json-parse (old-fn &rest args)
-  "Try to parse bytecode instead of json."
-  (or
-   (when (equal (following-char) ?#)
-     (let ((bytecode (read (current-buffer))))
-       (when (byte-code-function-p bytecode)
-         (funcall bytecode))))
-   (apply old-fn args)))
-(advice-add (if (progn (require 'json)
-                       (fboundp 'json-parse-buffer))
-                'json-parse-buffer
-              'json-read)
-            :around
-            #'lsp-booster--advice-json-parse)
-
-(defun lsp-booster--advice-final-command (old-fn cmd &optional test?)
-  "Prepend emacs-lsp-booster command to lsp CMD."
-  (let ((orig-result (funcall old-fn cmd test?)))
-    (if (and (not test?)                             ;; for check lsp-server-present?
-             (not (file-remote-p default-directory)) ;; see lsp-resolve-final-command, it would add extra shell wrapper
-             lsp-use-plists
-             (not (functionp 'json-rpc-connection))  ;; native json-rpc
-             (executable-find "emacs-lsp-booster"))
-        (progn
-          (message "Using emacs-lsp-booster for %s!" orig-result)
-          (cons "emacs-lsp-booster" orig-result))
-      orig-result)))
-(advice-add 'lsp-resolve-final-command :around #'lsp-booster--advice-final-command)
-
-
-;; TODO: Load messages on startup?
-(use-package! mu4e
-  :ensure nil
-  ;; :load-path "/usr/share/emacs/site-lisp/mu4e/"
-  ;; :defer 20 ; Wait until 20 seconds after startup
-  :config
-  ;; This is set to 't' to avoid mail syncing issues when using mbsync
-  (setq mu4e-change-filenames-when-moving t)
-
-  ;; Refresh mail using isync every 10 minutes
-  (setq mu4e-update-interval (* 10 60))
-  (setq mu4e-get-mail-command "mbsync -a")
-  (setq mu4e-root-maildir "~/Mail")
-  (setq smtpmail-smtp-user     "luisvegasmor@gmail.com")
-  (setq mu4e-compose-format-flowed t)
-  (setq mu4e-drafts-folder "/[Gmail]/Drafts")
-  (setq mu4e-sent-folder   "/[Gmail]/Sent Mail")
-  (setq mu4e-refile-folder "/[Gmail]/All Mail")
-  (setq mu4e-trash-folder  "/[Gmail]/Trash")
-  (setq mu4e-get-mail-command "mbsync gmail")
-  (setq mu4e-index-cleanup nil)
-  (setq mu4e-index-lazy-check t)
-  (setq mu4e-headers-date-format "%d.%m.%y")
-  (setq mu4e-maildir-shortcuts
-        '(("/Inbox"             . ?i)
-          ("/[Gmail]/Sent Mail" . ?s)
-          ("/[Gmail]/Trash"     . ?t)
-          ("/[Gmail]/Drafts"    . ?d)
-          ("/[Gmail]/All Mail"  . ?a))))
-
-
 
 (load! "configs/+modeline")
 (load! "configs/+which-key")
@@ -161,7 +80,7 @@
 (load! "configs/+org")
 (load! "configs/+eglot")
 (load! "configs/+lsp")
-;; (load! "configs/+dashboard")
+(load! "configs/+m4ue")
 (load! "configs/+persp")
 (load! "configs/+keybindings")
 (load! "configs/+latex")

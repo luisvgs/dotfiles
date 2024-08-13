@@ -1,18 +1,21 @@
 (use-package! eglot
   :defer t
-  :disabled t
   :init
   (setq eglot-autoshutdown t)
   :config
   (setq eglot-ignored-server-capabilities '(:documentLinkProvider :inlayHintProvider :documentOnTypeFormattingProvider))
   (electric-pair-mode)
-  (add-to-list 'eglot-server-programs '(rust-mode "rust-analyzer"))
   (add-to-list 'eglot-server-programs '(scala-mode "metals"))
   (add-to-list 'eglot-server-programs '(rjsx-mode .("typescript-language-server" "--stdio")))
   (add-to-list 'eglot-server-programs '(tuareg-mode "ocamllsp"))
   (add-to-list 'eglot-server-programs '(haskell-mode . ("haskell-language-server-wrapper" "--lsp")))
   (add-to-list 'eglot-server-programs '(tsx-ts-mode . ("typescript-language-server" "--stdio")))
   (add-to-list 'eglot-server-programs '(typescript-ts-mode . ("typescript-language-server" "--stdio")))
+  (add-to-list 'eglot-server-programs
+               `(rust-mode . ("rust-analyzer" :initializationOptions
+                              ( :procMacro (:enable t)
+                                           :cargo ( :buildScripts (:enable t)
+                                                                  :features "all")))))
   (add-hook 'eglot-managed-mode-hook
             (lambda ()
               (setq eldoc-documentation-functions
@@ -121,3 +124,7 @@
    'self-insert-command
    minibuffer-local-completion-map)
   (setq sbt:program-options '("-Dsbt.supershell=false")))
+
+(use-package! rust-ts-mode
+  :mode ("\\.rs" . rust-ts-mode)
+  :hook (rust-ts-mode . eglot))
