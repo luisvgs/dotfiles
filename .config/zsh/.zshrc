@@ -10,11 +10,11 @@ export NNN_FCOLORS="$BLK$CHR$DIR$EXE$REG$HARDLINK$SYMLINK$MISSING$ORPHAN$FIFO$SO
 export JAVA_HOME='/usr/lib/jvm/java-17-openjdk'
 export PATH="$JAVA_HOME/bin:$PATH"
 
-alias spr='./mvnw spring-boot:run'
+alias spr='mvn spring-boot:run'
 alias idea='idea.sh'
 alias sqe='sqlectron'
 # Scala
-alias sc='scala-cli run --jvm 17'
+alias sc='scala-cli run'
 alias sn='scala-helper $@'
 
 # Ocaml
