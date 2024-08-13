@@ -5,14 +5,14 @@
 ;;   :recipe (:host nil :repo "https://codeberg.org/akib/emacs-corfu-terminal"))
 (package! modus-themes)
 (package! ef-themes)
-(package! spacious-padding)
 (package! scala-repl)
-(package! apropospriate-theme)
 (package! treesit-auto)
 (package! jetbrains-darcula-theme)
 (package! nyan-mode :disable t)
 (package! mu4e-alert)
 (package! evil-cleverparens)
+(package! org-super-agenda)
+(package! org-kanban)
 (package! eglot-booster
   :recipe (:host github :repo "jdtsmith/eglot-booster"
            :files ("*")))
