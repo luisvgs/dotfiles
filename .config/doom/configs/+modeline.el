@@ -6,7 +6,7 @@
         doom-plain-brighter-modeline nil
         doom-modeline-major-mode-icon t
         doom-modeline-major-mode-color-icon t
-        doom-modeline-buffer-file-name-style 'file-name
+        doom-modeline-buffer-file-name-style 'truncate-except-project
         doom-modeline-workspace-name t
         doom-modeline-buffer-state-icon t
         doom-modeline-buffer-modification-icon t
@@ -14,7 +14,7 @@
         doom-modeline-modal-modern-icon t
         doom-modeline-lsp-icon t
         doom-modeline-lsp t
-        doom-modeline-modal-icon t
+        doom-modeline-modal-icon nil
         doom-modeline-modal t
         doom-modeline-mu4e t
         doom-modeline-persp-icon nil
@@ -23,8 +23,6 @@
     '(doom-modeline-buffer-modified :foreground "orange")))
 ;; also enable the start of mu4e-alert
 (mu4e-alert-enable-mode-line-display)
-(use-package! nyan-mode
-  :hook (doom-modeline-mode . nyan-mode))
 
 ;; (set-face-attribute 'mode-line nil  :height 165)
 ;; (setq-default mode-line-format

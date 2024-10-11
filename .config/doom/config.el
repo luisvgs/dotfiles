@@ -3,6 +3,7 @@
 (setq
  user-full-name "Luis Vegas"
  user-mail-address "luisvegasmor@gmail.com"
+ ;; doom-font (font-spec :family "JetBrains Mono Nerd Font" :size 19 :weight 'Regular)
  ;; Iosevka Comfy :height 160 :weight 'thin
  doom-theme 'doom-wilmersdorf
  +latex-viewers '(pdf-tools)
@@ -24,6 +25,8 @@
  window-combination-resize t
  x-stretch-cursor t)
 (set-face-attribute 'default nil :font "Iosevka Comfy" :height 150 :weight 'Regular)
+
+(setq highlight-indent-guides-method 'fill)
 
 (use-package! pdf-tools
   :config
@@ -70,6 +73,91 @@
 
 (global-set-key (kbd "C-c C-a") 'my-align-single-equals)
 
+
+(use-package! centaur-tabs
+  :init
+  (setq centaur-tabs-enable-key-bindings t)
+  :config
+  (setq centaur-tabs-style "box"
+        centaur-tabs-height 37
+        centaur-tabs-set-icons t
+        centaur-tabs-show-new-tab-button nil
+        centaur-tabs-set-modified-marker t
+        centaur-tabs-show-navigation-buttons nil
+        centaur-tabs-set-bar 'under
+        centaur-tabs-show-count nil
+        ;; centaur-tabs-label-fixed-length 15
+        ;; centaur-tabs-gray-out-icons 'buffer
+        ;; centaur-tabs-plain-icons t
+        x-underline-at-descent-line t
+        centaur-tabs-left-edge-margin nil)
+  (centaur-tabs-change-fonts (face-attribute 'default :font) 110)
+  (centaur-tabs-headline-match)
+  ;; (centaur-tabs-enable-buffer-alphabetical-reordering)
+  ;; (setq centaur-tabs-adjust-buffer-order t)
+  (centaur-tabs-mode t)
+  (setq uniquify-separator "/")
+  (setq uniquify-buffer-name-style 'forward)
+  (defun centaur-tabs-buffer-groups ()
+    "`centaur-tabs-buffer-groups' control buffers' group rules.
+
+Group centaur-tabs with mode if buffer is derived from `eshell-mode' `emacs-lisp-mode' `dired-mode' `org-mode' `magit-mode'.
+All buffer name start with * will group to \"Emacs\".
+Other buffer group by `centaur-tabs-get-group-name' with project name."
+    (list
+     (cond
+      ;; ((not (eq (file-remote-p (buffer-file-name)) nil))
+      ;; "Remote")
+      ((or (string-equal "*" (substring (buffer-name) 0 1))
+           (memq major-mode '(magit-process-mode
+                              magit-status-mode
+                              magit-diff-mode
+                              magit-log-mode
+                              magit-file-mode
+                              magit-blob-mode
+                              magit-blame-mode
+                              )))
+       "Emacs")
+      ((derived-mode-p 'prog-mode)
+       "Editing")
+      ((derived-mode-p 'dired-mode)
+       "Dired")
+      ((memq major-mode '(helpful-mode
+                          help-mode))
+       "Help")
+      ((memq major-mode '(org-mode
+                          org-agenda-clockreport-mode
+                          org-src-mode
+                          org-agenda-mode
+                          org-beamer-mode
+                          org-indent-mode
+                          org-bullets-mode
+                          org-cdlatex-mode
+                          org-agenda-log-mode
+                          diary-mode))
+       "OrgMode")
+      (t
+       (centaur-tabs-get-group-name (current-buffer))))))
+  :hook
+  (dashboard-mode . centaur-tabs-local-mode)
+  (term-mode . centaur-tabs-local-mode)
+  (calendar-mode . centaur-tabs-local-mode)
+  (org-agenda-mode . centaur-tabs-local-mode)
+  :bind
+  ("C-<prior>" . centaur-tabs-backward)
+  ("C-<next>" . centaur-tabs-forward)
+  ("C-S-<prior>" . centaur-tabs-move-current-tab-to-left)
+  ("C-S-<next>" . centaur-tabs-move-current-tab-to-right)
+  (:map evil-normal-state-map
+        ;; TODO: mappings for forward/backward-group
+        ("C-l" . centaur-tabs-forward)
+        ("C-h" . centaur-tabs-backward))
+  )
+
+(setq read-process-output-max (* 10 1024 1024)) ;; 10mb
+(setq gc-cons-threshold 200000000)
+
+
 (load! "configs/+modeline")
 (load! "configs/+which-key")
 (load! "configs/+evilmode")
@@ -80,7 +168,7 @@
 (load! "configs/+org")
 (load! "configs/+eglot")
 (load! "configs/+lsp")
-(load! "configs/+m4ue")
+;; (load! "configs/+m4ue")
 (load! "configs/+persp")
 (load! "configs/+keybindings")
 (load! "configs/+latex")

@@ -7,7 +7,7 @@
       "C-<left>"       #'+evil/window-move-left
       "C-<down>"       #'+evil/window-move-down
       "C-<up>"         #'+evil/window-move-up
-      "C -<right>"      #'+evil/window-move-right)
+      "C-<right>"      #'+evil/window-move-right)
 
 (map! :map evil-window-map
       :leader
@@ -19,8 +19,8 @@
 
 (map! :map evil-normal-state-map "C-k" #'next-buffer)
 (map! :map evil-normal-state-map "C-j" #'previous-buffer)
-;; (map! :map evil-normal-state-map "s-]" #'next-buffer)
-;; (map! :map evil-normal-state-map "s-[" #'previous-buffer)
+(map! :map evil-normal-state-map "s-]" #'next-buffer)
+(map! :map evil-normal-state-map "s-[" #'previous-buffer)
 
 (use-package! evil-multiedit
   :config
@@ -28,3 +28,4 @@
 
 (setq evil-vsplit-window-right t
       evil-split-window-below t)
+(map! "M-R" #'evil-multiedit-match-all)
