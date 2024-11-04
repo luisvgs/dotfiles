@@ -5,7 +5,7 @@
  user-mail-address "luisvegasmor@gmail.com"
  ;; doom-font (font-spec :family "JetBrains Mono Nerd Font" :size 19 :weight 'Regular)
  ;; Iosevka Comfy :height 160 :weight 'thin
- doom-theme 'doom-wilmersdorf
+ doom-theme 'doom-one
  +latex-viewers '(pdf-tools)
  use-package-compute-statistics t
  auto-save-default t
@@ -175,4 +175,5 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
 (load! "configs/+utility")
 (load! "configs/+projectile")
 (load! "configs/+avy")
+(load! "configs/+init-scala")
 ;; (load! "configs/ghcid")

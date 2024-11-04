@@ -8,7 +8,7 @@
 (package! scala-repl)
 (package! treesit-auto)
 (package! ng2-mode)
-(package! mu4e-alert)
+;; (package! mu4e-alert)
 (package! evil-cleverparens)
 ;; (package! org-kanban)
 (package! eglot-booster

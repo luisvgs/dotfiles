@@ -16,13 +16,13 @@
         doom-modeline-lsp t
         doom-modeline-modal-icon nil
         doom-modeline-modal t
-        doom-modeline-mu4e t
+        ;; doom-modeline-mu4e t
         doom-modeline-persp-icon nil
         doom-modeline-persp-name nil)
   (custom-set-faces!
     '(doom-modeline-buffer-modified :foreground "orange")))
 ;; also enable the start of mu4e-alert
-(mu4e-alert-enable-mode-line-display)
+;; (mu4e-alert-enable-mode-line-display)
 
 ;; (set-face-attribute 'mode-line nil  :height 165)
 ;; (setq-default mode-line-format
