@@ -27,6 +27,7 @@
   ;; (setq scala-indent:indent-value-expression t
   ;;       scala-indent:align-parameters t
   ;;      scala-indent:align-forms t)
+  :mode ("\\.sc\\'" "\\.scala\\'")
   :interpreter ("scala" . scala-mode)
   :hook (
          (scala-mode . eglot-ensure)

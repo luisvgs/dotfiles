@@ -3,8 +3,7 @@
 (setq
  user-full-name "Luis Vegas"
  user-mail-address "luisvegasmor@gmail.com"
- ;; doom-font (font-spec :family "JetBrains Mono Nerd Font" :size 19 :weight 'Regular)
- ;; Iosevka Comfy :height 160 :weight 'thin
+ doom-font (font-spec :family "JetBrains Mono Nerd Font" :size 19 :weight 'Regular)
  doom-theme 'doom-one
  +latex-viewers '(pdf-tools)
  use-package-compute-statistics t
@@ -24,21 +23,17 @@
  delete-by-moving-to-trash t
  window-combination-resize t
  x-stretch-cursor t)
-(set-face-attribute 'default nil :font "Iosevka Comfy" :height 150 :weight 'Regular)
-
-(setq highlight-indent-guides-method 'fill)
 
 (use-package! pdf-tools
+  :defer t
   :config
   (pdf-tools-install)
   (setq-default pdf-view-display-size 'fit-page)
   (setq pdf-annot-activate-created-annotations t)
   (define-key pdf-view-mode-map (kbd "C-s") 'isearch-forward))
 
-(after! ivy
-  (setq-default ivy-fixed-height-minibuffer t
-                ivy-height 12)
-  (map! :g "C-s" #'swiper-isearch))
+(after! vertico
+  (setq vertico-count 12))
 
 (use-package! rainbow-mode
   :hook (org-mode . rainbow-mode))
@@ -86,15 +81,10 @@
         centaur-tabs-show-navigation-buttons nil
         centaur-tabs-set-bar 'under
         centaur-tabs-show-count nil
-        ;; centaur-tabs-label-fixed-length 15
-        ;; centaur-tabs-gray-out-icons 'buffer
-        ;; centaur-tabs-plain-icons t
         x-underline-at-descent-line t
         centaur-tabs-left-edge-margin nil)
   (centaur-tabs-change-fonts (face-attribute 'default :font) 110)
   (centaur-tabs-headline-match)
-  ;; (centaur-tabs-enable-buffer-alphabetical-reordering)
-  ;; (setq centaur-tabs-adjust-buffer-order t)
   (centaur-tabs-mode t)
   (setq uniquify-separator "/")
   (setq uniquify-buffer-name-style 'forward)
@@ -157,6 +147,16 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
 (setq read-process-output-max (* 10 1024 1024)) ;; 10mb
 (setq gc-cons-threshold 200000000)
 
+;; (setq spacious-padding-widths
+;;       '( :internal-border-width 10
+;;          :header-line-width 4
+;;          :mode-line-width 4
+;;          :tab-width 4
+;;          :right-divider-width 30
+;;          :scroll-bar-width 8
+;;          :fringe-width 10))
+
+;; (spacious-padding-mode 1)
 
 (load! "configs/+modeline")
 (load! "configs/+which-key")
@@ -168,12 +168,13 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
 (load! "configs/+org")
 (load! "configs/+eglot")
 (load! "configs/+lsp")
-;; (load! "configs/+m4ue")
 (load! "configs/+persp")
 (load! "configs/+keybindings")
 (load! "configs/+latex")
 (load! "configs/+utility")
 (load! "configs/+projectile")
-(load! "configs/+avy")
 (load! "configs/+init-scala")
+(load! "configs/+dashboard")
+;; (load! "configs/+avy")
 ;; (load! "configs/ghcid")
+;; (load! "configs/+m4ue")
