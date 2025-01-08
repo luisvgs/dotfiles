@@ -21,10 +21,14 @@
         doom-modeline-persp-name nil)
   (custom-set-faces!
     '(doom-modeline-buffer-modified :foreground "orange")))
+
+;; for email thing
 ;; also enable the start of mu4e-alert
 ;; (mu4e-alert-enable-mode-line-display)
 
-;; (set-face-attribute 'mode-line nil  :height 165)
+
+
+;; (set-face-attribute 'mode-line nil  :height 160)
 ;; (setq-default mode-line-format
 ;;               '("%e"
 ;;                 mode-line-front-space

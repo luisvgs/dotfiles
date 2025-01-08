@@ -6,6 +6,18 @@
 (package! treesit-auto)
 (package! ng2-mode)
 (package! spacemacs-theme)
+(package! lean4-mode :recipe
+  (:host github
+   :repo "leanprover-community/lean4-mode"
+   :files ("*.el" "data")))
+(package! emacs-eat :recipe
+  (:host codeberg
+   :repo "akib/emacs-eat"
+   :files ("*.el" ("term" "term/*.el") "*.texi"
+               "*.ti" ("terminfo/e" "terminfo/e/*")
+               ("terminfo/65" "terminfo/65/*")
+               ("integration" "integration/*")
+               (:exclude ".dir-locals.el" "*-tests.el"))))
 (package! standard-themes)
 (package! evil-cleverparens)
 (package! flycheck-rust)
