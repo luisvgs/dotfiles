@@ -19,6 +19,7 @@
                ("integration" "integration/*")
                (:exclude ".dir-locals.el" "*-tests.el"))))
 (package! standard-themes)
+(package! grandshell-theme)
 (package! evil-cleverparens)
 (package! flycheck-rust)
 (package! eglot-booster

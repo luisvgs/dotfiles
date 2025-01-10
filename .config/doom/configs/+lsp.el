@@ -1,6 +1,5 @@
 (use-package! lsp-mode
   :defer t
-  :disabled t
   :hook
   (rust-mode . lsp)
   (json-mode . lsp)
@@ -96,16 +95,16 @@
         (typescript-mode . typescript-ts-mode)
         (json-mode . json-ts-mode)))
 
-;; (use-package! lsp-ui
-;;   :hook (lsp-mode . lsp-ui-mode)
-;;   :config
-;;   (setq lsp-eldoc-enable-hover nil
-;;         lsp-eldoc-render-all nil
-;;         lsp-eldoc-enable-hover nil
-;;         eldoc-documentation-functions nil
-;;         ;; (setq lsp-ui-sideline-enable t)
-;;         ;; (setq lsp-ui-sideline-show-diagnostics t)
-;;         ;; (setq lsp-ui-sideline-show-hover t)
-;;         ;; (setq lsp-ui-peek-always-show nil)
-;;         ;; (setq lsp-ui-doc-enable nil)
-;;         ))
+(use-package! lsp-ui
+  :hook (lsp-mode . lsp-ui-mode)
+  :config
+  (setq lsp-eldoc-enable-hover nil
+        lsp-eldoc-render-all nil
+        lsp-eldoc-enable-hover nil
+        eldoc-documentation-functions nil
+        (setq lsp-ui-sideline-enable t)
+        (setq lsp-ui-sideline-show-diagnostics t)
+        (setq lsp-ui-sideline-show-hover t)
+        (setq lsp-ui-peek-always-show t)
+        ;; (setq lsp-ui-doc-enable nil)
+        ))

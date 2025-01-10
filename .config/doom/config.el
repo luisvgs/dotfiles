@@ -4,7 +4,7 @@
  user-full-name "Luis Vegas"
  user-mail-address "luisvegasmor@gmail.com"
  doom-font (font-spec :family "JetBrains Mono Nerd Font" :size 19 :weight 'Regular)
- doom-theme 'ef-symbiosis
+ doom-theme 'grandshell
  +latex-viewers '(pdf-tools)
  use-package-compute-statistics t
  auto-save-default t
@@ -167,7 +167,7 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
 (load! "configs/+treesitter")
 (load! "configs/+org")
 (load! "configs/+eglot")
-(load! "configs/+lsp")
+;; (load! "configs/+lsp")
 (load! "configs/+persp")
 (load! "configs/+keybindings")
 (load! "configs/+latex")
