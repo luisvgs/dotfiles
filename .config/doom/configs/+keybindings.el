@@ -34,3 +34,7 @@
 
 (map! :g "C-w" #'kill-region)
 (map! :g "C-c C-f C-f" #'+fold/toggle)
+
+(map! :leader
+      :desc "Executes align-regexp"
+      "c =" #'align-regexp)

@@ -154,6 +154,7 @@
   :hook
   (rust-mode . lsp)
   (json-mode . lsp)
+  (lean4-mode . lsp)
   (sh-mode . lsp)
   (scala-mode . lsp)
   (typescript-ts-mode . lsp)
@@ -226,7 +227,7 @@
         lsp-ui-sideline-show-diagnostics t
         lsp-ui-sideline-show-hover t
         lsp-ui-peek-always-show t
-        lsp-modeline-diagnostics-enable t
+        lsp-modeline-diagnostics-enable nil
         lsp-modeline-code-actions-enable t))
 (use-package! flycheck
   :custom
@@ -235,3 +236,19 @@
               ("M-n" . #'flymake-goto-next-error)
               ("M-p" . #'flymake-goto-prev-error))
   :config (flycheck-set-indication-mode 'left-fringe))
+
+(global-prettify-symbols-mode 1)
+(defun haskell-pretty-mode ()
+  "Set up pretty symbols for haskell"
+  (setq prettify-symbols-alist
+        '(("lambda" .  ?\u03BB)
+          ("\\" . ?\u03BB)      ; λ
+          ("->" . ?\u2192)      ; →
+          ("<-" . ?\u2190)      ; ←
+          ;; ("map" . ?\u21A6)
+          ("=>" . ?\u21D2)))
+  (prettify-symbols-mode 1))
+(defvar haskell-font-lock-symbols)
+(setq haskell-font-lock-symbols t)
+(add-hook 'haskell-mode-hook 'haskell-pretty-mode)
+;; (add-hook 'haskell-mode-hook 'turn-on-haskell-unicode-input-method)

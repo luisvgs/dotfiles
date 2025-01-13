@@ -22,6 +22,7 @@
 (package! grandshell-theme)
 (package! evil-cleverparens)
 (package! flycheck-rust)
+(package! exwm)
 (package! eglot-booster
   :recipe (:host github :repo "jdtsmith/eglot-booster"
            :files ("*")))
