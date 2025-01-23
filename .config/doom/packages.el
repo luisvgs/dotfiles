@@ -23,6 +23,7 @@
 (package! evil-cleverparens)
 (package! flycheck-rust)
 (package! exwm)
+;; (package! el-dmenu)
 (package! eglot-booster
   :recipe (:host github :repo "jdtsmith/eglot-booster"
            :files ("*")))

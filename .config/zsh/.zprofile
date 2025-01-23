@@ -9,3 +9,5 @@ export PATH="$PATH:/home/luis/.local/share/coursier/bin"
 # <<< coursier install directory <<<
 
 export PATH="$PATH:/home/luis/.cache/scalacli/local-repo/bin/scala-cli"
+export AWS_SECRET_ACCESS_KEY=/0ro3np1CmLSOT5/WQfUTy/15gwyKd/TwfSOxxmG
+export AWS_ACCESS_KEY_ID=AKIA2KX2E2BCDMJFMNTQ

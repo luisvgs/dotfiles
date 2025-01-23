@@ -21,8 +21,7 @@
   )
 
 (use-package scala-mode
-  :init
-  (slot/vc-install :fetcher "github"
+  :init (slot/vc-install :fetcher "github"
                    :repo "hvesalai/emacs-scala-mode")
   ;; (setq scala-indent:indent-value-expression t
   ;;       scala-indent:align-parameters t
@@ -30,10 +29,10 @@
   :mode ("\\.sc\\'" "\\.scala\\'")
   :interpreter ("scala" . scala-mode)
   :hook (
-         (scala-mode . eglot-ensure)
+         (scala-mode . lsp-mode)
          ;;(scala-mode . tree-sitter-hl-mode)
-         (scala-mode . company-mode)
-         (scala-mode . my-buffer-face-mode-fixed)
+         ;; (scala-mode . company-mode)
+         ;; (scala-mode . my-buffer-face-mode-fixed)
          (scala-mode . my-pretty-mode)
          )
   :general

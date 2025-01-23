@@ -252,3 +252,48 @@
 (setq haskell-font-lock-symbols t)
 (add-hook 'haskell-mode-hook 'haskell-pretty-mode)
 ;; (add-hook 'haskell-mode-hook 'turn-on-haskell-unicode-input-method)
+
+;; Scala
+
+(defun my-pretty-mode ()
+  (interactive)
+  (setq prettify-symbols-alist scala-prettify-symbols-alist)
+  (setq prettify-symbols-unprettify-at-point t)
+  (prettify-symbols-mode)
+)
+
+(after! lsp-metals
+  (setq lsp-metals-server-args '("-Dmetals.workspace-symbol-search-excludes=target/**"))
+  (setq lsp-metals-compile-on-save nil)  ; Optional: prevents automatic compilation
+  (setq lsp-metals-treeview-logging-enabled nil))
+
+
+(after! lsp-mode
+  (setq lsp-enable-file-watchers nil)) ; Optional: improves performance
+
+(use-package! scala-mode
+  :mode ("\\.sc\\'" "\\.scala\\'"))
+
+(after! scala-mode
+  (setq scala-indent:align-forms t
+        scala-indent:align-parameters t
+        scala-indent:default-run-on-strategy scala-indent:operator-strategy))
+
+(use-package! lsp-metals
+  :hook (scala-mode . lsp))
+(after! lsp-mode
+  (setq lsp-auto-guess-root nil)  ; Don't auto-guess root
+  (setq lsp-metals-server-args '("--workspace-root-pattern" ".metals"))  ; Only use directories with .metals
+
+  ;; This ensures LSP only starts in the current project directory
+  (advice-add 'lsp :before (lambda (&rest _args)
+                            (setq lsp-session-folders-blacklist
+                                  (cl-remove-if (lambda (folder)
+                                                (string-prefix-p default-directory folder))
+                                              (lsp-session-folders-blacklist (lsp-session))))
+                            (setq lsp-session-folders-blacklist
+                                  (cl-remove-duplicates
+                                   (append (lsp-session-folders-blacklist (lsp-session))
+                                         (cl-remove-if (lambda (folder)
+                                                       (string-prefix-p default-directory folder))
+                                                     (lsp-session-folders (lsp-session))))))))

@@ -55,7 +55,7 @@ bindsym $mod+Shift+d exec rofi -show run
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
-
+bindsym $mod+Tab workspace back_and_forth
 # change focus
 bindsym $mod+h focus left
 bindsym $mod+j focus down
@@ -105,13 +105,13 @@ bindsym $mod+a focus parent
 # focus the child container
 #bindsym $mod+d focus child
 
-set $workspace1 "1:"
-set $workspace2 "2:"
-set $workspace3 "3: "
-set $workspace4 "4:"
-set $workspace5 "5:"
-set $workspace6 "6:"
-set $workspace7 "7:NoName"
+set $workspace1 "1"
+set $workspace2 "2"
+set $workspace3 "3"
+set $workspace4 "4"
+set $workspace5 "5"
+set $workspace6 "6"
+set $workspace7 "7"
 set $workspace8 "8"
 set $workspace9 "9"
 set $workspace10 "10"
@@ -211,7 +211,7 @@ set $inactive-text-color #676E7D
 set $urgent-bg-color     #FF3B0A
 
 # window colors
-#                       border              background         text                 indicator
+                      # border              background         text                 indicator
 # client.focused          $bg-color           $bg-color          $text-color          #00ff00
 # client.unfocused        $inactive-bg-color $inactive-bg-color $inactive-text-color #00ff00
 # client.focused_inactive $inactive-bg-color $inactive-bg-color $inactive-text-color #00ff00
@@ -219,27 +219,31 @@ set $urgent-bg-color     #FF3B0A
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 
-# bar {
-# 	position bottom
-#         status_command i3blocks
 
-# 	colors {
-# 		background $bg-color
-# 		statusline #00A5FF #that neon blue
-# 	    	separator #757575
-# 		#                  border             background         text
-# 		focused_workspace  $bg-color          $bg-color          $text-color
-# 		inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
-# 		urgent_workspace   $urgent-bg-color   $urgent-bg-color   $text-color
-# 	}
-# }
+bar {
+    position bottom
+    # status_command i3status
+
+    colors {
+        # background #2f343f
+        statusline #ffffff
+        separator  #757575
+
+        #             border             background         text
+        focused_workspace  #4c7899       #285577           #ffffff
+        inactive_workspace #333333       #222222           #888888
+        urgent_workspace   #2f343f       #900000           #ffffff
+    }
+
+#     font pango:JetBrains Mono Regular 11
+}
 
 # gaps outer 3
 # gaps inner 3
 # smart_gaps on
 
 for_window [class="^.*"] border pixel 0
-exec_always feh --bg-scale /home/luis/Pictures/sunset.webp
+exec_always feh --bg-scale /home/luis/Pictures/dusk.jpg
 
 
 assign [class="kitty"] $workspace1
@@ -254,7 +258,6 @@ assign [class="Slack"] $workspace6
 # Personal keybindings
 bindsym $mod+Shift+f exec google-chrome-stable
 bindsym $mod+Shift+t exec telegram-desktop
-bindsym $mod+Shift+s exec spotify
 bindsym $mod+Shift+g exec xfce4-terminal
 bindsym $mod+Shift+Return exec "kitty $HOME/programming"
 bindsym $mod+Return exec "kitty -d `xcwd`"
@@ -285,11 +288,11 @@ exec xinput set-prop 12 306 1
 
 
 # Polybar
-exec_always --no-startup-id ~/.config/polybar/launch.sh
+# exec_always --no-startup-id ~/.config/polybar/launch.sh
 workspace_layout tabbed
 
 # Screen printing
-bindsym $mod+Shift+p exec "scrot /home/luis/Pictures/%Y-%m-%d-%H-%M-%S.png"
+bindsym $mod+Shift+p exec "flameshot gui"
 
 
 # move focused window between monitors

@@ -10,6 +10,9 @@ export NNN_FCOLORS="$BLK$CHR$DIR$EXE$REG$HARDLINK$SYMLINK$MISSING$ORPHAN$FIFO$SO
 export JAVA_HOME='/usr/lib/jvm/java-17-openjdk'
 export PATH="$JAVA_HOME/bin:$PATH"
 
+export AWS_ACCESS_KEY_ID="AKIA2KX2E2BCDMJFMNTQ"
+export AWS_SECRET_ACCESS_KEY="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"
+
 alias spr='mvn spring-boot:run'
 alias idea='idea.sh'
 alias sqe='sqlectron'
@@ -39,7 +42,7 @@ alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/.bare/ --work-tree=$HOME'
 # alias emacs='emacsclient -c'
 alias e='emacsclient -nw'
 alias es='emacs --init-directory=$HOME/.emacs-custom.d'
-# alias est="emacsclient -e '(kill-emacs)'"
+alias est="emacsclient -e '(kill-emacs)'"
 
 alias ssql='systemctl start mysqld'
 alias lsql='mysql -u root -p'
