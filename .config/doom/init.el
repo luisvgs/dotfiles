@@ -1,15 +1,22 @@
 ;; -*- lexical-binding: t -*-
+(defadvice! straight-use-recipes-ignore-nongnu-elpa-a (fn recipe)
+  :around #'straight-use-recipes
+  (unless (eq 'nongnu-elpa (car recipe))
+    (funcall fn recipe)))
+
+(setenv "LSP_USE_PLISTS" "1")
+
 (doom! :input
        :completion
-       ( corfu +icons)
-       ( vertico +icons)           ; the search engine of the future
+       ( corfu)
+       (vertico +icons)           ; the search engine of the future
        :ui
        doom              ; what makes DOOM look the way it does
        doom-dashboard    ; a nifty splash screen for Emacs
        (emoji +unicode)  ; 🙂
        hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
        (ligatures)         ; ligatures and symbols to make your code pretty again
-       (modeline +light)          ; snazzy, Atom-inspired modeline, plus API
+       (modeline)          ; snazzy, Atom-inspired modeline, plus API
        ophints           ; highlight the region an operation acts on
        (popup +defaults +all)   ; tame sudden yet inevitable temporary windows
        tabs              ; a tab bar for Emacs
@@ -41,13 +48,8 @@
        (lsp)               ; M-x vscode
        magit             ; a git porcelain for Emacs
        pdf               ; pdf enhancements
-       ;;prodigy           ; FIXME managing external services & code builders
        rgb               ; creating color strings
-       ;;taskrunner        ; taskrunner for all your projects
-       ;; terraform         ; infrastructure as code
-       ;; tmux              ; an API for interacting with tmux
        tree-sitter       ; syntax and parsing, sitting in a tree...
-       ;;upload            ; map local to remote projects via ssh/ftp
        :os
        ;; (:if IS-MAC macos)  ; improve compatibility with macOS
        ( tty +osc)               ; improve the terminal Emacs experience
@@ -59,6 +61,7 @@
        json              ; At least it ain't XML
        (javascript +lsp +tree-sitter)        ; all(hope(abandon(ye(who(enter(here))))))
        (latex +lsp +latexmk)             ; writing papers in Emacs has never been so fun
+       (java +lsp)
        (ocaml +lsp)             ; an objective camel
        (rust +lsp)       ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
        (scala +lsp)             ; java, but good
@@ -66,7 +69,7 @@
        ;;(cc +lsp)         ; C > C++ == 1
        ;;common-lisp       ; if you've seen one lisp, you've seen them all
        ;; markdown          ; writing docs for people to ignore
-       ;; sh                ; she sells {ba,z,fi}sh shells on the C xor
+       ( sh +lsp +tree-sitter)                ; she sells {ba,z,fi}sh shells on the C xor
        ;; (org +pretty)               ; organize your plain life in plain text
        ;;(ruby +rails)     ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
        ( web +lsp)               ; the tubes

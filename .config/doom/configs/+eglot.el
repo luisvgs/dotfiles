@@ -26,13 +26,28 @@
 ;;               (setq eldoc-documentation-strategy #'eldoc-documentation-compose)))
 ;;   :hook
 ;;   ((rjsx-mode tuareg-mode lean4-mode rust-mode tsx-ts-mode typescript-ts-mode js2-mode scala-mode agda2-mode haskell-mode idris-mode) . eglot-ensure))
+(use-package! kind-icon
+  :ensure t
+  :after corfu
+  :custom
+  (kind-icon-blend-background nil)
+  (kind-icon-default-face 'corfu-default)
+  :config
+  (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
+
+(after! corfu-popupinfo
+  (setq
+   corfu-auto-delay           0.5
+   corfu-min-width            30
+   corfu-max-width            70
+   corfu-echo-documentation nil
+   ))
 
 (use-package! ng2-mode
   :after typescript-mode
   :hook (ng2-html-mode . web-mode)
   :config
   (with-eval-after-load 'typescript-mode (add-hook 'typescript-mode-hook #'lsp))
-  ;; (add-to-list 'lsp-disabled-clients 'deno-ls)
   (setq lsp-clients-angular-language-server-command
         '("node"
           "~/.nvm/versions/node/v20.11.0/lib/node_modules/@angular/language-server"
@@ -43,10 +58,11 @@
           "--stdio"))
   )
 
-;; (use-package! eglot-booster
-;;   :after eglot
-;;   :disabled t
-;;   :config (eglot-booster-mode))
+(use-package! lsp-sonarlint
+  :after lsp-mode
+  :custom
+  (lsp-sonarlint-auto-download t)
+  (lsp-sonarlint-enabled-analyzers '("java" "cfamily" "python" "text")))
 
 (use-package! scala-repl :after scala-mode)
 
@@ -71,42 +87,42 @@
 
 
 (use-package! treesit
-      :mode (("\\.tsx\\'" . tsx-ts-mode)
-             ("\\.js\\'"  . typescript-ts-mode)
-             ("\\.ts\\'"  . typescript-ts-mode)
-             ("\\.jsx\\'" . tsx-ts-mode))
-      :preface
-      (defun os/setup-install-grammars ()
-        "Install Tree-sitter grammars if they are absent."
-        (interactive)
-        (dolist (grammar
-                 '((css . ("https://github.com/tree-sitter/tree-sitter-css" "v0.20.0"))
-                   (bash "https://github.com/tree-sitter/tree-sitter-bash")
-                   (html . ("https://github.com/tree-sitter/tree-sitter-html" "v0.20.1"))
-                   (javascript . ("https://github.com/tree-sitter/tree-sitter-javascript" "v0.21.2" "src"))
-                   (json . ("https://github.com/tree-sitter/tree-sitter-json" "v0.20.2"))
-                   (cmake "https://github.com/uyha/tree-sitter-cmake")
-                   (tsx . ("https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.3" "tsx/src"))
-                   (typescript . ("https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.3" "typescript/src"))
-                   (yaml . ("https://github.com/ikatyang/tree-sitter-yaml" "v0.5.0"))))
-          (add-to-list 'treesit-language-source-alist grammar)
-          (unless (treesit-language-available-p (car grammar))
-            (treesit-install-language-grammar (car grammar)))))
+  :mode (("\\.tsx\\'" . tsx-ts-mode)
+         ("\\.js\\'"  . typescript-ts-mode)
+         ("\\.ts\\'"  . typescript-ts-mode)
+         ("\\.jsx\\'" . tsx-ts-mode))
+  :preface
+  (defun os/setup-install-grammars ()
+    "Install Tree-sitter grammars if they are absent."
+    (interactive)
+    (dolist (grammar
+             '((css . ("https://github.com/tree-sitter/tree-sitter-css" "v0.20.0"))
+               (bash "https://github.com/tree-sitter/tree-sitter-bash")
+               (html . ("https://github.com/tree-sitter/tree-sitter-html" "v0.20.1"))
+               (javascript . ("https://github.com/tree-sitter/tree-sitter-javascript" "v0.21.2" "src"))
+               (json . ("https://github.com/tree-sitter/tree-sitter-json" "v0.20.2"))
+               (cmake "https://github.com/uyha/tree-sitter-cmake")
+               (tsx . ("https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.3" "tsx/src"))
+               (typescript . ("https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.3" "typescript/src"))
+               (yaml . ("https://github.com/ikatyang/tree-sitter-yaml" "v0.5.0"))))
+      (add-to-list 'treesit-language-source-alist grammar)
+      (unless (treesit-language-available-p (car grammar))
+        (treesit-install-language-grammar (car grammar)))))
 
-      (dolist (mapping
-               '(
-                 (css-mode . css-ts-mode)
-                 (typescript-mode . typescript-ts-mode)
-                 (js-mode . typescript-ts-mode)
-                 (js2-mode . typescript-ts-mode)
-                 (bash-mode . bash-ts-mode)
-                 (css-mode . css-ts-mode)
-                 (json-mode . json-ts-mode)
-                 (js-json-mode . json-ts-mode)
-                 ))
-        (add-to-list 'major-mode-remap-alist mapping))
-      :config
-      (os/setup-install-grammars))
+  (dolist (mapping
+           '(
+             (css-mode . css-ts-mode)
+             (typescript-mode . typescript-ts-mode)
+             (js-mode . typescript-ts-mode)
+             (js2-mode . typescript-ts-mode)
+             (bash-mode . bash-ts-mode)
+             (css-mode . css-ts-mode)
+             (json-mode . json-ts-mode)
+             (js-json-mode . json-ts-mode)
+             ))
+    (add-to-list 'major-mode-remap-alist mapping))
+  :config
+  (os/setup-install-grammars))
 
 (after! treesit
   (setq treesit-language-source-alist
@@ -154,6 +170,7 @@
   :hook
   (rust-mode . lsp)
   (json-mode . lsp)
+  (java-mode . lsp)
   (lean4-mode . lsp)
   (sh-mode . lsp)
   (scala-mode . lsp)
@@ -184,7 +201,7 @@
         lsp-rust-analyzer-display-parameter-hints nil
         lsp-rust-analyzer-display-reborrow-hints nil
         lsp-log-io nil
-        lsp-inlay-hint-enable t
+        lsp-inlay-hint-enable nil
         lsp-modeline-code-action-fallback-icon "󰌵"
         ))
 
@@ -260,7 +277,7 @@
   (setq prettify-symbols-alist scala-prettify-symbols-alist)
   (setq prettify-symbols-unprettify-at-point t)
   (prettify-symbols-mode)
-)
+  )
 
 (after! lsp-metals
   (setq lsp-metals-server-args '("-Dmetals.workspace-symbol-search-excludes=target/**"))
@@ -287,13 +304,13 @@
 
   ;; This ensures LSP only starts in the current project directory
   (advice-add 'lsp :before (lambda (&rest _args)
-                            (setq lsp-session-folders-blacklist
-                                  (cl-remove-if (lambda (folder)
-                                                (string-prefix-p default-directory folder))
-                                              (lsp-session-folders-blacklist (lsp-session))))
-                            (setq lsp-session-folders-blacklist
-                                  (cl-remove-duplicates
-                                   (append (lsp-session-folders-blacklist (lsp-session))
-                                         (cl-remove-if (lambda (folder)
-                                                       (string-prefix-p default-directory folder))
-                                                     (lsp-session-folders (lsp-session))))))))
+                             (setq lsp-session-folders-blacklist
+                                   (cl-remove-if (lambda (folder)
+                                                   (string-prefix-p default-directory folder))
+                                                 (lsp-session-folders-blacklist (lsp-session))))
+                             (setq lsp-session-folders-blacklist
+                                   (cl-remove-duplicates
+                                    (append (lsp-session-folders-blacklist (lsp-session))
+                                            (cl-remove-if (lambda (folder)
+                                                            (string-prefix-p default-directory folder))
+                                                          (lsp-session-folders (lsp-session))))))))

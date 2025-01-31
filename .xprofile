@@ -33,4 +33,4 @@ feh --no-fehbg --bg-fill ~/Pictures/mn.png &
 redshift -O 3600 &
 nm-applet &
 
-exec i3
+exec dwm

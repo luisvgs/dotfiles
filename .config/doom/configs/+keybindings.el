@@ -4,7 +4,7 @@
       :n "p" #'dired "$HOME/.dotfiles/.config")
 (map! :leader
       :desc "Perform Rg search"
-      "r g" #'consult-ripgrep)
+      "r g" #'consult-grep)
 (map! :g "C-z" #'undo)
 (map! :nvig "C-'" #'er/expand-region)
 (map!
@@ -38,3 +38,7 @@
 (map! :leader
       :desc "Executes align-regexp"
       "c =" #'align-regexp)
+
+(map! :leader
+      :desc "Toggle fulscreen current buffer"
+      "+" #'doom/window-maximize-buffer)

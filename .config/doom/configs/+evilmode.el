@@ -29,3 +29,4 @@
 (setq evil-vsplit-window-right t
       evil-split-window-below t)
 (map! "M-R" #'evil-multiedit-match-all)
+

@@ -6,7 +6,7 @@
         doom-plain-brighter-modeline nil
         doom-modeline-major-mode-icon t
         doom-modeline-major-mode-color-icon t
-        doom-modeline-buffer-file-name-style 'truncate-except-project
+        doom-modeline-buffer-file-name-style 'auto
         doom-modeline-workspace-name t
         doom-modeline-buffer-state-icon t
         doom-modeline-buffer-modification-icon t
@@ -17,33 +17,7 @@
         doom-modeline-modal-icon nil
         doom-modeline-modal t
         ;; doom-modeline-mu4e t
-        doom-modeline-persp-icon nil
-        doom-modeline-persp-name nil)
+        doom-modeline-persp-icon t
+        doom-modeline-persp-name t)
   (custom-set-faces!
     '(doom-modeline-buffer-modified :foreground "orange")))
-
-;; for email thing
-;; also enable the start of mu4e-alert
-;; (mu4e-alert-enable-mode-line-display)
-
-
-
-;; (set-face-attribute 'mode-line nil  :height 160)
-;; (setq-default mode-line-format
-;;               '("%e"
-;;                 mode-line-front-space
-;;                 mode-line-mule-info
-;;                 mode-line-client-mode
-;;                 mode-line-modified
-;;                 mode-line-remote
-;;                 mode-line-frame-indentifcation
-;;                 " "
-;;                 mode-line-buffer-identification
-;;                 "  "
-;;                 vc-mode
-;;                 " "
-;;                 mode-line-modes
-;;                 " "
-;;                 mode-line-misc-info
-;;                 mode-line-end-spaces))
-;; (setq minor-mode-alist nil)

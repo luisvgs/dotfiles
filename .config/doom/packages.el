@@ -1,10 +1,17 @@
 (package! latex-preview-pane)
 (package! modus-themes)
 (package! ef-themes)
+(package! dired-preview)
+(package! dmenu)
 (package! telega)
 (package! scala-repl)
+(package! drag-stuff)
 (package! treesit-auto)
+(package! kind-icon)
 (package! ng2-mode)
+(package! exwm-modeline)
+(package! disproject)
+(package! lsp-sonarlint)
 (package! spacemacs-theme)
 (package! lean4-mode :recipe
   (:host github
@@ -21,11 +28,10 @@
 (package! standard-themes)
 (package! grandshell-theme)
 (package! evil-cleverparens)
-(package! flycheck-rust)
 (package! exwm)
-;; (package! el-dmenu)
 (package! eglot-booster
   :recipe (:host github :repo "jdtsmith/eglot-booster"
            :files ("*")))
 (disable-packages! android-mode groovy-mode nodejs-repl coffee-mode skewer-mode all-the-icons tuareg-mode idris-mode)
-;; (package! mu4e-alert)
+
+

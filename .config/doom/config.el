@@ -1,10 +1,15 @@
 ;; -*- lexical-binding: t -*-
+;; TODO
+;; ** Organize modules
+;; Deactivate unneeded packages
+
+
 (use-package! doom)
 (setq
  user-full-name "Luis Vegas"
  user-mail-address "luisvegasmor@gmail.com"
  doom-font (font-spec :family "JetBrains Mono Nerd Font" :size 19 :weight 'Regular)
- doom-theme 'grandshell
+ doom-theme 'doom-one
  +latex-viewers '(pdf-tools)
  use-package-compute-statistics t
  auto-save-default t
@@ -31,9 +36,6 @@
   (setq-default pdf-view-display-size 'fit-page)
   (setq pdf-annot-activate-created-annotations t)
   (define-key pdf-view-mode-map (kbd "C-s") 'isearch-forward))
-
-(after! vertico
-  (setq vertico-count 12))
 
 (use-package! rainbow-mode
   :hook (org-mode . rainbow-mode))
@@ -73,31 +75,25 @@
   :init
   (setq centaur-tabs-enable-key-bindings t)
   :config
-  (setq centaur-tabs-style "box"
-        centaur-tabs-height 37
+  (centaur-tabs-mode nil)
+  (setq centaur-tabs-style "bar"
+        centaur-tabs-height 40
         centaur-tabs-set-icons t
         centaur-tabs-show-new-tab-button nil
+        centaur-tabs-set-close-button nil
         centaur-tabs-set-modified-marker t
         centaur-tabs-show-navigation-buttons nil
-        centaur-tabs-set-bar 'under
+        centaur-tabs-set-bar 'left
         centaur-tabs-show-count nil
         x-underline-at-descent-line t
         centaur-tabs-left-edge-margin nil)
   (centaur-tabs-change-fonts (face-attribute 'default :font) 110)
   (centaur-tabs-headline-match)
-  (centaur-tabs-mode t)
   (setq uniquify-separator "/")
   (setq uniquify-buffer-name-style 'forward)
   (defun centaur-tabs-buffer-groups ()
-    "`centaur-tabs-buffer-groups' control buffers' group rules.
-
-Group centaur-tabs with mode if buffer is derived from `eshell-mode' `emacs-lisp-mode' `dired-mode' `org-mode' `magit-mode'.
-All buffer name start with * will group to \"Emacs\".
-Other buffer group by `centaur-tabs-get-group-name' with project name."
     (list
      (cond
-      ;; ((not (eq (file-remote-p (buffer-file-name)) nil))
-      ;; "Remote")
       ((or (string-equal "*" (substring (buffer-name) 0 1))
            (memq major-mode '(magit-process-mode
                               magit-status-mode
@@ -139,7 +135,6 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
   ("C-S-<prior>" . centaur-tabs-move-current-tab-to-left)
   ("C-S-<next>" . centaur-tabs-move-current-tab-to-right)
   (:map evil-normal-state-map
-        ;; TODO: mappings for forward/backward-group
         ("C-l" . centaur-tabs-forward)
         ("C-h" . centaur-tabs-backward))
   )
@@ -147,20 +142,85 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
 (setq read-process-output-max (* 10 1024 1024)) ;; 10mb
 (setq gc-cons-threshold 200000000)
 
-;; (setq spacious-padding-widths
-;;       '( :internal-border-width 10
-;;          :header-line-width 4
-;;          :mode-line-width 4
-;;          :tab-width 4
-;;          :right-divider-width 30
-;;          :scroll-bar-width 8
-;;          :fringe-width 10))
 
-;; (spacious-padding-mode 1)
+(use-package! consult
+  :bind (
+         ("M-y" . consult-yank-from-kill-ring)))
 
+(use-package! drag-stuff
+  :defer t
+  :init
+  (drag-stuff-mode)
+  :config
+  (map! :map evil-normal-state-map
+        "M-j" #'drag-stuff-down
+        "M-k" #'drag-stuff-up))
 
+(use-package! dired-preview
+  :hook dired-mode
+  :config
+  (setq dired-preview-delay 0.5)
+  (setq dired-preview-max-size (expt 2 20))
+  (setq dired-preview-ignored-extensions-regexp
+        (concat "\\."
+                "\\(gz\\|"
+                "zst\\|"
+                "tar\\|"
+                "xz\\|"
+                "rar\\|"
+                "zip\\|"
+                "iso\\|"
+                "epub"
+                "\\)"))
+  (dired-preview-global-mode 1))
 
+(use-package! marginalia
+  :bind ( ("M-A" . #'marginalia-cycle) )
+  :custom
+  (marginalia-max-relative-age 0)
+  (marginalia-align 'center))
 
+(after! vertico
+  (vertico-multiform-mode)
+  (require 'vertico-buffer)
+  (require 'vertico-multiform)
+
+  (setq vertico-multiform-commands
+        '((consult-line grid reverse)
+          (consult-grep buffer)
+          (consult-ripgrep buffer)
+          (helpful-variable reverse)
+          (consult-buffer reverse)
+          (dmenu flat)
+          (file reverse)
+          (execute-extended-command reverse)))
+
+  (setq vertico-count 10
+        vertico-buffer-display-action '(display-buffer-reuse-window)
+        vertico-grid-separator "       "
+        vertico-grid-lookahead 50
+        vertico-resize t)
+
+  (setq vertico-multiform-categories
+        '((file reverse)
+          (imenu (:not indexed mouse))
+          (symbol (vertico-sort-function . vertico-sort-alpha))))
+
+  (map! :map vertico-map
+        "M-B" #'vertico-multiform-buffer
+        "M-G" #'vertico-multiform-grid
+        "M-F" #'vertico-multiform-flat
+        "M-R" #'vertico-multiform-reverse
+        "M-V" #'vertico-multiform-vertical)
+
+  (advice-add #'vertico--format-candidate :around
+              (lambda (orig cand prefix suffix index _start)
+                (setq cand (funcall orig cand prefix suffix index _start))
+                (concat
+                 (if (= vertico--index index)
+                     (propertize "» " 'face 'vertico-current)
+                   "  ")
+                 cand))))
 
 (load! "configs/+modeline")
 (load! "configs/+which-key")
@@ -171,17 +231,21 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
 (load! "configs/+treesitter")
 (load! "configs/+org")
 (load! "configs/+eglot")
-;; (load! "configs/+lsp")
 (load! "configs/+persp")
 (load! "configs/+keybindings")
 (load! "configs/+latex")
 (load! "configs/+utility")
 (load! "configs/+projectile")
-;; (load! "configs/+init-scala")
 (load! "configs/+dashboard")
+;; (load! "configs/+init-scala")
 ;; (load! "configs/+avy")
-;; (load! "configs/ghcid")
-;; (load! "configs/+m4ue")
+
+(use-package! exwm-modeline
+  :after exwm)
+(add-hook 'exwm-init-hook #'exwm-modeline-mode)
+
+(use-package! dmenu
+  :after exwm)
 
 (defun running-in-exwm-p ()
   "Return t if the current session is running under EXWM."
@@ -202,23 +266,9 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
       ("Google-chrome" (exwm-workspace-move-window 2))
       (exwm-layout-toggle-mode-line)))
 
-  (defvar exwm-workspace--switch-history-hack (cons exwm-workspace-current-index '()))
-
-  (add-hook 'exwm-workspace-switch-hook
-            (lambda ()
-              (setq exwm-workspace--switch-history-hack
-                    (cons exwm-workspace-current-index
-                          (car exwm-workspace--switch-history-hack)))))
-
-  (defun exwm-workspace-switch-to-last ()
-    (interactive)
-    "Switch to the workspace that was used before current workspace"
-    (exwm-workspace-switch (cdr exwm-workspace--switch-history-hack)))
-
   (use-package exwm
     :config
     (setq exwm-workspace-number 6)
-    ;; When window "class" updates, use it to set the buffer name
     (add-hook 'exwm-update-class-hook #'exwm/exwm-update-class)
     (add-hook 'exwm-init-hook #'exwm/exwm-init-hook)
     (add-hook 'exwm-manage-finish-hook #'exwm/configure-window-by-class)
@@ -256,8 +306,11 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
        ([s-up] . windmove-up)
        ([s-down] . windmove-down)
 
-       ;; QoL
+       ([?\s-d] . dired)
+       ([s-S-return] . dmenu)
        ([s-return] . vterm)
+
+       ;; QoL
        ([?\s-B] . kill-current-buffer)
        ([?\s-w] . exwm-workspace-switch)
        ([?\s-C] . +workspace/close-window-or-workspace)
