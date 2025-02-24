@@ -16,7 +16,7 @@
        (emoji +unicode)  ; 🙂
        hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
        (ligatures)         ; ligatures and symbols to make your code pretty again
-       (modeline)          ; snazzy, Atom-inspired modeline, plus API
+       (modeline +light)          ; snazzy, Atom-inspired modeline, plus API
        ophints           ; highlight the region an operation acts on
        (popup +defaults +all)   ; tame sudden yet inevitable temporary windows
        tabs              ; a tab bar for Emacs
@@ -71,8 +71,9 @@
        ;; markdown          ; writing docs for people to ignore
        ( sh +lsp +tree-sitter)                ; she sells {ba,z,fi}sh shells on the C xor
        ;; (org +pretty)               ; organize your plain life in plain text
-       ;;(ruby +rails)     ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
+       (ruby +lsp +tree-sitter)     ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
        ( web +lsp)               ; the tubes
+       (lua +lsp +tree-sitter)
        :email
        ;; (mu4e +gmail)
        :app

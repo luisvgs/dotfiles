@@ -171,6 +171,7 @@
   (rust-mode . lsp)
   (json-mode . lsp)
   (java-mode . lsp)
+  (lua-mode . lsp)
   (lean4-mode . lsp)
   (sh-mode . lsp)
   (scala-mode . lsp)
@@ -247,6 +248,7 @@
         lsp-modeline-diagnostics-enable nil
         lsp-modeline-code-actions-enable t))
 (use-package! flycheck
+  :hook lsp-mode
   :custom
   (flymake-show-diagnostics-at-end-of-line t)
   :bind (:map global-map
@@ -282,7 +284,9 @@
 (after! lsp-metals
   (setq lsp-metals-server-args '("-Dmetals.workspace-symbol-search-excludes=target/**"))
   (setq lsp-metals-compile-on-save nil)  ; Optional: prevents automatic compilation
-  (setq lsp-metals-treeview-logging-enabled nil))
+  (setq lsp-metals-treeview-logging-enabled nil)
+  (setq lsp-metals-server-command "metals-emacs")
+  (setq lsp-metals-super-method-lenses-enabled nil))
 
 
 (after! lsp-mode
@@ -298,9 +302,12 @@
 
 (use-package! lsp-metals
   :hook (scala-mode . lsp))
+
 (after! lsp-mode
   (setq lsp-auto-guess-root nil)  ; Don't auto-guess root
   (setq lsp-metals-server-args '("--workspace-root-pattern" ".metals"))  ; Only use directories with .metals
+  (setq lsp-session-folders-blacklist nil)
+  (setq lsp-metals-server-args '("--workspace-root-pattern" ".metals"))
 
   ;; This ensures LSP only starts in the current project directory
   (advice-add 'lsp :before (lambda (&rest _args)

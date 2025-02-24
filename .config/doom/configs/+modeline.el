@@ -1,13 +1,13 @@
 (use-package! doom-modeline
   :config
-  (setq doom-modeline-height 35
+  (setq doom-modeline-height 40
         doom-modeline-unicode-fallback nil
         doom-modeline-icon t
         doom-plain-brighter-modeline nil
         doom-modeline-major-mode-icon t
         doom-modeline-major-mode-color-icon t
         doom-modeline-buffer-file-name-style 'auto
-        doom-modeline-workspace-name t
+        doom-modeline-workspace-name nil
         doom-modeline-buffer-state-icon t
         doom-modeline-buffer-modification-icon t
         doom-modeline-buffer-name t

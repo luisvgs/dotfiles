@@ -2,8 +2,6 @@
 ;; TODO
 ;; ** Organize modules
 ;; Deactivate unneeded packages
-
-
 (use-package! doom)
 (setq
  user-full-name "Luis Vegas"
@@ -156,24 +154,6 @@
         "M-j" #'drag-stuff-down
         "M-k" #'drag-stuff-up))
 
-(use-package! dired-preview
-  :hook dired-mode
-  :config
-  (setq dired-preview-delay 0.5)
-  (setq dired-preview-max-size (expt 2 20))
-  (setq dired-preview-ignored-extensions-regexp
-        (concat "\\."
-                "\\(gz\\|"
-                "zst\\|"
-                "tar\\|"
-                "xz\\|"
-                "rar\\|"
-                "zip\\|"
-                "iso\\|"
-                "epub"
-                "\\)"))
-  (dired-preview-global-mode 1))
-
 (use-package! marginalia
   :bind ( ("M-A" . #'marginalia-cycle) )
   :custom
@@ -187,8 +167,8 @@
 
   (setq vertico-multiform-commands
         '((consult-line grid reverse)
-          (consult-grep buffer)
-          (consult-ripgrep buffer)
+          ;; (consult-grep buffer)
+          ;; (consult-ripgrep buffer)
           (helpful-variable reverse)
           (consult-buffer reverse)
           (dmenu flat)
@@ -199,7 +179,7 @@
         vertico-buffer-display-action '(display-buffer-reuse-window)
         vertico-grid-separator "       "
         vertico-grid-lookahead 50
-        vertico-resize t)
+        vertico-resize nil)
 
   (setq vertico-multiform-categories
         '((file reverse)
@@ -239,7 +219,14 @@
 (load! "configs/+dashboard")
 ;; (load! "configs/+init-scala")
 ;; (load! "configs/+avy")
+(defun efs/display-startup-time ()
+  (message "Emacs loaded in %s with %d garbage collections."
+           (format "%.2f seconds"
+                   (float-time
+                   (time-subtract after-init-time before-init-time)))
+           gcs-done))
 
+(add-hook 'emacs-startup-hook #'efs/display-startup-time)
 (use-package! exwm-modeline
   :after exwm)
 (add-hook 'exwm-init-hook #'exwm-modeline-mode)
