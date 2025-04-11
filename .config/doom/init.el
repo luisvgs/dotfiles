@@ -13,6 +13,8 @@
        :ui
        doom              ; what makes DOOM look the way it does
        doom-dashboard    ; a nifty splash screen for Emacs
+       nav-flash
+       ( treemacs +lsp)
        (emoji +unicode)  ; 🙂
        hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
        (ligatures)         ; ligatures and symbols to make your code pretty again
@@ -69,9 +71,9 @@
        ;;(cc +lsp)         ; C > C++ == 1
        ;;common-lisp       ; if you've seen one lisp, you've seen them all
        ;; markdown          ; writing docs for people to ignore
-       ( sh +lsp +tree-sitter)                ; she sells {ba,z,fi}sh shells on the C xor
+       ;; ( sh +lsp +tree-sitter)                ; she sells {ba,z,fi}sh shells on the C xor
        ;; (org +pretty)               ; organize your plain life in plain text
-       (ruby +lsp +tree-sitter)     ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
+       ;; (ruby +lsp +tree-sitter)     ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
        ( web +lsp)               ; the tubes
        (lua +lsp +tree-sitter)
        :email

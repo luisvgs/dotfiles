@@ -13,7 +13,7 @@
  :desc "View" "v" #'TeX-view)
 
 (map! :g "C-s" #'consult-line)
-(map! :g "C-\\" #'eat)
+(map! :g "C-\\" #'+treemacs/toggle)
 ;; (map! :g "C-\\" #'+treemacs/toggle)
 
 (map! :leader
@@ -42,3 +42,7 @@
 (map! :leader
       :desc "Toggle fulscreen current buffer"
       "+" #'doom/window-maximize-buffer)
+
+(map! :leader
+      :desc "Format current buffer"
+      "f b" #'+format/buffer)

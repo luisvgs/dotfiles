@@ -10,14 +10,8 @@ export NNN_FCOLORS="$BLK$CHR$DIR$EXE$REG$HARDLINK$SYMLINK$MISSING$ORPHAN$FIFO$SO
 export JAVA_HOME='/usr/lib/jvm/java-17-openjdk'
 export PATH="$JAVA_HOME/bin:$PATH"
 
-export AWS_ACCESS_KEY_ID="AKIA2KX2E2BCDMJFMNTQ"
-export AWS_SECRET_ACCESS_KEY="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"
 
-export AUTH0_CLIENT_ID='cc5zkctPwDPtuWEGolKWJ95Fszvpd3wU'
-export AUTH0_CLIENT_SECRET='RvJQcWd-GH7XxBC5LSpSAJ3MYUER9czJ-LvNFxoS7P3aIeqXQNRAM-eJSPGp9x8x'
-export AUTH0_DOMAIN='dev-kpxtjzmelnf3dm5t.us.auth0.com'
-export AUTH0_AUDIENCE='https://www.innovibuilder.ch/'
-export AUTH0_REDIRECT_URI='http://localhost:16478/callback'
+source ~/.env
 
 alias spr='mvn spring-boot:run'
 alias idea='idea.sh'

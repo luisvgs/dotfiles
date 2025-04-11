@@ -26,6 +26,7 @@
 ;;               (setq eldoc-documentation-strategy #'eldoc-documentation-compose)))
 ;;   :hook
 ;;   ((rjsx-mode tuareg-mode lean4-mode rust-mode tsx-ts-mode typescript-ts-mode js2-mode scala-mode agda2-mode haskell-mode idris-mode) . eglot-ensure))
+
 (use-package! kind-icon
   :ensure t
   :after corfu
@@ -37,7 +38,7 @@
 
 (after! corfu-popupinfo
   (setq
-   corfu-auto-delay           0.5
+   corfu-auto-delay           0.2
    corfu-min-width            30
    corfu-max-width            70
    corfu-echo-documentation nil
@@ -57,12 +58,6 @@
           "~/.nvm/versions/node/v20.11.0/lib/node_modules"
           "--stdio"))
   )
-
-(use-package! lsp-sonarlint
-  :after lsp-mode
-  :custom
-  (lsp-sonarlint-auto-download t)
-  (lsp-sonarlint-enabled-analyzers '("java" "cfamily" "python" "text")))
 
 (use-package! scala-repl :after scala-mode)
 
@@ -91,6 +86,9 @@
          ("\\.js\\'"  . typescript-ts-mode)
          ("\\.ts\\'"  . typescript-ts-mode)
          ("\\.jsx\\'" . tsx-ts-mode))
+
+
+
   :preface
   (defun os/setup-install-grammars ()
     "Install Tree-sitter grammars if they are absent."
@@ -115,7 +113,7 @@
              (typescript-mode . typescript-ts-mode)
              (js-mode . typescript-ts-mode)
              (js2-mode . typescript-ts-mode)
-             (bash-mode . bash-ts-mode)
+             ;; (bash-mode . bash-ts-mode)
              (css-mode . css-ts-mode)
              (json-mode . json-ts-mode)
              (js-json-mode . json-ts-mode)
@@ -131,7 +129,12 @@
           (agda "https://github.com/tree-sitter/tree-sitter-agda")
           (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src" nil nil))))
 
-
+(use-package! sh-mode :mode (("\\.sh\\'" . sh-mode)
+                             ("\\.zsh\\'" . sh-mode)
+                             ("\\.env\\'" . sh-mode)
+                                ("\\.zshrc\\'" . sh-mode)))
+(after! sh-mode
+  (setq-hook! 'sh-mode-hook +lsp-buffer-mode -1))
 (use-package! agda2-mode :mode (("\\.l?agda\\'" . agda2-mode)
                                 ("\\.lagda.md\\'" . agda2-mode)))
 (use-package! haskell-mode
@@ -166,6 +169,8 @@
 ;;   (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
 ;; (remove-hook 'rust-mode-hook 'flycheck-mode)
 
+(use-package! lua-mode
+  :mode ("\\.lua\\'")
 (use-package! lsp-mode
   :hook
   (rust-mode . lsp)
@@ -173,7 +178,7 @@
   (java-mode . lsp)
   (lua-mode . lsp)
   (lean4-mode . lsp)
-  (sh-mode . lsp)
+  ;; (sh-mode . lsp)
   (scala-mode . lsp)
   (typescript-ts-mode . lsp)
   (ng2-mode . lsp)
@@ -301,15 +306,15 @@
         scala-indent:default-run-on-strategy scala-indent:operator-strategy))
 
 (use-package! lsp-metals
+  :disabled t
   :hook (scala-mode . lsp))
 
 (after! lsp-mode
-  (setq lsp-auto-guess-root nil)  ; Don't auto-guess root
-  (setq lsp-metals-server-args '("--workspace-root-pattern" ".metals"))  ; Only use directories with .metals
+  (setq lsp-auto-guess-root nil)
+  (setq lsp-metals-server-args '("--workspace-root-pattern" ".metals"))
   (setq lsp-session-folders-blacklist nil)
   (setq lsp-metals-server-args '("--workspace-root-pattern" ".metals"))
 
-  ;; This ensures LSP only starts in the current project directory
   (advice-add 'lsp :before (lambda (&rest _args)
                              (setq lsp-session-folders-blacklist
                                    (cl-remove-if (lambda (folder)
