@@ -30,3 +30,5 @@
       evil-split-window-below t)
 (map! "M-R" #'evil-multiedit-match-all)
 
+(after! evil
+  (setq evil-escape-key-sequence "jk"))

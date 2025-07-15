@@ -1,8 +1,8 @@
 ;; -*- lexical-binding: t -*-
-(defadvice! straight-use-recipes-ignore-nongnu-elpa-a (fn recipe)
-  :around #'straight-use-recipes
-  (unless (eq 'nongnu-elpa (car recipe))
-    (funcall fn recipe)))
+;; (defadvice! straight-use-recipes-ignore-nongnu-elpa-a (fn recipe)
+;;   :around #'straight-use-recipes
+;;   (unless (eq 'nongnu-elpa (car recipe))
+;;     (funcall fn recipe)))
 
 (setenv "LSP_USE_PLISTS" "1")
 
@@ -14,14 +14,14 @@
        doom              ; what makes DOOM look the way it does
        doom-dashboard    ; a nifty splash screen for Emacs
        nav-flash
-       ( treemacs +lsp)
+       (treemacs)
        (emoji +unicode)  ; 🙂
        hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
        (ligatures)         ; ligatures and symbols to make your code pretty again
-       (modeline +light)          ; snazzy, Atom-inspired modeline, plus API
+       ;; (modeline +light)          ; snazzy, Atom-inspired modeline, plus API
        ophints           ; highlight the region an operation acts on
        (popup +defaults +all)   ; tame sudden yet inevitable temporary windows
-       tabs              ; a tab bar for Emacs
+       ;; tabs              ; a tab bar for Emacs
        (vc-gutter +pretty) ; vcs diff in the fringe
        vi-tilde-fringe   ; fringe tildes to mark beyond EOB
        ;;window-select     ; visually switch windows
@@ -47,7 +47,7 @@
        (syntax)              ; tasing you for every semicolon you forget
        :tools
        lookup              ; navigate your code and its documentation
-       (lsp)               ; M-x vscode
+       (lsp +eglot)               ; M-x vscode
        magit             ; a git porcelain for Emacs
        pdf               ; pdf enhancements
        rgb               ; creating color strings
@@ -63,7 +63,8 @@
        json              ; At least it ain't XML
        (javascript +lsp +tree-sitter)        ; all(hope(abandon(ye(who(enter(here))))))
        (latex +lsp +latexmk)             ; writing papers in Emacs has never been so fun
-       (java +lsp)
+       ;; (java +lsp)
+       ;; (clojure +lsp +tree-sitter)
        (ocaml +lsp)             ; an objective camel
        (rust +lsp)       ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
        (scala +lsp)             ; java, but good
@@ -73,8 +74,8 @@
        ;; markdown          ; writing docs for people to ignore
        ;; ( sh +lsp +tree-sitter)                ; she sells {ba,z,fi}sh shells on the C xor
        ;; (org +pretty)               ; organize your plain life in plain text
-       ;; (ruby +lsp +tree-sitter)     ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
-       ( web +lsp)               ; the tubes
+       (ruby +lsp +tree-sitter)     ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
+       (web +lsp)               ; the tubes
        (lua +lsp +tree-sitter)
        :email
        ;; (mu4e +gmail)

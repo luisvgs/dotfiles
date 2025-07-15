@@ -5,11 +5,14 @@
 (package! dmenu)
 (package! drag-stuff)
 (package! evil-goggles)
+(package! ccls)
 (package! treesit-auto)
 (package! kind-icon)
 (package! ng2-mode)
 (package! exwm-modeline)
 (package! disproject)
+(package! doric-themes)
+(package! standard-themes)
 (package! lean4-mode :recipe
   (:host github
    :repo "leanprover-community/lean4-mode"

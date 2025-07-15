@@ -7,8 +7,7 @@
  user-full-name "Luis Vegas"
  user-mail-address "luisvegasmor@gmail.com"
  ;; doom-font (font-spec :family "JetBrains Mono Nerd Font" :size 19 :weight 'Regular)
- doom-font (font-spec :family "Terminus" :size 23 :weight 'Medium)
- doom-theme 'doom-vibrant
+ doom-theme 'doom-one
  +latex-viewers '(pdf-tools)
  use-package-compute-statistics t
  auto-save-default t
@@ -27,7 +26,7 @@
  delete-by-moving-to-trash t
  window-combination-resize t
  x-stretch-cursor t)
-;; (set-face-attribute 'default nil :font "Iosevka Comfy" :height 150 :weight 'regular)
+(set-face-attribute 'default nil :font "Iosevka Comfy" :height 150 :weight 'regular)
 (use-package! pdf-tools
   :defer t
   :config
@@ -69,8 +68,8 @@
 
 (global-set-key (kbd "C-c C-a") 'my-align-single-equals)
 
-
 (use-package! centaur-tabs
+  :disabled t
   :init
   (setq centaur-tabs-enable-key-bindings t)
   :config
@@ -223,6 +222,21 @@
 
 (setq evil-goggles-duration 0.400)
 
+
+(defun my/treemacs-open-in-vterm ()
+  "Open `vterm` in the Treemacs selected directory."
+  (interactive)
+  (let ((path (treemacs--prop-at-point :path)))
+    (when path
+      (let ((dir (if (file-directory-p path)
+                     path
+                   (file-name-directory path))))
+        (let ((default-directory dir))
+          (vterm))))))
+
+(with-eval-after-load 'treemacs
+  (define-key treemacs-mode-map (kbd "C-c C-t") #'my/treemacs-open-in-vterm))
+
 (load! "configs/+modeline")
 (load! "configs/+which-key")
 (load! "configs/+evilmode")
@@ -238,4 +252,6 @@
 (load! "configs/+utility")
 (load! "configs/+projectile")
 (load! "configs/+dashboard")
-(load! "configs/+exwm")
+;; (load! "configs/+exwm")
+(add-to-list 'load-path "~/.dotfiles/.config/doom/local")
+(require 'fleury-theme)

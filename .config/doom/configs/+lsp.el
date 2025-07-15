@@ -5,6 +5,9 @@
   (json-mode . lsp)
   (sh-mode . lsp)
   (scala-mode . lsp)
+  (c++-mode . lsp)
+  (c-mode . lsp)
+  (agda2-mode . lsp)
   (typescript-ts-mode . lsp)
   (haskell-mode . lsp)
   (tsx-mode . lsp)
@@ -36,6 +39,14 @@
         lsp-eldoc-render-all nil
         lsp-modeline-code-actions-enable t
         ))
+
+(use-package! ccls
+  :config
+  (setq ccls-executable "ccls")
+  (setq lsp-prefer-flymake nil)
+  (setq-default flycheck-disabled-checkers '(c/c++-clang c/c++-cppcheck c/c++-gcc))
+  :hook ((c-mode c++-mode objc-mode) .
+         (lambda () (require 'ccls) (lsp))))
 
 (use-package! flycheck
   :init (global-flycheck-mode)
