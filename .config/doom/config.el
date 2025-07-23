@@ -7,7 +7,7 @@
  user-full-name "Luis Vegas"
  user-mail-address "luisvegasmor@gmail.com"
  ;; doom-font (font-spec :family "JetBrains Mono Nerd Font" :size 19 :weight 'Regular)
- doom-theme 'doom-one
+ doom-theme 'doom-tokyo-night
  +latex-viewers '(pdf-tools)
  use-package-compute-statistics t
  auto-save-default t
@@ -27,6 +27,7 @@
  window-combination-resize t
  x-stretch-cursor t)
 (set-face-attribute 'default nil :font "Iosevka Comfy" :height 150 :weight 'regular)
+
 (use-package! pdf-tools
   :defer t
   :config
@@ -160,46 +161,46 @@
   (marginalia-align 'center))
 
 (after! vertico
-  (vertico-multiform-mode)
-  (require 'vertico-buffer)
-  (require 'vertico-multiform)
+;;   (vertico-multiform-mode)
+;;   (require 'vertico-buffer)
+;;   (require 'vertico-multiform)
 
-  (setq vertico-multiform-commands
-        '((consult-line grid reverse)
-          ;; (consult-grep buffer)
-          ;; (consult-ripgrep buffer)
-          (helpful-variable reverse)
-          (consult-buffer reverse)
-          (dmenu flat)
-          (file reverse)
-          (execute-extended-command reverse)))
+;;   (setq vertico-multiform-commands
+;;         '((consult-line grid reverse)
+;;           ;; (consult-grep buffer)
+;;           ;; (consult-ripgrep buffer)
+;;           (helpful-variable reverse)
+;;           (consult-buffer reverse)
+;;           (dmenu flat)
+;;           (file reverse)
+;;           (execute-extended-command reverse)))
 
   (setq vertico-count 10
         vertico-buffer-display-action '(display-buffer-reuse-window)
         vertico-grid-separator "       "
         vertico-grid-lookahead 50
-        vertico-resize nil)
+        vertico-resize nil))
 
-  (setq vertico-multiform-categories
-        '((file reverse)
-          (imenu (:not indexed mouse))
-          (symbol (vertico-sort-function . vertico-sort-alpha))))
+;;   (setq vertico-multiform-categories
+;;         '((file reverse)
+;;           (imenu (:not indexed mouse))
+;;           (symbol (vertico-sort-function . vertico-sort-alpha))))
 
-  (map! :map vertico-map
-        "M-B" #'vertico-multiform-buffer
-        "M-G" #'vertico-multiform-grid
-        "M-F" #'vertico-multiform-flat
-        "M-R" #'vertico-multiform-reverse
-        "M-V" #'vertico-multiform-vertical)
+;;   (map! :map vertico-map
+;;         "M-B" #'vertico-multiform-buffer
+;;         "M-G" #'vertico-multiform-grid
+;;         "M-F" #'vertico-multiform-flat
+;;         "M-R" #'vertico-multiform-reverse
+;;         "M-V" #'vertico-multiform-vertical)
 
-  (advice-add #'vertico--format-candidate :around
-              (lambda (orig cand prefix suffix index _start)
-                (setq cand (funcall orig cand prefix suffix index _start))
-                (concat
-                 (if (= vertico--index index)
-                     (propertize "» " 'face 'vertico-current)
-                   "  ")
-                 cand))))
+;;   (advice-add #'vertico--format-candidate :around
+;;               (lambda (orig cand prefix suffix index _start)
+;;                 (setq cand (funcall orig cand prefix suffix index _start))
+;;                 (concat
+;;                  (if (= vertico--index index)
+;;                      (propertize "» " 'face 'vertico-current)
+;;                    "  ")
+;;                  cand))))
 
 
 (rg-enable-default-bindings)
@@ -237,7 +238,7 @@
 (with-eval-after-load 'treemacs
   (define-key treemacs-mode-map (kbd "C-c C-t") #'my/treemacs-open-in-vterm))
 
-(load! "configs/+modeline")
+(load! "configs/+exwm")
 (load! "configs/+which-key")
 (load! "configs/+evilmode")
 (load! "configs/+company")
@@ -252,6 +253,4 @@
 (load! "configs/+utility")
 (load! "configs/+projectile")
 (load! "configs/+dashboard")
-;; (load! "configs/+exwm")
 (add-to-list 'load-path "~/.dotfiles/.config/doom/local")
-(require 'fleury-theme)

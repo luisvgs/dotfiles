@@ -9,3 +9,9 @@ export PATH="$PATH:/home/luis/.local/share/coursier/bin"
 # <<< coursier install directory <<<
 
 export PATH="$PATH:/home/luis/.cache/scalacli/local-repo/bin/scala-cli"
+
+export NUXT_AZURE_BLOB_CONTAINER_NAME='kcs-documents-container'
+export NUXT_AZURE_BLOB_CONNECTION_STRING='DefaultEndpointsProtocol=https;AccountName=kcsconstruction;AccountKey=fbtsiaBTsNF8DzKY4WGOAa1yNLSrTTbmLE3crms2RQxMWJuEzrwuOoOYjvwSiYhdZ5NhTndZvkGQ+AStGlAoqw==;EndpointSuffix=core.windows.net'
+export NUXT_AZURE_STORAGE_ACCOUNT_KEY='fbtsiaBTsNF8DzKY4WGOAa1yNLSrTTbmLE3crms2RQxMWJuEzrwuOoOYjvwSiYhdZ5NhTndZvkGQ+AStGlAoqw=='
+export NUXT_AZURE_STORAGE_ACCOUNT_NAME='kcsconstruction'
+export DATABASE_URL="postgresql://postgres@localhost:5432/kcsdb?schema=public"

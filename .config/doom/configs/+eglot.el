@@ -44,8 +44,7 @@
    corfu-auto-delay           0.2
    corfu-min-width            30
    corfu-max-width            70
-   corfu-echo-documentation nil
-   ))
+   corfu-echo-documentation nil))
 
 (use-package! ng2-mode
   :after typescript-mode
@@ -59,8 +58,7 @@
           "~/.nvm/versions/node/v20.11.0/lib/node_modules"
           "--tsProbeLocations"
           "~/.nvm/versions/node/v20.11.0/lib/node_modules"
-          "--stdio"))
-  )
+          "--stdio")))
 
 ;; (use-package! scala-repl :after scala-mode)
 (use-package! treesit-auto
@@ -70,27 +68,21 @@
   (treesit-auto-add-to-auto-mode-alist 'all)
   (global-treesit-auto-mode))
 
-
 (setq treesit-font-lock-level 4)
 
 (use-package! typescript-ts-mode
   :mode (("\\.ts\\'" . typescript-ts-mode)
          ("\\.tsx\\'" . tsx-ts-mode)
-         ("\\.jsx\\'" . typescript-ts-mode)
-         )
+         ("\\.jsx\\'" . typescript-ts-mode))
   :config
   (setq typescript-ts-mode-indent-offset 4)
   (add-hook! '(typescript-ts-mode-hook tsx-ts-mode-hook) #'lsp!))
-
 
 (use-package! treesit
   :mode (("\\.tsx\\'" . tsx-ts-mode)
          ("\\.js\\'"  . typescript-ts-mode)
          ("\\.ts\\'"  . typescript-ts-mode)
          ("\\.jsx\\'" . tsx-ts-mode))
-
-
-
   :preface
   (defun os/setup-install-grammars ()
     "Install Tree-sitter grammars if they are absent."
@@ -110,16 +102,14 @@
         (treesit-install-language-grammar (car grammar)))))
 
   (dolist (mapping
-           '(
-             (css-mode . css-ts-mode)
+           '((css-mode . css-ts-mode)
              (typescript-mode . typescript-ts-mode)
              (js-mode . typescript-ts-mode)
              (js2-mode . typescript-ts-mode)
              ;; (bash-mode . bash-ts-mode)
              (css-mode . css-ts-mode)
              (json-mode . json-ts-mode)
-             (js-json-mode . json-ts-mode)
-             ))
+             (js-json-mode . json-ts-mode)))
     (add-to-list 'major-mode-remap-alist mapping))
   :config
   (os/setup-install-grammars))
@@ -131,10 +121,12 @@
           (agda "https://github.com/tree-sitter/tree-sitter-agda")
           (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src" nil nil))))
 
-(use-package! sh-mode :mode (("\\.sh\\'" . sh-mode)
-                             ("\\.zsh\\'" . sh-mode)
-                             ("\\.env\\'" . sh-mode)
-                                ("\\.zshrc\\'" . sh-mode)))
+(use-package! sh-mode
+  :mode (("\\.sh\\'" . sh-mode)
+         ("\\.zsh\\'" . sh-mode)
+         ("\\.env\\'" . sh-mode)
+         ("\\.zshrc\\'" . sh-mode)))
+
 (after! sh-mode
   (setq-hook! 'sh-mode-hook +lsp-buffer-mode -1))
 
@@ -144,18 +136,22 @@
   (load-file (let ((coding-system-for-read 'utf-8))
                (shell-command-to-string "agda-mode locate"))))
 
+(after! agda2-mode
+  (setq agda2-program-args '("--guardedness")))
+
 (use-package! haskell-mode
   :mode ("\\.hs\\'")
-  :config (setq lsp-haskell-formatting-provider "fourmolu"
-                haskell-interactive-popup-errors nil
-                haskell-stylish-on-save t
-                ;; haskell-mode-stylish-haskell-path "fourmolu"
-                ;; haskell-mode-stylish-haskell-args  '("-m" "inplace")
-                haskell-indentation-layout-offset  4
-                haskell-indentation-starter-offset  4
-                haskell-indentation-left-offset  4
-                haskell-indentation-where-pre-offset  4
-                haskell-indentation-where-post-offset  4))
+  :config
+  (setq lsp-haskell-formatting-provider "fourmolu"
+        haskell-interactive-popup-errors nil
+        haskell-stylish-on-save t
+        ;; haskell-mode-stylish-haskell-path "fourmolu"
+        ;; haskell-mode-stylish-haskell-args  '("-m" "inplace")
+        haskell-indentation-layout-offset  4
+        haskell-indentation-starter-offset  4
+        haskell-indentation-left-offset  4
+        haskell-indentation-where-pre-offset  4
+        haskell-indentation-where-post-offset  4))
 
 ;; (use-package! apheleia
 ;;   :hook ((prog-mode . apheleia-mode))
@@ -170,14 +166,15 @@
 
 (use-package! rust-ts-mode
   :mode ("\\.rs" . rust-ts-mode)
-  :hook (rust-ts-mode . -mode))
+  :hook (rust-ts-mode . eglot-ensure))
 
 ;; (with-eval-after-load 'rust-mode
 ;;   (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
 ;; (remove-hook 'rust-mode-hook 'flycheck-mode)
 
 (use-package! lua-mode
-  :mode ("\\.lua\\'")
+  :mode ("\\.lua\\'"))
+
 ;; (use-package! lsp-mode
 ;;   :hook
 ;;   (rust-mode . lsp)
@@ -215,8 +212,7 @@
 ;;         lsp-rust-analyzer-display-reborrow-hints nil
 ;;         lsp-log-io nil
 ;;         lsp-inlay-hint-enable nil
-;;         lsp-modeline-code-action-fallback-icon "󰌵"
-;;         ))
+;;         lsp-modeline-code-action-fallback-icon "󰌵"))
 
 ;; (defun lsp-booster--advice-json-parse (old-fn &rest args)
 ;;   (or
@@ -259,6 +255,7 @@
 ;;         lsp-ui-peek-always-show t
 ;;         lsp-modeline-diagnostics-enable nil
 ;;         lsp-modeline-code-actions-enable t))
+
 (use-package! flycheck
   :hook eglot
   :custom
@@ -266,9 +263,11 @@
   :bind (:map global-map
               ("M-n" . #'flymake-goto-next-error)
               ("M-p" . #'flymake-goto-prev-error))
-  :config (flycheck-set-indication-mode 'left-fringe))
+  :config
+  (flycheck-set-indication-mode 'left-fringe))
 
 (global-prettify-symbols-mode 1)
+
 (defun haskell-pretty-mode ()
   "Set up pretty symbols for haskell"
   (setq prettify-symbols-alist
@@ -279,6 +278,7 @@
           ;; ("map" . ?\u21A6)
           ("=>" . ?\u21D2)))
   (prettify-symbols-mode 1))
+
 (defvar haskell-font-lock-symbols)
 (setq haskell-font-lock-symbols t)
 (add-hook 'haskell-mode-hook 'haskell-pretty-mode)
@@ -290,8 +290,7 @@
   (interactive)
   (setq prettify-symbols-alist scala-prettify-symbols-alist)
   (setq prettify-symbols-unprettify-at-point t)
-  (prettify-symbols-mode)
-  )
+  (prettify-symbols-mode))
 
 (after! lsp-metals
   (setq lsp-metals-server-args '("-Dmetals.workspace-symbol-search-excludes=target/**"))
@@ -299,7 +298,6 @@
   (setq lsp-metals-treeview-logging-enabled nil)
   (setq lsp-metals-server-command "metals-emacs")
   (setq lsp-metals-super-method-lenses-enabled nil))
-
 
 ;; (after! lsp-mode
 ;;   (setq lsp-enable-file-watchers nil)) ; Optional: improves performance
@@ -315,21 +313,3 @@
 (use-package! lsp-metals
   :disabled t
   :hook (scala-mode . lsp))
-
-;; (after! lsp-mode
-;;   (setq lsp-auto-guess-root nil)
-;;   (setq lsp-metals-server-args '("--workspace-root-pattern" ".metals"))
-;;   (setq lsp-session-folders-blacklist nil)
-;;   (setq lsp-metals-server-args '("--workspace-root-pattern" ".metals"))
-
-;;   (advice-add 'lsp :before (lambda (&rest _args)
-;;                              (setq lsp-session-folders-blacklist
-;;                                    (cl-remove-if (lambda (folder)
-;;                                                    (string-prefix-p default-directory folder))
-;;                                                  (lsp-session-folders-blacklist (lsp-session))))
-;;                              (setq lsp-session-folders-blacklist
-;;                                    (cl-remove-duplicates
-;;                                     (append (lsp-session-folders-blacklist (lsp-session))
-;;                                             (cl-remove-if (lambda (folder)
-;;                                                             (string-prefix-p default-directory folder))
-;;                                                           (lsp-session-folders (lsp-session))))))))

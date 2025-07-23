@@ -18,7 +18,7 @@
        (emoji +unicode)  ; 🙂
        hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
        (ligatures)         ; ligatures and symbols to make your code pretty again
-       ;; (modeline +light)          ; snazzy, Atom-inspired modeline, plus API
+       (modeline +light)          ; snazzy, Atom-inspired modeline, plus API
        ophints           ; highlight the region an operation acts on
        (popup +defaults +all)   ; tame sudden yet inevitable temporary windows
        ;; tabs              ; a tab bar for Emacs
@@ -65,9 +65,9 @@
        (latex +lsp +latexmk)             ; writing papers in Emacs has never been so fun
        ;; (java +lsp)
        ;; (clojure +lsp +tree-sitter)
-       (ocaml +lsp)             ; an objective camel
+       ;; (ocaml +lsp)             ; an objective camel
        (rust +lsp)       ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
-       (scala +lsp)             ; java, but good
+       ;; (scala +lsp)             ; java, but good
        ;;fortran           ; in FORTRAN, GOD is REAL (unless declared INTEGER)
        ;;(cc +lsp)         ; C > C++ == 1
        ;;common-lisp       ; if you've seen one lisp, you've seen them all

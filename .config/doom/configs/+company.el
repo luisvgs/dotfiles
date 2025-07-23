@@ -6,7 +6,7 @@
   :init
   (corfu-popupinfo-mode)
   (global-corfu-mode)
-  (global-completion-preview-mode)
+  ;;(global-completion-preview-mode)
   :config
   (setq
    corfu-popupinfo-delay 0.2

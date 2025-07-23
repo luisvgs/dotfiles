@@ -4,14 +4,14 @@ export PATH="/opt/idea-IC-241.18034.62/bin:$PATH"
 export PATH="/opt/sqlectron:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export READER='zathura'
-export EDITOR='nvim'
+# export EDITOR='emacs -nw'
 BLK="04" CHR="04" DIR="04" EXE="00" REG="00" HARDLINK="00" SYMLINK="06" MISSING="00" ORPHAN="01" FIFO="0F" SOCK="0F" OTHER="02"
 export NNN_FCOLORS="$BLK$CHR$DIR$EXE$REG$HARDLINK$SYMLINK$MISSING$ORPHAN$FIFO$SOCK$OTHER"
 export JAVA_HOME='/usr/lib/jvm/java-17-openjdk'
 export PATH="$JAVA_HOME/bin:$PATH"
 
 
-source ~/.env
+# source ~/.env
 
 alias spr='mvn spring-boot:run'
 alias idea='idea.sh'
@@ -47,8 +47,8 @@ alias est="emacsclient -e '(kill-emacs)'"
 alias ssql='systemctl start mysqld'
 alias lsql='mysql -u root -p'
 
-alias v='nvim'
-alias vim='nvim'
+alias v='vim'
+alias vim='vim'
 alias vim-home="$HOME/.config/nvim"
 alias g='git'
 alias gw='git worktree'
@@ -104,11 +104,11 @@ alias monitor-on='xrandr --output eDP-1 --auto'
 autoload -U compinit
 compinit
 
-export DOT_REPO="https://github.com/luisvgs/dotfiles.git"
-export DOT_DIR="$HOME/.dotfiles"
-source /usr/share/nvm/init-nvm.sh
-fpath=($HOME/.config/zsh/scripts/dot/dot.sh $fpath)
-source $HOME/.config/zsh/scripts/dot/dot.sh
+# export DOT_REPO="https://github.com/luisvgs/dotfiles.git"
+# export DOT_DIR="$HOME/.dotfiles"
+# source /usr/share/nvm/init-nvm.sh
+# fpath=($HOME/.config/zsh/scripts/dot/dot.sh $fpath)
+# source $HOME/.config/zsh/scripts/dot/dot.sh
 source $HOME/.config/zsh/scripts/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $HOME/.config/zsh/scripts/zsh-scripts/fzf_git_functions.zsh
 source $HOME/.config/zsh/scripts/zsh-scripts/key-binding.zsh
@@ -119,10 +119,10 @@ source $HOME/.config/zsh/scripts/scala-helper/scala-helper.zsh
 [[ -s $HOME/.nvm/nvm.sh ]] && . $HOME/.nvm/nvm.sh
 [ -f "/home/luis/.ghcup/env" ] && source "/home/luis/.ghcup/env" # ghcup-env
 
-eval $(opam env)
+# eval $(opam env)
 
 # >>> scala-cli completions >>>
 fpath=("/home/luis/.local/share/scalacli/completions/zsh" $fpath)
 compinit
 # <<< scala-cli completions <<<
-export PATH=$PATH:~/.cache/yay/sonar-scanner/src/sonar-scanner-6.2.1.4610/bin
+# export PATH=$PATH:~/.cache/yay/sonar-scanner/src/sonar-scanner-6.2.1.4610/bin
