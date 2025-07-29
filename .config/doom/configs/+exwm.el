@@ -6,6 +6,7 @@
            gcs-done))
 
 (add-hook 'emacs-startup-hook #'efs/display-startup-time)
+
 (use-package! exwm-modeline
   :after exwm)
 (add-hook 'exwm-init-hook #'exwm-modeline-mode)
@@ -18,11 +19,9 @@
   (let ((hdmi-connected (string-match-p "HDMI-2 connected"
                                         (shell-command-to-string "xrandr"))))
     (if hdmi-connected
-        ;; Si HDMI está conectado, úsalo como primario
         (start-process-shell-command
          "xrandr" nil
          "xrandr --output HDMI-2 --primary --mode 1920x1080 --pos 0x0 --rotate normal --output eDP-1 --off")
-      ;; Si no, usa solo la pantalla del laptop
       (start-process-shell-command
        "xrandr" nil
        "xrandr --output eDP-1 --primary --auto --output HDMI-2 --off"))))
@@ -35,8 +34,47 @@
 (defun exwm/exwm-update-class ()
   (exwm-workspace-rename-buffer exwm-class-name))
 
+(defun efs/send-polybar-hook (module-name hook-index)
+  (start-process-shell-command "polybar-msg" nil (format "polybar-msg hook %s %s" module-name hook-index)))
+
+(defun efs/send-polybar-exwm-workspace ()
+  (efs/send-polybar-hook "exwm-workspace" 1))
+
+  ;; Update panel indicator when workspace changes
+  (add-hook 'exwm-workspace-switch-hook #'efs/send-polybar-exwm-workspace)
+
+(defvar efs/polybar-process nil
+  "Holds the process of the running Polybar instance, if any")
+
+(defun efs/kill-panel ()
+  (interactive)
+  (when efs/polybar-process
+    (ignore-errors
+      (kill-process efs/polybar-process)))
+  (setq efs/polybar-process nil))
+
+(defun efs/start-panel ()
+  (interactive)
+  (efs/kill-panel)
+  (setq efs/polybar-process (start-process-shell-command "polybar" nil "polybar example")))
+
+(defun efs/polybar-exwm-workspace ()
+  (let* ((current-exwm-index exwm-workspace-current-index)
+         (effective-index (max 0 (- current-exwm-index 0))))
+
+    (pcase current-exwm-index
+      (0 "term")
+      (1 "web")
+      (2 "slack")
+      (3 "dir")
+      (4 "a")
+      (_ (format "%s" (+ current-exwm-index 1))))))
+
 (defun exwm/exwm-init-hook ()
-  (start-process-shell-command "redshift" nil "redshift -O 4700")
+  (start-process-shell-command "redshift" nil "redshift -O 4600")
+  (start-process-shell-command "nm-applet" nil "nm-applet")
+  (start-process-shell-command "feh" nil "feh --bg-scale ~/.config/wallpapers/fantasy.png")
+  ;; (efs/start-panel)
   (exwm-workspace-switch-create 1))
 
 (defun exwm/configure-window-by-class ()
@@ -47,15 +85,14 @@
     ("Kitty" (exwm-workspace-move-window 1))
     ("Thunar" (exwm-workspace-move-window 8))
     ("Google-chrome" (exwm-workspace-move-window 2))
-    (_ nil))
-  (exwm-layout-toggle-mode-line))
+    (_ nil)))
 
 
 (defun my/close-window-or-buffer ()
   (interactive)
   (cond
    ((derived-mode-p 'exwm-mode)
-    (exwm-input-send-key (kbd "C-q"))) ; Envía Alt+F4 a la aplicación
+    (exwm-input-send-key (kbd "C-q")))
    ((> (length (window-list)) 1)
     (delete-window))
    (t
@@ -92,36 +129,7 @@
 ;;       (exwm-workspace-switch index))))
 
 
-(defun my/volume-up ()
-  (interactive)
-  (start-process-shell-command "amixer" nil "amixer -D pulse sset Master 5%+")
-  ;; Obtener el volumen actual y mostrarlo
-  (let ((volume (shell-command-to-string "amixer -D pulse get Master | grep -oP '\\d+%' | head -1")))
-    (start-process-shell-command "notify" nil
-                                 (format "notify-send -t 2000 -h string:x-canonical-private-synchronous:volume 'Volume' '%s'"
-                                         (string-trim volume)))))
-
-(defun my/volume-down ()
-  (interactive)
-  (start-process-shell-command "amixer" nil "amixer -D pulse sset Master 5%-")
-  ;; Obtener el volumen actual y mostrarlo
-  (let ((volume (shell-command-to-string "amixer -D pulse get Master | grep -oP '\\d+%' | head -1")))
-    (start-process-shell-command "notify" nil
-                                 (format "notify-send -t 2000 -h string:x-canonical-private-synchronous:volume 'Volume' '%s'"
-                                         (string-trim volume)))))
-
-(defun my/volume-toggle-mute ()
-  (interactive)
-  (start-process-shell-command "amixer" nil "amixer -D pulse set Master 1+ toggle")
-  ;; Verificar si está muteado
-  (let ((mute-status (shell-command-to-string "amixer -D pulse get Master | grep -o '\\[on\\]\\|\\[off\\]'")))
-    (if (string-match "\\[off\\]" mute-status)
-        (start-process-shell-command "notify" nil "notify-send -t 2000 -h string:x-canonical-private-synchronous:volume 'Volume' 'Muted'")
-      (let ((volume (shell-command-to-string "amixer -D pulse get Master | grep -oP '\\d+%' | head -1")))
-        (start-process-shell-command "notify" nil
-                                     (format "notify-send -t 2000 -h string:x-canonical-private-synchronous:volume 'Volume' '%s'"
-                                             (string-trim volume)))))))
-
+;; TODO: check later why it doesnt work
 ;; (defvar exwm-workspace--switch-history-hack (cons exwm-workspace-current-index '()))
 
 ;; (add-hook 'exwm-workspace-switch-hook
@@ -135,9 +143,64 @@
 ;;   "Switch to the workspace that was used before current workspace"
 ;;   (exwm-workspace-switch (cdr exwm-workspace--switch-history-hack)))
 
+(defun my/brightness-up ()
+  "Aumenta el brillo de la pantalla usando brightnessctl y muestra una notificación."
+  (interactive)
+  ;; Ejecuta el comando para aumentar el brillo
+  (start-process-shell-command "brightness-up" nil "brightnessctl set +5%")
+  ;; Obtiene el brillo actual y lo muestra en una notificación
+  (let* ((current-brightness (shell-command-to-string "brightnessctl get | awk '{printf \"%d\", ($1 > 100 ? 100 : $1)}'"))
+         (display-brightness (string-trim current-brightness)))
+    (start-process-shell-command "notify-brightness-up" nil
+                                 (format "notify-send -t 2000 -h string:x-canonical-private-synchronous:brightness 'Brillo' '%s%%'"
+                                         display-brightness))))
+
+(defun my/brightness-down ()
+  "Disminuye el brillo de la pantalla usando brightnessctl y muestra una notificación."
+  (interactive)
+  ;; Ejecuta el comando para disminuir el brillo
+  (start-process-shell-command "brightness-down" nil "brightnessctl set 5%-")
+  ;; Obtiene el brillo actual y lo muestra en una notificación
+  (let* ((current-brightness (shell-command-to-string "brightnessctl get | awk '{printf \"%d\", ($1 < 0 ? 0 : ($1 > 100 ? 100 : $1))}'"))
+         (display-brightness (string-trim current-brightness)))
+    (start-process-shell-command "notify-brightness-down" nil
+                                 (format "notify-send -t 2000 -h string:x-canonical-private-synchronous:brightness 'Brillo' '%s%%'"
+                                         display-brightness))))
+(defun my/volume-up ()
+  (interactive)
+  (start-process-shell-command "amixer" nil "amixer -D pulse sset Master 5%+")
+  (let ((volume (shell-command-to-string "amixer -D pulse get Master | grep -oP '\\d+%' | head -1")))
+    (start-process-shell-command "notify" nil
+                                 (format "notify-send -t 2000 -h string:x-canonical-private-synchronous:volume 'Volume' '%s'"
+                                         (string-trim volume)))))
+
+(defun my/volume-down ()
+  (interactive)
+  (start-process-shell-command "amixer" nil "amixer -D pulse sset Master 5%-")
+  (let ((volume (shell-command-to-string "amixer -D pulse get Master | grep -oP '\\d+%' | head -1")))
+    (start-process-shell-command "notify" nil
+                                 (format "notify-send -t 2000 -h string:x-canonical-private-synchronous:volume 'Volume' '%s'"
+                                         (string-trim volume)))))
+
+(defun my/volume-toggle-mute ()
+  (interactive)
+  (start-process-shell-command "amixer" nil "amixer -D pulse set Master 1+ toggle")
+  (let ((mute-status (shell-command-to-string "amixer -D pulse get Master | grep -o '\\[on\\]\\|\\[off\\]'")))
+    (if (string-match "\\[off\\]" mute-status)
+        (start-process-shell-command "notify" nil "notify-send -t 2000 -h string:x-canonical-private-synchronous:volume 'Volume' 'Muted'")
+      (let ((volume (shell-command-to-string "amixer -D pulse get Master | grep -oP '\\d+%' | head -1")))
+        (start-process-shell-command "notify" nil
+                                     (format "notify-send -t 2000 -h string:x-canonical-private-synchronous:volume 'Volume' '%s'"
+                                             (string-trim volume)))))))
+
+(defun my/powermenu ()
+  "Launch the power menu script."
+  (interactive)
+  (shell-command "~/.config/i3/scripts/powermenu &"))
+
 (use-package exwm
   :config
-  (setq exwm-workspace-number 6)
+  (setq exwm-workspace-number 8)
   (add-hook 'exwm-update-class-hook #'exwm/exwm-update-class)
   (add-hook 'exwm-init-hook #'exwm/exwm-init-hook)
   (add-hook 'exwm-manage-finish-hook #'exwm/configure-window-by-class)
@@ -146,9 +209,8 @@
   (exwm/setup-displays)
 
   (require 'exwm-systemtray)
-  (setq exwm-systemtray-height 32)
-  (exwm-systemtray-mode t)
-
+  (exwm-systemtray-mode 1)
+  (setq exwm-systemtray-height 30)
   (setq exwm-layout-show-all-buffers t)
   (setq exwm-workspace-show-all-buffers t)
   (setq display-time-day-and-date t)
@@ -176,17 +238,23 @@
      ([s-up] . windmove-up)
      ([s-down] . windmove-down)
 
-     ([?\s-\t] . my/workspace-back-and-forth)
+     ([?\s-q] . my/powermenu)
+     ;; ([?\s-\t] . my/workspace-back-and-forth)
 
      ([?\s-d] . dired)
      ([s-S-return] . dmenu)
      ([s-return] . vterm)
 
      ;; QoL
-     ([?\s-B] . my/close-window-or-buffer)
      ([?\s-w] . exwm-workspace-switch)
+     ([?\s-b] . ibuffer)
+     ([?\s-B] . kill-current-buffer)
      ([?\s-C] . +workspace/close-window-or-workspace)
-
+     ;; SUPER+/ switches to char-mode (needed to pass commands in XWindows sometimes)
+     ;; SUPER+? switches us back to line-mode
+     ([?\s-/] . exwm-input-release-keyboard)
+     ([?\s-?] . exwm-reset)
+     ([?\s-m] . exwm-layout-toggle-mode-line)
      ;; change window focus with super+h,j,k,l
      ([?\s-h] evil-window-left)
      ([?\s-j] evil-window-next)
@@ -204,7 +272,9 @@
      ([XF86AudioLowerVolume] . my/volume-down)
      ([XF86AudioMute]        . my/volume-toggle-mute)
 
-     ;; move window to far left or far right with SUPER+CTRL+h, L
+     ([XF86MonBrightnessUp] . my/brightness-up)
+     ([XF86MonBrightnessDown] . my/brightness-down)
+
      ([?\s-\C-h] side-bottom-window)
      ([?\s-\C-j] side-left-window)
      ([?\s-\C-l] side-right-window)
@@ -228,7 +298,7 @@
                   (interactive)
                   (start-process "" nil "google-chrome-stable")))
 
-     ([s-S-n] . (lambda () (interactive) (start-process "" nil "thunar")))
+     ([?\s-n] . (lambda () (interactive) (start-process "" nil "thunar")))
 
      ;; 's-N': Switch to certain workspace with Super (Win) plus a number key (0 - 9)
      ,@(mapcar (lambda (i)

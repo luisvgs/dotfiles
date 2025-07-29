@@ -8,6 +8,7 @@
   (add-to-list 'eglot-server-programs '(lua-mode "lua-language-server"))
   (add-to-list 'eglot-server-programs '(rjsx-mode .("typescript-language-server" "--stdio")))
   (add-to-list 'eglot-server-programs '(tuareg-mode "ocamllsp"))
+  (add-to-list 'eglot-server-programs '(ruby-mode "ruby-lsp"))
   (add-to-list 'eglot-server-programs '(lean4-mode . ("lake" "serve")))
   (add-to-list 'eglot-server-programs '(haskell-mode . ("haskell-language-server-wrapper" "--lsp")))
   (add-to-list 'eglot-server-programs '(tsx-ts-mode . ("typescript-language-server" "--stdio")))
