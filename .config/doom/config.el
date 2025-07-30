@@ -7,7 +7,7 @@
  user-full-name "Luis Vegas"
  user-mail-address "luisvegasmor@gmail.com"
  ;; doom-font (font-spec :family "JetBrains Mono Nerd Font" :size 19 :weight 'Regular)
- doom-theme 'doom-one
+ doom-theme 'modus-vivendi-deuteranopia
  +latex-viewers '(pdf-tools)
  use-package-compute-statistics t
  auto-save-default t
@@ -27,6 +27,7 @@
  window-combination-resize t
  x-stretch-cursor t)
 (set-face-attribute 'default nil :font "Iosevka Comfy" :height 150 :weight 'regular)
+
 
 (use-package! pdf-tools
   :defer t

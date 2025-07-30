@@ -153,6 +153,12 @@
         haskell-indentation-left-offset  4
         haskell-indentation-where-pre-offset  4
         haskell-indentation-where-post-offset  4))
+(add-hook 'haskell-mode-hook
+          (lambda ()
+            (add-to-list 'exec-path "/home/luis/.ghcup/bin")
+            (setenv "PATH" (concat "/home/luis/.ghcup/bin:" (getenv "PATH")))))
+
+(add-hook 'haskell-mode-hook (lambda () (flycheck-mode -1)))
 
 ;; (use-package! apheleia
 ;;   :hook ((prog-mode . apheleia-mode))

@@ -40,8 +40,8 @@
 (defun efs/send-polybar-exwm-workspace ()
   (efs/send-polybar-hook "exwm-workspace" 1))
 
-  ;; Update panel indicator when workspace changes
-  (add-hook 'exwm-workspace-switch-hook #'efs/send-polybar-exwm-workspace)
+;; Update panel indicator when workspace changes
+(add-hook 'exwm-workspace-switch-hook #'efs/send-polybar-exwm-workspace)
 
 (defvar efs/polybar-process nil
   "Holds the process of the running Polybar instance, if any")
@@ -215,6 +215,9 @@
   (setq exwm-workspace-show-all-buffers t)
   (setq display-time-day-and-date t)
   (display-time-mode 1)
+  (setq exwm-manage-configurations
+        '(((member exwm-class-name '("Telegram" "Google-chrome" "Slack"))
+	   char-mode t)))
   (define-key exwm-mode-map [?\C-q] 'exwm-input-send-next-key)
   (setq
    exwm-input-simulation-keys '(([?\s-F] . [?\C-f]))
