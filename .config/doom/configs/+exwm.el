@@ -70,10 +70,16 @@
       (4 "a")
       (_ (format "%s" (+ current-exwm-index 1))))))
 
+(defun exwm/set-wallpaper ()
+  (interactive)
+  (start-process-shell-command
+   "feh" nil "feh --bg-fill ~/.config/wallpapers/space.png"))
+
 (defun exwm/exwm-init-hook ()
-  (start-process-shell-command "redshift" nil "redshift -O 4600")
+  (start-process-shell-command "redshift" nil "redshift -O 4500")
   (start-process-shell-command "nm-applet" nil "nm-applet")
-  (start-process-shell-command "feh" nil "feh --bg-scale ~/.config/wallpapers/fantasy.png")
+  (start-process-shell-command "picom" nil "picom")
+  (exwm/set-wallpaper)
   ;; (efs/start-panel)
   (exwm-workspace-switch-create 1))
 
@@ -318,3 +324,4 @@
 (setq mouse-autoselect-window t)
 (setq focus-follows-mouse t)
 (setq exwm-workspace-warp-cursor t)
+(set-frame-parameter nil 'alpha 96)

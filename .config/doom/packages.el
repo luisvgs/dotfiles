@@ -10,8 +10,9 @@
 (package! kind-icon)
 (package! ng2-mode)
 (package! exwm-modeline)
-(package! disproject)
 (package! doric-themes)
+(package! app-launcher :recipe (
+  :host github :repo "sebastienWae/app-launcher" :files ("*")))
 (package! standard-themes)
 (package! lean4-mode :recipe
   (:host github
