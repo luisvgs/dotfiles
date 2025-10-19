@@ -115,6 +115,7 @@ source $HOME/.config/zsh/scripts/fancy-ctrlz/fancy.zsh
 source $HOME/.config/zsh/scripts/git-prompt/git-prompt.zsh
 source $HOME/.config/zsh/scripts/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source $HOME/.config/zsh/scripts/scala-helper/scala-helper.zsh
+source $HOME/.elan/env
 [[ -s $HOME/.nvm/nvm.sh ]] && . $HOME/.nvm/nvm.sh
 [ -f "/home/luis/.ghcup/env" ] && source "/home/luis/.ghcup/env" # ghcup-env
 

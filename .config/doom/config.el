@@ -7,7 +7,7 @@
  user-full-name "Luis Vegas"
  user-mail-address "luisvegasmor@gmail.com"
  ;; doom-font (font-spec :family "JetBrains Mono Nerd Font" :size 19 :weight 'Regular)
- doom-theme 'doom-one
+ doom-theme 'spacemacs-dark
  +latex-viewers '(pdf-tools)
  use-package-compute-statistics t
  auto-save-default t
@@ -27,7 +27,6 @@
  window-combination-resize t
  x-stretch-cursor t)
 (set-face-attribute 'default nil :font "Iosevka Comfy" :height 150 :weight 'regular)
-
 
 (use-package! pdf-tools
   :defer t
@@ -139,7 +138,7 @@
         ("C-h" . centaur-tabs-backward))
   )
 
-(setq read-process-output-max (* 10 1024 1024)) ;; 10mb
+(setq read-process-output-max (* 10 1024 1024))
 (setq gc-cons-threshold 200000000)
 
 (use-package! consult
@@ -162,19 +161,19 @@
   (marginalia-align 'center))
 
 (after! vertico
-;;   (vertico-multiform-mode)
-;;   (require 'vertico-buffer)
-;;   (require 'vertico-multiform)
+  ;;   (vertico-multiform-mode)
+  ;;   (require 'vertico-buffer)
+  ;;   (require 'vertico-multiform)
 
-;;   (setq vertico-multiform-commands
-;;         '((consult-line grid reverse)
-;;           ;; (consult-grep buffer)
-;;           ;; (consult-ripgrep buffer)
-;;           (helpful-variable reverse)
-;;           (consult-buffer reverse)
-;;           (dmenu flat)
-;;           (file reverse)
-;;           (execute-extended-command reverse)))
+  ;;   (setq vertico-multiform-commands
+  ;;         '((consult-line grid reverse)
+  ;;           ;; (consult-grep buffer)
+  ;;           ;; (consult-ripgrep buffer)
+  ;;           (helpful-variable reverse)
+  ;;           (consult-buffer reverse)
+  ;;           (dmenu flat)
+  ;;           (file reverse)
+  ;;           (execute-extended-command reverse)))
 
   (setq vertico-count 10
         vertico-buffer-display-action '(display-buffer-reuse-window)
@@ -206,9 +205,17 @@
 
 (rg-enable-default-bindings)
 
-;; (add-to-list 'load-path "~/.config/doom/local/marqueeo")
-;; (require 'marqueeo)
+(use-package! smart-mode-line
+  :init
+  (setq sml/no-confirm-load-theme t)
+  :config
+  (setq sml/theme 'dark)
+  (sml/setup))
 
+;; (add-to-list 'load-path "~/.config/doom/local/awesome-tray")
+;; (require 'awesome-tray)
+
+;; (awesome-tray-mode 1)
 ;; (defun turn-on-marqueeo-mode ()
 ;;   "Turn on marqueeo-mode."
 ;;   (marqueeo-mode 1))
@@ -239,6 +246,15 @@
 (with-eval-after-load 'treemacs
   (define-key treemacs-mode-map (kbd "C-c C-t") #'my/treemacs-open-in-vterm))
 
+(use-package! minions
+  :hook (after-init . minions-mode))
+
+(use-package! auctex
+  :config
+  (setq TeX-auto-save t)
+  (setq TeX-parse-self t)
+  (setq-default TeX-master nil))
+
 (load! "configs/+exwm")
 (load! "configs/+which-key")
 (load! "configs/+evilmode")
@@ -250,8 +266,8 @@
 (load! "configs/+eglot")
 (load! "configs/+persp")
 (load! "configs/+keybindings")
-(load! "configs/+latex")
 (load! "configs/+utility")
 (load! "configs/+projectile")
-(load! "configs/+dashboard")
+;; (load! "configs/+dashboard")
+;; (load! "configs/+latex")
 (add-to-list 'load-path "~/.dotfiles/.config/doom/local")

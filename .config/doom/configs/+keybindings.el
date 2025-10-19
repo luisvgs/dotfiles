@@ -42,7 +42,3 @@
 (map! :leader
       :desc "Toggle fulscreen current buffer"
       "+" #'doom/window-maximize-buffer)
-
-(map! :leader
-      :desc "Format current buffer"
-      "f b" #'+format/buffer)

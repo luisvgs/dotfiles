@@ -12,13 +12,13 @@
        (vertico +icons)           ; the search engine of the future
        :ui
        doom              ; what makes DOOM look the way it does
-       doom-dashboard    ; a nifty splash screen for Emacs
+       ;; doom-dashboard    ; a nifty splash screen for Emacs
        nav-flash
        (treemacs)
        (emoji +unicode)  ; 🙂
-       hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
-       (ligatures)         ; ligatures and symbols to make your code pretty again
-       (modeline)          ; snazzy, Atom-inspired modeline, plus API
+       hl-todo
+       (ligatures)
+       ;; (modeline +light)
        ophints           ; highlight the region an operation acts on
        (popup +defaults +all)   ; tame sudden yet inevitable temporary windows
        ;; tabs              ; a tab bar for Emacs

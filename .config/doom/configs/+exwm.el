@@ -76,9 +76,9 @@
    "feh" nil "feh --bg-fill ~/.config/wallpapers/space.png"))
 
 (defun exwm/exwm-init-hook ()
-  (start-process-shell-command "redshift" nil "redshift -O 4500")
+  (start-process-shell-command "redshift" nil "redshift -O 4300")
   (start-process-shell-command "nm-applet" nil "nm-applet")
-  (start-process-shell-command "picom" nil "picom")
+  ;; (start-process-shell-command "picom" nil "picom")
   (exwm/set-wallpaper)
   ;; (efs/start-panel)
   (exwm-workspace-switch-create 1))
@@ -204,9 +204,43 @@
   (interactive)
   (shell-command "~/.config/i3/scripts/powermenu &"))
 
+
+
+;; NEW TODO
+;; --- Switch back and forth between current and last workspace ---
+(defvar my/last-exwm-workspace 0
+  "Holds the index of the last visited EXWM workspace.")
+
+(defun my/track-exwm-last-workspace ()
+  "Track the last visited EXWM workspace."
+  (unless (= exwm-workspace-current-index my/last-exwm-workspace)
+    (setq my/last-exwm-workspace exwm-workspace-current-index)))
+
+(add-hook 'exwm-workspace-switch-hook #'my/track-exwm-last-workspace)
+
+(defvar my/previous-exwm-workspace nil
+  "The previously visited EXWM workspace index.")
+
+(defun my/exwm-switch-to-last-workspace ()
+  "Toggle back to the previously visited EXWM workspace."
+  (interactive)
+  (when (and my/previous-exwm-workspace
+             (numberp my/previous-exwm-workspace)
+             (not (= exwm-workspace-current-index my/previous-exwm-workspace)))
+    (let ((current exwm-workspace-current-index)
+          (prev my/previous-exwm-workspace))
+      (setq my/previous-exwm-workspace current)
+      (exwm-workspace-switch prev))))
+
+;; Track both current and previous workspaces
+(add-hook 'exwm-workspace-switch-hook
+          (lambda ()
+            (setq my/previous-exwm-workspace my/last-exwm-workspace)
+            (setq my/last-exwm-workspace exwm-workspace-current-index)))
+
 (use-package exwm
   :config
-  (setq exwm-workspace-number 8)
+  (setq exwm-workspace-number 6)
   (add-hook 'exwm-update-class-hook #'exwm/exwm-update-class)
   (add-hook 'exwm-init-hook #'exwm/exwm-init-hook)
   (add-hook 'exwm-manage-finish-hook #'exwm/configure-window-by-class)
@@ -216,7 +250,7 @@
 
   (require 'exwm-systemtray)
   (exwm-systemtray-mode 1)
-  (setq exwm-systemtray-height 30)
+  (setq exwm-systemtray-height 25)
   (setq exwm-layout-show-all-buffers t)
   (setq exwm-workspace-show-all-buffers t)
   (setq display-time-day-and-date t)
@@ -249,6 +283,7 @@
 
      ([?\s-q] . my/powermenu)
      ;; ([?\s-\t] . my/workspace-back-and-forth)
+     ([?\s-\t] . my/exwm-switch-to-last-workspace)
 
      ([?\s-d] . dired)
      ([s-S-return] . dmenu)
@@ -324,4 +359,4 @@
 (setq mouse-autoselect-window t)
 (setq focus-follows-mouse t)
 (setq exwm-workspace-warp-cursor t)
-(set-frame-parameter nil 'alpha 96)
+;; (set-frame-parameter nil 'alpha 96)
