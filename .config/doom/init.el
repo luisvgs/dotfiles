@@ -18,10 +18,10 @@
        (emoji +unicode)  ; 🙂
        hl-todo
        (ligatures)
-       ;; (modeline +light)
+       (modeline)
        ophints           ; highlight the region an operation acts on
        (popup +defaults +all)   ; tame sudden yet inevitable temporary windows
-       ;; tabs              ; a tab bar for Emacs
+       tabs              ; a tab bar for Emacs
        (vc-gutter +pretty) ; vcs diff in the fringe
        vi-tilde-fringe   ; fringe tildes to mark beyond EOB
        ;;window-select     ; visually switch windows
@@ -58,15 +58,16 @@
        :lang
        (agda +local)              ; types of types of types of types...
        emacs-lisp        ; drown in parentheses
-       (haskell +lsp +tree-sitter)    ; a language that's lazier than I am
+       (haskell +eglot +tree-sitter)    ; a language that's lazier than I am
        idris             ; a language you can depend on
        json              ; At least it ain't XML
-       (javascript +lsp +tree-sitter)        ; all(hope(abandon(ye(who(enter(here))))))
-       (latex +lsp +latexmk)             ; writing papers in Emacs has never been so fun
+       (javascript +eglot +tree-sitter)        ; all(hope(abandon(ye(who(enter(here))))))
+       (latex +eglot +latexmk)             ; writing papers in Emacs has never been so fun
        ;; (java +lsp)
        ;; (clojure +lsp +tree-sitter)
        ;; (ocaml +lsp)             ; an objective camel
-       (rust +lsp)       ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
+       (rust +eglot)       ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
+       (fsharp +eglot)
        ;; (scala +lsp)             ; java, but good
        ;;fortran           ; in FORTRAN, GOD is REAL (unless declared INTEGER)
        ;;(cc +lsp)         ; C > C++ == 1
@@ -75,8 +76,8 @@
        ;; ( sh +lsp +tree-sitter)                ; she sells {ba,z,fi}sh shells on the C xor
        ;; (org +pretty)               ; organize your plain life in plain text
        (ruby +lsp +tree-sitter)     ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
-       (web +lsp)               ; the tubes
-       (lua +lsp +tree-sitter)
+       (web +eglot)               ; the tubes
+       (lua +eglot +tree-sitter)
        :email
        ;; (mu4e +gmail)
        :app

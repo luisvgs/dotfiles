@@ -26,4 +26,5 @@
  '(magit-todos-insert-after '(bottom) nil nil "Changed by setter of obsolete option `magit-todos-insert-at'")
  '(org-agenda-files '("~/org/todo.org"))
  '(package-selected-packages '(flymake))
- '(safe-local-variable-values '((eval turn-off-auto-fill))))
+ '(safe-local-variable-values '((eval turn-off-auto-fill)))
+ '(tramp-term-host-shells '(("172.23.184.65" . bash))))

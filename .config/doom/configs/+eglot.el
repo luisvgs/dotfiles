@@ -13,20 +13,24 @@
   (add-to-list 'eglot-server-programs '(haskell-mode . ("haskell-language-server-wrapper" "--lsp")))
   (add-to-list 'eglot-server-programs '(tsx-ts-mode . ("typescript-language-server" "--stdio")))
   (add-to-list 'eglot-server-programs '(typescript-ts-mode . ("typescript-language-server" "--stdio")))
+  (add-to-list 'eglot-server-programs '(csharp-mode . ("omnisharp" "-lsp")))
   (add-to-list 'eglot-server-programs
-               `(rust-mode . ("rust-analyzer" :initializationOptions
-                              ( :procMacro (:enable t)
-                                           :cargo ( :buildScripts (:enable t)
-                                                                  :features "all")))))
+               '(fsharp-mode "~/.dotnet/tools/fsautocomplete"))
+  (add-to-list 'eglot-server-programs
+               `(rustic-mode . ("rust-analyzer" :initializationOptions
+                                (:procMacro (:enable t)
+                                 :cargo (:buildScripts (:enable t))))))
   (add-hook 'eglot-managed-mode-hook
             (lambda ()
               (setq eldoc-documentation-functions
                     (cons #'flymake-eldoc-function
                           (remove #'flymake-eldoc-function eldoc-documentation-functions)))
               (setq eldoc-documentation-strategy #'eldoc-documentation-compose)))
-  :hook
-  ((rjsx-mode tuareg-mode lean4-mode rust-mode tsx-ts-mode typescript-ts-mode js2-mode scala-mode agda2-mode haskell-mode idris-mode lua-mode) . eglot-ensure))
 
+  :hook
+  ((rjsx-mode tuareg-mode lean4-mode rustic-mode tsx-ts-mode typescript-ts-mode js2-mode scala-mode agda2-mode haskell-mode idris-mode lua-mode csharp-mode fsharp-mode) . eglot-ensure))
+
+(add-hook 'rustic-mode-hook (lambda () (flycheck-mode -1)))
 (use-package eglot-booster
   :after eglot
   :config (eglot-booster-mode))
@@ -61,7 +65,6 @@
           "~/.nvm/versions/node/v20.11.0/lib/node_modules"
           "--stdio")))
 
-;; (use-package! scala-repl :after scala-mode)
 (use-package! treesit-auto
   :custom
   (treesit-auto-install 'prompt)
@@ -107,7 +110,6 @@
              (typescript-mode . typescript-ts-mode)
              (js-mode . typescript-ts-mode)
              (js2-mode . typescript-ts-mode)
-             ;; (bash-mode . bash-ts-mode)
              (css-mode . css-ts-mode)
              (json-mode . json-ts-mode)
              (js-json-mode . json-ts-mode)))
@@ -143,28 +145,24 @@
 (use-package! haskell-mode
   :mode ("\\.hs\\'")
   :config
-  (setq lsp-haskell-formatting-provider "fourmolu"
-        haskell-interactive-popup-errors nil
-        haskell-stylish-on-save t
-        ;; haskell-mode-stylish-haskell-path "fourmolu"
-        ;; haskell-mode-stylish-haskell-args  '("-m" "inplace")
+  (setq haskell-interactive-popup-errors nil
         haskell-indentation-layout-offset  4
-        haskell-indentation-starter-offset  4
-        haskell-indentation-left-offset  4
+        haskell-indentation-starter-offset 4
+        haskell-indentation-left-offset    4
         haskell-indentation-where-pre-offset  4
-        haskell-indentation-where-post-offset  4))
-(add-hook 'haskell-mode-hook
-          (lambda ()
-            (add-to-list 'exec-path "/home/luis/.ghcup/bin")
-            (setenv "PATH" (concat "/home/luis/.ghcup/bin:" (getenv "PATH")))))
+        haskell-indentation-where-post-offset 4)
+
+  (add-to-list 'exec-path "/home/luis/.ghcup/bin")
+  (setenv "PATH" (concat "/home/luis/.ghcup/bin:" (getenv "PATH")))
+
+  (add-hook 'haskell-mode-hook
+            (lambda ()
+              (setq-local eglot-workspace-configuration
+                          '((haskell (formattingProvider . "ormolu"))))
+              (eglot-ensure)
+              (add-hook 'before-save-hook #'eglot-format-buffer -10 t))))
 
 (add-hook 'haskell-mode-hook (lambda () (flycheck-mode -1)))
-
-;; (use-package! apheleia
-;;   :hook ((prog-mode . apheleia-mode))
-;;   :config
-;;   (setf (alist-get 'fourmolu apheleia-formatters) '("fourmolu" file))
-;;   (add-to-list 'apheleia-mode-alist '(haskell-mode . fourmolu)))
 
 (use-package! idris-mode
   :mode ("\\.idr\\'")
@@ -175,93 +173,8 @@
   :mode ("\\.rs" . rust-ts-mode)
   :hook (rust-ts-mode . eglot-ensure))
 
-;; (with-eval-after-load 'rust-mode
-;;   (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
-;; (remove-hook 'rust-mode-hook 'flycheck-mode)
-
 (use-package! lua-mode
   :mode ("\\.lua\\'"))
-
-;; (use-package! lsp-mode
-;;   :hook
-;;   (rust-mode . lsp)
-;;   (json-mode . lsp)
-;;   (lua-mode . lsp)
-;;   (lean4-mode . lsp)
-;;   ;; (sh-mode . lsp)
-;;   (scala-mode . lsp)
-;;   ;; (agda2-mode . lsp)
-;;   (typescript-ts-mode . lsp)
-;;   (ng2-mode . lsp)
-;;   (haskell-mode . lsp)
-;;   (tsx-mode . lsp)
-;;   (latex-mode . lsp)
-;;   (LaTeX-mode . lsp)
-;;   (tuareg-mode . lsp)
-;;   (js2-mode . lsp)
-;;   (rjsx-mode . lsp)
-;;   :bind (:map lsp-mode-map
-;;               ("C-c d" . lsp-describe-thing-at-point)
-;;               ("C-c g" . lsp-ui-doc-glance))
-;;   :config
-;;   (define-key lsp-mode-map (kbd "C-c l") lsp-command-map)
-;;   (lsp-enable-which-key-integration t)
-;;   (map! :leader
-;;         :prefix "c"
-;;         :desc "Peek references" "p" #'lsp-ui-peek-find-references)
-;;   (setq lsp-rust-analyzer-cargo-watch-command "clippy"
-;;         lsp-rust-analyzer-server-display-inlay-hints nil
-;;         lsp-rust-analyzer-display-lifetime-elision-hints-enable "skip_trivial"
-;;         lsp-rust-analyzer-display-chaining-hints nil
-;;         lsp-rust-analyzer-display-lifetime-elision-hints-use-parameter-names nil
-;;         lsp-rust-analyzer-display-closure-return-type-hints nil
-;;         lsp-rust-analyzer-display-parameter-hints nil
-;;         lsp-rust-analyzer-display-reborrow-hints nil
-;;         lsp-log-io nil
-;;         lsp-inlay-hint-enable nil
-;;         lsp-modeline-code-action-fallback-icon "󰌵"))
-
-;; (defun lsp-booster--advice-json-parse (old-fn &rest args)
-;;   (or
-;;    (when (equal (following-char) ?#)
-;;      (let ((bytecode (read (current-buffer))))
-;;        (when (byte-code-function-p bytecode)
-;;          (funcall bytecode))))
-;;    (apply old-fn args)))
-;; (advice-add (if (progn (require 'json)
-;;                        (fboundp 'json-parse-buffer))
-;;                 'json-parse-buffer
-;;               'json-read)
-;;             :around
-;;             #'lsp-booster--advice-json-parse)
-
-;; (defun lsp-booster--advice-final-command (old-fn cmd &optional test?)
-;;   "Prepend emacs-lsp-booster command to lsp CMD."
-;;   (let ((orig-result (funcall old-fn cmd test?)))
-;;     (if (and (not test?)                             ;; for check lsp-server-present?
-;;              (not (file-remote-p default-directory)) ;; see lsp-resolve-final-command, it would add extra shell wrapper
-;;              lsp-use-plists
-;;              (not (functionp 'json-rpc-connection))  ;; native json-rpc
-;;              (executable-find "emacs-lsp-booster"))
-;;         (progn
-;;           (message "Using emacs-lsp-booster for %s!" orig-result)
-;;           (cons "emacs-lsp-booster" orig-result))
-;;       orig-result)))
-;; (advice-add 'lsp-resolve-final-command :around #'lsp-booster--advice-final-command)
-
-;; (use-package! lsp-ui
-;;   :hook (lsp-mode . lsp-ui-mode)
-;;   :config
-;;   (setq lsp-eldoc-enable-hover t
-;;         lsp-ui-sideline-enable nil
-;;         lsp-signature-auto-activate t
-;;         lsp-signature-render-documentation t
-;;         lsp-lens-enable nil
-;;         lsp-ui-sideline-show-diagnostics t
-;;         lsp-ui-sideline-show-hover t
-;;         lsp-ui-peek-always-show t
-;;         lsp-modeline-diagnostics-enable nil
-;;         lsp-modeline-code-actions-enable t))
 
 (use-package! flycheck
   :hook eglot
@@ -279,19 +192,15 @@
   "Set up pretty symbols for haskell"
   (setq prettify-symbols-alist
         '(("lambda" .  ?\u03BB)
-          ("\\" . ?\u03BB)      ; λ
-          ("->" . ?\u2192)      ; →
-          ("<-" . ?\u2190)      ; ←
-          ;; ("map" . ?\u21A6)
+          ("\\" . ?\u03BB)
+          ("->" . ?\u2192)
+          ("<-" . ?\u2190)
           ("=>" . ?\u21D2)))
   (prettify-symbols-mode 1))
 
 (defvar haskell-font-lock-symbols)
 (setq haskell-font-lock-symbols t)
 (add-hook 'haskell-mode-hook 'haskell-pretty-mode)
-;; (add-hook 'haskell-mode-hook 'turn-on-haskell-unicode-input-method)
-
-;; Scala
 
 (defun my-pretty-mode ()
   (interactive)
@@ -301,13 +210,10 @@
 
 (after! lsp-metals
   (setq lsp-metals-server-args '("-Dmetals.workspace-symbol-search-excludes=target/**"))
-  (setq lsp-metals-compile-on-save nil)  ; Optional: prevents automatic compilation
+  (setq lsp-metals-compile-on-save nil)
   (setq lsp-metals-treeview-logging-enabled nil)
   (setq lsp-metals-server-command "metals-emacs")
   (setq lsp-metals-super-method-lenses-enabled nil))
-
-;; (after! lsp-mode
-;;   (setq lsp-enable-file-watchers nil)) ; Optional: improves performance
 
 (use-package! scala-mode
   :mode ("\\.sc\\'" "\\.scala\\'"))
@@ -320,3 +226,15 @@
 (use-package! lsp-metals
   :disabled t
   :hook (scala-mode . lsp))
+
+(after! fsharp-mode
+  (setq inferior-fsharp-program "dotnet fsi"
+        fsharp-compiler "dotnet build"))
+
+(after! flymake
+  (setq flymake-no-changes-timeout 0.5)
+  (define-key flymake-mode-map (kbd "M-n") #'flymake-goto-next-error)
+  (define-key flymake-mode-map (kbd "M-p") #'flymake-goto-prev-error))
+
+(after! company
+  (setq-default company-backends '(company-capf)))

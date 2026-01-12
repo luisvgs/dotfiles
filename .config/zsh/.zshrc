@@ -2,7 +2,9 @@ export PATH="~/.cargo/bin:$PATH"
 export PATH="$HOME/.npm-global/bin:$PATH"
 export PATH="/opt/idea-IC-241.18034.62/bin:$PATH"
 export PATH="/opt/sqlectron:$PATH"
+export PATH="$HOME/.dotnet/tools:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/sinter/target/release:$PATH"
 export READER='zathura'
 # export EDITOR='emacs -nw'
 BLK="04" CHR="04" DIR="04" EXE="00" REG="00" HARDLINK="00" SYMLINK="06" MISSING="00" ORPHAN="01" FIFO="0F" SOCK="0F" OTHER="02"
