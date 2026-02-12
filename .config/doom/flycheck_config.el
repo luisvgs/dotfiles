@@ -3,11 +3,15 @@
 ;; ** Organize modules
 ;; Deactivate unneeded packages
 (use-package! doom)
+(let ((gem-bin-path "/home/luis/.local/share/gem/ruby/3.4.0/bin"))
+  (setenv "PATH" (concat gem-bin-path ":" (getenv "PATH")))
+  (add-to-list 'exec-path gem-bin-path))
 (setq
  user-full-name "Luis Vegas"
  user-mail-address "luisvegasmor@gmail.com"
- doom-font (font-spec :family "JetBrains Mono Nerd Font" :size 19 :weight 'Regular)
- doom-theme 'doom-one
+ ;; doom-font (font-spec :family "JetBrains Mono Nerd Font" :size 19 :weight 'Regular)
+ doom-theme 'doom-feather-dark
+ native-comp-jit-compilation nil
  +latex-viewers '(pdf-tools)
  use-package-compute-statistics t
  auto-save-default t
@@ -19,14 +23,15 @@
  smerge-command-prefix "\C-cv"
  initial-major-mode (quote fundamental-mode)
  display-line-numbers-type 'relative)
-(define-key evil-normal-state-map (kbd "-") 'dired-jump)
+(define-key evil-normal-state-map (kbd "-") 'dirvish)
 (advice-add #'add-node-modules-path :override #'ignore)
 (advice-add 'jsonrpc--log-event :override #'ignore)
+
 (setq-default
  delete-by-moving-to-trash t
  window-combination-resize t
  x-stretch-cursor t)
-;; (set-face-attribute 'default nil :font "Iosevka Comfy" :height 150 :weight 'regular)
+(set-face-attribute 'default nil :font "Iosevka Comfy" :height 150 :weight 'regular)
 (use-package! nyan-mode
   :config
   (setq nyan-animate-nyancat t)
@@ -72,75 +77,6 @@
    "\\(\\s-*\\) = " 1 0 nil))
 
 (global-set-key (kbd "C-c C-a") 'my-align-single-equals)
-
-(use-package! centaur-tabs
-  ;; :disabled t
-  :init
-  (setq centaur-tabs-enable-key-bindings t)
-  :config
-  (centaur-tabs-mode nil)
-  (setq centaur-tabs-style "bar"
-        centaur-tabs-height 40
-        centaur-tabs-set-icons t
-        centaur-tabs-show-new-tab-button nil
-        centaur-tabs-set-close-button nil
-        centaur-tabs-set-modified-marker t
-        centaur-tabs-show-navigation-buttons nil
-        centaur-tabs-set-bar 'left
-        centaur-tabs-show-count nil
-        x-underline-at-descent-line t
-        centaur-tabs-left-edge-margin nil)
-  (centaur-tabs-change-fonts (face-attribute 'default :font) 110)
-  (centaur-tabs-headline-match)
-  (setq uniquify-separator "/")
-  (setq uniquify-buffer-name-style 'forward)
-  (defun centaur-tabs-buffer-groups ()
-    (list
-     (cond
-      ((or (string-equal "*" (substring (buffer-name) 0 1))
-           (memq major-mode '(magit-process-mode
-                              magit-status-mode
-                              magit-diff-mode
-                              magit-log-mode
-                              magit-file-mode
-                              magit-blob-mode
-                              magit-blame-mode
-                              )))
-       "Emacs")
-      ((derived-mode-p 'prog-mode)
-       "Editing")
-      ((derived-mode-p 'dired-mode)
-       "Dired")
-      ((memq major-mode '(helpful-mode
-                          help-mode))
-       "Help")
-      ((memq major-mode '(org-mode
-                          org-agenda-clockreport-mode
-                          org-src-mode
-                          org-agenda-mode
-                          org-beamer-mode
-                          org-indent-mode
-                          org-bullets-mode
-                          org-cdlatex-mode
-                          org-agenda-log-mode
-                          diary-mode))
-       "OrgMode")
-      (t
-       (centaur-tabs-get-group-name (current-buffer))))))
-  :hook
-  (dashboard-mode . centaur-tabs-local-mode)
-  (term-mode . centaur-tabs-local-mode)
-  (calendar-mode . centaur-tabs-local-mode)
-  (org-agenda-mode . centaur-tabs-local-mode)
-  :bind
-  ("C-<prior>" . centaur-tabs-backward)
-  ("C-<next>" . centaur-tabs-forward)
-  ("C-S-<prior>" . centaur-tabs-move-current-tab-to-left)
-  ("C-S-<next>" . centaur-tabs-move-current-tab-to-right)
-  (:map evil-normal-state-map
-        ("C-l" . centaur-tabs-forward)
-        ("C-h" . centaur-tabs-backward))
-  )
 
 (setq read-process-output-max (* 10 1024 1024))
 (setq gc-cons-threshold 200000000)
@@ -203,7 +139,6 @@
   (setq TeX-auto-save t)
   (setq TeX-parse-self t)
   (setq-default TeX-master nil))
-
 
 ;; (load! "configs/+exwm")
 (load! "configs/+which-key")

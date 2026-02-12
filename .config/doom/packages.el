@@ -1,11 +1,11 @@
 (package! modus-themes)
 (package! ef-themes)
+(package! jbeans-theme)
 (package! rg)
 (package! dmenu)
 (package! spacemacs-theme)
 (package! drag-stuff)
 (package! evil-goggles)
-(package! ccls)
 (package! treesit-auto)
 (package! nyan-mode)
 (package! kind-icon)
@@ -27,4 +27,4 @@
 ;; (package! latex-preview-pane)
 
 
-(disable-packages! android-mode groovy-mode nodejs-repl coffee-mode skewer-mode all-the-icons tuareg-mode idris-mode)
+(disable-packages! ng2-mode android-mode groovy-mode nodejs-repl coffee-mode skewer-mode all-the-icons tuareg-mode idris-mode)

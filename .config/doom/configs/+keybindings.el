@@ -4,7 +4,8 @@
       :n "p" #'dired "$HOME/.dotfiles/.config")
 (map! :leader
       :desc "Perform Rg search"
-      "r g" #'consult-grep)
+        "r g" #'consult-ripgrep)
+
 (map! :g "C-z" #'undo)
 (map! :nvig "C-'" #'er/expand-region)
 (map!

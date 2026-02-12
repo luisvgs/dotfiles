@@ -8,14 +8,11 @@
   (add-to-list 'eglot-server-programs '(lua-mode "lua-language-server"))
   (add-to-list 'eglot-server-programs '(rjsx-mode .("typescript-language-server" "--stdio")))
   (add-to-list 'eglot-server-programs '(tuareg-mode "ocamllsp"))
-  (add-to-list 'eglot-server-programs '(ruby-mode "ruby-lsp"))
+  (add-to-list 'eglot-server-programs '(ruby-mode "solargraph" "stdio"))
   (add-to-list 'eglot-server-programs '(lean4-mode . ("lake" "serve")))
   (add-to-list 'eglot-server-programs '(haskell-mode . ("haskell-language-server-wrapper" "--lsp")))
   (add-to-list 'eglot-server-programs '(tsx-ts-mode . ("typescript-language-server" "--stdio")))
   (add-to-list 'eglot-server-programs '(typescript-ts-mode . ("typescript-language-server" "--stdio")))
-  (add-to-list 'eglot-server-programs '(csharp-mode . ("omnisharp" "-lsp")))
-  (add-to-list 'eglot-server-programs
-               '(fsharp-mode "~/.dotnet/tools/fsautocomplete"))
   (add-to-list 'eglot-server-programs
                `(rustic-mode . ("rust-analyzer" :initializationOptions
                                 (:procMacro (:enable t)
@@ -28,10 +25,11 @@
               (setq eldoc-documentation-strategy #'eldoc-documentation-compose)))
 
   :hook
-  ((rjsx-mode tuareg-mode lean4-mode rustic-mode tsx-ts-mode typescript-ts-mode js2-mode scala-mode agda2-mode haskell-mode idris-mode lua-mode csharp-mode fsharp-mode) . eglot-ensure))
+  ((rjsx-mode tuareg-mode lean4-mode rustic-mode tsx-ts-mode typescript-ts-mode js2-mode scala-mode agda2-mode haskell-mode idris-mode lua-mode ruby-mode) . eglot-ensure))
 
 (add-hook 'rustic-mode-hook (lambda () (flycheck-mode -1)))
-(use-package eglot-booster
+
+(use-package! eglot-booster
   :after eglot
   :config (eglot-booster-mode))
 
@@ -44,26 +42,17 @@
   :config
   (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
 
-(after! corfu-popupinfo
-  (setq
-   corfu-auto-delay           0.2
-   corfu-min-width            30
-   corfu-max-width            70
-   corfu-echo-documentation nil))
 
-(use-package! ng2-mode
-  :after typescript-mode
-  :hook (ng2-html-mode . web-mode)
-  :config
-  (with-eval-after-load 'typescript-mode (add-hook 'typescript-mode-hook #'lsp))
-  (setq lsp-clients-angular-language-server-command
-        '("node"
-          "~/.nvm/versions/node/v20.11.0/lib/node_modules/@angular/language-server"
-          "--ngProbeLocations"
-          "~/.nvm/versions/node/v20.11.0/lib/node_modules"
-          "--tsProbeLocations"
-          "~/.nvm/versions/node/v20.11.0/lib/node_modules"
-          "--stdio")))
+(after! corfu
+  (setq
+   corfu-auto t
+   corfu-auto-delay 0.2
+   corfu-auto-prefix 2
+   corfu-min-width 30
+   corfu-max-width 70
+   corfu-echo-documentation nil
+   corfu-cycle t
+   corfu-preselect 'prompt))
 
 (use-package! treesit-auto
   :custom
@@ -86,6 +75,7 @@
   :mode (("\\.tsx\\'" . tsx-ts-mode)
          ("\\.js\\'"  . typescript-ts-mode)
          ("\\.ts\\'"  . typescript-ts-mode)
+         ("\\.rb\\'"  . ruby-ts-mode)
          ("\\.jsx\\'" . tsx-ts-mode))
   :preface
   (defun os/setup-install-grammars ()
@@ -98,6 +88,7 @@
                (javascript . ("https://github.com/tree-sitter/tree-sitter-javascript" "v0.21.2" "src"))
                (json . ("https://github.com/tree-sitter/tree-sitter-json" "v0.20.2"))
                (cmake "https://github.com/uyha/tree-sitter-cmake")
+               (ruby "https://github.com/tree-sitter/tree-sitter-ruby")
                (tsx . ("https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.3" "tsx/src"))
                (typescript . ("https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.3" "typescript/src"))
                (yaml . ("https://github.com/ikatyang/tree-sitter-yaml" "v0.5.0"))))
@@ -227,10 +218,6 @@
   :disabled t
   :hook (scala-mode . lsp))
 
-(after! fsharp-mode
-  (setq inferior-fsharp-program "dotnet fsi"
-        fsharp-compiler "dotnet build"))
-
 (after! flymake
   (setq flymake-no-changes-timeout 0.5)
   (define-key flymake-mode-map (kbd "M-n") #'flymake-goto-next-error)
@@ -238,3 +225,17 @@
 
 (after! company
   (setq-default company-backends '(company-capf)))
+
+(add-hook 'ruby-mode-hook (lambda () (flycheck-mode -1)))
+(add-hook 'ruby-mode-hook
+          (lambda ()
+            (add-hook 'before-save-hook
+                      (lambda ()
+                        (when (eq major-mode 'ruby-mode)
+                          (let ((point-before (point)))
+                            (shell-command-on-region
+                             (point-min) (point-max)
+                             "rufo -x"
+                             (current-buffer) t)
+                            (goto-char point-before))))
+                      -10 t)))

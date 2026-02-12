@@ -1,8 +1,8 @@
 (use-package! doom-modeline
   :config
   (setq doom-modeline-height 40
-        doom-modeline-unicode-fallback nil
-        doom-modeline-icon t
+        ;; doom-modeline-unicode-fallback nil
+        ;; doom-modeline-icon t
         doom-plain-brighter-modeline nil
         doom-modeline-major-mode-icon t
         doom-modeline-major-mode-color-icon t

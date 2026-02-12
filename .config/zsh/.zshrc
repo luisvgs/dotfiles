@@ -11,8 +11,7 @@ BLK="04" CHR="04" DIR="04" EXE="00" REG="00" HARDLINK="00" SYMLINK="06" MISSING=
 export NNN_FCOLORS="$BLK$CHR$DIR$EXE$REG$HARDLINK$SYMLINK$MISSING$ORPHAN$FIFO$SOCK$OTHER"
 export JAVA_HOME='/usr/lib/jvm/java-17-openjdk'
 export PATH="$JAVA_HOME/bin:$PATH"
-
-
+export PATH="$HOME/.local/share/gem/ruby/3.4.0/bin:$PATH"
 # source ~/.env
 
 alias spr='mvn spring-boot:run'
