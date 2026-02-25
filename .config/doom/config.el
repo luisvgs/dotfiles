@@ -2,6 +2,9 @@
 ;; TODO
 ;; ** Organize modules
 ;; Deactivate unneeded packages
+
+(setq compile-angel-verbose t)
+(compile-angel-on-load-mode)
 (use-package! doom)
 (let ((gem-bin-path "/home/luis/.local/share/gem/ruby/3.4.0/bin"))
   (setenv "PATH" (concat gem-bin-path ":" (getenv "PATH")))
@@ -10,11 +13,12 @@
  user-full-name "Luis Vegas"
  user-mail-address "luisvegasmor@gmail.com"
  ;; doom-font (font-spec :family "JetBrains Mono Nerd Font" :size 19 :weight 'Regular)
- doom-theme 'doom-feather-dark
+ doom-theme 'doom-solarized-dark
  native-comp-jit-compilation nil
  +latex-viewers '(pdf-tools)
  use-package-compute-statistics t
  auto-save-default t
+ display-time-mode nil
  so-long-minor-mode t
  which-key-idle-delay 0.3
  history-length 20
@@ -23,7 +27,7 @@
  smerge-command-prefix "\C-cv"
  initial-major-mode (quote fundamental-mode)
  display-line-numbers-type 'relative)
-(define-key evil-normal-state-map (kbd "-") 'dirvish)
+(define-key evil-normal-state-map (kbd "-") 'dirvish-fd)
 (advice-add #'add-node-modules-path :override #'ignore)
 (advice-add 'jsonrpc--log-event :override #'ignore)
 
@@ -31,8 +35,10 @@
  delete-by-moving-to-trash t
  window-combination-resize t
  x-stretch-cursor t)
-(set-face-attribute 'default nil :font "Iosevka Comfy" :height 150 :weight 'regular)
+(set-face-attribute 'default nil :font "Iosevka Comfy" :height 150 :weight 'SemiLight)
+
 (use-package! nyan-mode
+  :disabled t
   :config
   (setq nyan-animate-nyancat t)
   (nyan-mode 1))
@@ -94,18 +100,18 @@
         "M-j" #'drag-stuff-down
         "M-k" #'drag-stuff-up))
 
-(use-package! marginalia
-  :bind ( ("M-A" . #'marginalia-cycle) )
-  :custom
-  (marginalia-max-relative-age 0)
-  (marginalia-align 'center))
+;; (use-package! marginalia
+;;   :bind ( ("M-A" . #'marginalia-cycle) )
+;;   :custom
+;;   (marginalia-max-relative-age 0)
+;;   (marginalia-align 'center))
 
-(after! vertico
-  (setq vertico-count 10
-        vertico-buffer-display-action '(display-buffer-reuse-window)
-        vertico-grid-separator "       "
-        vertico-grid-lookahead 50
-        vertico-resize nil))
+;; (after! vertico
+;;   (setq vertico-count 10
+;;         vertico-buffer-display-action '(display-buffer-reuse-window)
+;;         vertico-grid-separator "       "
+;;         vertico-grid-lookahead 50
+;;         vertico-resize nil))
 
 (rg-enable-default-bindings)
 
@@ -131,16 +137,79 @@
 (with-eval-after-load 'treemacs
   (define-key treemacs-mode-map (kbd "C-c C-t") #'my/treemacs-open-in-vterm))
 
-;; (use-package! minions
-;;   :hook (after-init . minions-mode))
-
 (use-package! auctex
   :config
   (setq TeX-auto-save t)
   (setq TeX-parse-self t)
   (setq-default TeX-master nil))
 
-;; (load! "configs/+exwm")
+
+
+(use-package! ivy
+  :config
+  (setq ivy-use-virtual-buffers t
+        ivy-count-format "(%d/%d) "
+        ivy-initial-inputs-alist nil
+        ivy-wrap t
+        ivy-height 10
+        ivy-use-selectable-prompt t
+        ivy-re-builders-alist '((counsel-rg . ivy--regex-plus)
+                                (counsel-git-grep . ivy--regex-plus)
+                                (swiper . ivy--regex-plus) (t . ivy--regex-fuzzy)))
+  :bind (:map ivy-minibuffer-map
+              ("C-j" . ivy-next-line)
+              ("C-k" . ivy-previous-line)
+              ("C-d" . ivy-scroll-up-command)
+              ("C-u" . ivy-scroll-down-command)
+              ("C-RET" . ivy-immediate-done)
+              ("C-SPC" . ivy-restrict-to-matches)))
+
+(use-package! counsel
+  :bind
+  ("M-x" . counsel-M-x)
+  ("C-x b" . counsel-switch-buffer)
+  ("C-x C-f" . counsel-find-file)
+  ("C-x C-r" . counsel-recentf)
+  ("C-c g" . counsel-git)
+  ("C-c j" . counsel-git-grep)
+  ("C-c s" . counsel-rg)
+  ("C-h f" . counsel-describe-function)
+  ("C-h v" . counsel-describe-variable)
+  ("C-h l" . counsel-find-library)
+  ("C-h a" . counsel-apropos)
+  :config
+  (setq counsel-find-file-ignore-regexp (concat "\\(?:^[#.]\\)" "\\|\\(?:[#~]$\\)" "\\|\\(?:^Icon?\\)" "\\|\\.elc$" "\\|\\.o$"))
+  (setq counsel-rg-base-command "rg --with-filename --no-heading --line-number --color never --smart-case %s"))
+
+(use-package! swiper
+  :bind
+  ("C-s" . swiper-isearch)
+  ("C-r" . swiper-isearch-backward)
+  :config (setq swiper-action-recenter t
+                swiper-goto-start-of-match t))
+
+(use-package! ivy-rich
+  :after ivy
+  :config
+  (setq ivy-rich-path-style 'abbrev)
+  (ivy-rich-mode t)
+  (ivy-rich-project-root-cache-mode t))
+
+(use-package! nerd-icons-ivy-rich
+  :after ivy-rich
+  :config (nerd-icons-ivy-rich-mode t))
+
+(use-package! ivy-prescient
+  :after counsel
+  :config
+  (setq ivy-prescient-retain-classic-highlighting t
+        prescient-sort-full-matches-first t
+        prescient-filter-method '(literal regexp initialism fuzzy))
+  (ivy-prescient-mode t)
+  (prescient-persist-mode t))
+
+(load! "configs/+exwm")
+;; (load! "configs/+m4ue")
 (load! "configs/+which-key")
 (load! "configs/+evilmode")
 (load! "configs/+company")
@@ -154,6 +223,6 @@
 (load! "configs/+keybindings")
 (load! "configs/+utility")
 (load! "configs/+projectile")
-;; (load! "configs/+dashboard")
-;; (load! "configs/+latex")
-(add-to-list 'load-path "~/.dotfiles/.config/doom/local")
+(load! "configs/+consult")
+(add-to-list 'load-path "~/dotfiles/.config/doom/local")
+(add-to-list 'custom-theme-load-path "~/dotfiles/.config/doom/local/color-theme-ujelly/")

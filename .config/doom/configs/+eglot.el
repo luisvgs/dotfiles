@@ -25,9 +25,8 @@
               (setq eldoc-documentation-strategy #'eldoc-documentation-compose)))
 
   :hook
-  ((rjsx-mode tuareg-mode lean4-mode rustic-mode tsx-ts-mode typescript-ts-mode js2-mode scala-mode agda2-mode haskell-mode idris-mode lua-mode ruby-mode) . eglot-ensure))
+  ((rjsx-mode tuareg-mode lean4-mode rustic-mode tsx-ts-mode markdown-mode typescript-ts-mode js2-mode scala-mode agda2-mode haskell-mode idris-mode lua-mode ruby-mode) . eglot-ensure))
 
-(add-hook 'rustic-mode-hook (lambda () (flycheck-mode -1)))
 
 (use-package! eglot-booster
   :after eglot
@@ -42,6 +41,8 @@
   :config
   (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
 
+(use-package! markdown-mode
+  :mode (("\\.md\\'" . markdown-mode)))
 
 (after! corfu
   (setq
@@ -160,9 +161,17 @@
   :custom
   (idris-interpreter-path "idris2"))
 
-(use-package! rust-ts-mode
-  :mode ("\\.rs" . rust-ts-mode)
-  :hook (rust-ts-mode . eglot-ensure))
+(use-package! rustic
+  :mode ("\\.rs\\'" . rustic-mode)
+  :hook
+  (rustic-mode . (lambda ()
+                   (flycheck-mode -1)
+                   (add-hook 'before-save-hook #'eglot-format-buffer -10 t)))
+  :config
+  (setq rustic-lsp-client 'eglot)
+  (setq rustic-flycheck-setup-mode-line-p nil)
+  (setq rustic-format-trigger 'on-save))
+
 
 (use-package! lua-mode
   :mode ("\\.lua\\'"))

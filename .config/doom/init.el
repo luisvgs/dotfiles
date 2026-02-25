@@ -9,7 +9,7 @@
 (doom! :input
        :completion
        (corfu)
-       (vertico +icons)           ; the search engine of the future
+       (ivy +icons +fuzzy +prescient)           ; the search engine of the future
        :ui
        doom              ; what makes DOOM look the way it does
        ;; doom-dashboard    ; a nifty splash screen for Emacs
@@ -48,7 +48,7 @@
        :tools
        lookup              ; navigate your code and its documentation
        (lsp +eglot +booster)               ; M-x vscode
-        ( magit +forge)             ; a git porcelain for Emacs
+       ( magit +forge)             ; a git porcelain for Emacs
        pdf               ; pdf enhancements
        rgb               ; creating color strings
        tree-sitter       ; syntax and parsing, sitting in a tree...
@@ -66,20 +66,22 @@
        ;; (java +lsp)
        ;; (clojure +lsp +tree-sitter)
        ;; (ocaml +lsp)             ; an objective camel
-       (rust +eglot)       ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
-       (fsharp +eglot)
+       (rust)       ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
+       (fsharp)
+       (python +tree-sitter)
        ;; (scala +lsp)             ; java, but good
        ;;fortran           ; in FORTRAN, GOD is REAL (unless declared INTEGER)
        ;;(cc +lsp)         ; C > C++ == 1
        ;;common-lisp       ; if you've seen one lisp, you've seen them all
-       ;; markdown          ; writing docs for people to ignore
+       ( markdown +tree-sitter +grip)          ; writing docs for people to ignore
        ;; ( sh +lsp +tree-sitter)                ; she sells {ba,z,fi}sh shells on the C xor
        ;; (org +pretty)               ; organize your plain life in plain text
        (ruby +tree-sitter)     ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
        (web +eglot)               ; the tubes
        (lua +eglot +tree-sitter)
        :email
-       ;; (mu4e +gmail)
+       (mu4e +gmail +mbsync)
+       ;; (notmuch)
        :app
        ;; (rss)        ; emacs as an RSS reader
        ;;twitter           ; twitter client https://twitter.com/vnought

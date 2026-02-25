@@ -1,3 +1,5 @@
+(package! compile-angel)
+(package! mu4e-alert)
 (package! modus-themes)
 (package! ef-themes)
 (package! jbeans-theme)

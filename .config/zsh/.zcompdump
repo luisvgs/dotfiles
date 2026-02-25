@@ -1,4 +1,4 @@
-#files: 851	version: 5.9
+#files: 856	version: 5.9
 
 _comps=(
 '-' '_precommand'
@@ -277,6 +277,8 @@ _comps=(
 'dunst' '_dunst'
 '_dunstctl' '_dunstctl'
 'dunstctl' '_dunstctl'
+'_dunstify' '_dunstify'
+'dunstify' '_dunstify'
 'dvibook' '_dvi'
 'dviconcat' '_dvi'
 'dvicopy' '_dvi'
@@ -757,6 +759,7 @@ _comps=(
 'mencal' '_mencal'
 'mere' '_mere'
 'merge' '_rcs'
+'meson' '_meson'
 'metaflac' '_flac'
 'mformat' '_mtools'
 'mgv' '_pspdf'
@@ -860,6 +863,7 @@ _comps=(
 'nocorrect' '_precommand'
 'noglob' '_precommand'
 'nohup' '_precommand'
+'notmuch' '_notmuch'
 'nova' '_openstack'
 'npm' '_npm'
 'ns' '_hosts'
@@ -1639,6 +1643,7 @@ _services=(
 
 _patcomps=(
 '*/(init|rc[0-9S]#).d/*' '_init_d'
+'notmuch-*' '_notmuch'
 )
 
 _postpatcomps=(
@@ -1705,13 +1710,14 @@ bindkey '^[~' _bash_complete-word
 
 autoload -Uz _bluetoothctl _bootctl _busctl _bwrap _checkupdates \
             _code _code-oss _coredumpctl _curl _dotnet \
-            _downgrade _dunst _dunstctl _eza _fd \
-            _firewalld _flameshot _hostnamectl _img2sixel _insmod \
-            _journalctl _kernel-install _kitty _localectl _loginctl \
-            _lsmod _machinectl _mpv _netctl _networkctl \
-            _ninja _oomctl _p11-kit _paccache _pacdiff \
-            _pacignore _paclist _paclog-pkglist _pacman _pacscripts \
-            _pacsearch _pacsort _pactree _parallel _pkgfile \
+            _downgrade _dunst _dunstctl _dunstify _email-notmuch \
+            _eza _fd _firewalld _flameshot _hostnamectl \
+            _img2sixel _insmod _journalctl _kernel-install _kitty \
+            _localectl _loginctl _lsmod _machinectl _meson \
+            _mpv _netctl _networkctl _ninja _notmuch \
+            _oomctl _p11-kit _paccache _pacdiff _pacignore \
+            _paclist _paclog-pkglist _pacman _pacscripts _pacsearch \
+            _pacsort _pactree _parallel _pip _pkgfile \
             _playerctl _polybar _polybar_msg _powerprofilesctl _pulseaudio \
             _rankmirrors _resolvectl _rg _rmmod _run0 \
             _scala-cli _sd _sd_bus_address _sd_hosts_or_user_at_host _sd_machines \
