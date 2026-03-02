@@ -234,6 +234,7 @@
      ([?\s-K] +evil/window-move-up)
      ([?\s-L] +evil/window-move-right)
 
+     ([?\s-p] #'app-launcher-run-app)
      ([XF86AudioRaiseVolume] . my/volume-up)
      ([XF86AudioLowerVolume] . my/volume-down)
      ([XF86AudioMute]        . my/volume-toggle-mute)
@@ -257,11 +258,9 @@
                   (start-process-shell-command command nil command)))
 
      ([?\s-`]   . my/exwm-switch-to-last-workspace)
-
      ([?\s-t] . (lambda ()
                   (interactive)
                   (start-process "" nil "kitty")))
-
      ([?\s-f] . (lambda ()
                   (interactive)
                   (start-process "" nil "google-chrome-stable")))

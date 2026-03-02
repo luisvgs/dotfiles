@@ -1,4 +1,5 @@
 (package! compile-angel)
+(package! dashboard)
 (package! mu4e-alert)
 (package! modus-themes)
 (package! ef-themes)
@@ -24,9 +25,7 @@
 (package! eglot-booster
   :recipe (:host github :repo "jdtsmith/eglot-booster"
            :files ("*")))
-;; (package! minions)
 (package! auctex)
+;; (package! minions)
 ;; (package! latex-preview-pane)
-
-
 (disable-packages! ng2-mode android-mode groovy-mode nodejs-repl coffee-mode skewer-mode all-the-icons tuareg-mode idris-mode)

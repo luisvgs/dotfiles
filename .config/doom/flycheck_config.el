@@ -13,7 +13,7 @@
  user-full-name "Luis Vegas"
  user-mail-address "luisvegasmor@gmail.com"
  ;; doom-font (font-spec :family "JetBrains Mono Nerd Font" :size 19 :weight 'Regular)
- doom-theme 'doom-solarized-dark
+ doom-theme 'doom-feather-dark
  native-comp-jit-compilation nil
  +latex-viewers '(pdf-tools)
  use-package-compute-statistics t
@@ -35,7 +35,7 @@
  delete-by-moving-to-trash t
  window-combination-resize t
  x-stretch-cursor t)
-(set-face-attribute 'default nil :font "Iosevka Comfy" :height 150 :weight 'SemiLight)
+(set-face-attribute 'default nil :font "Iosevka Comfy" :height 150 :weight 'Regular)
 
 (use-package! nyan-mode
   :disabled t
@@ -208,8 +208,12 @@
   (ivy-prescient-mode t)
   (prescient-persist-mode t))
 
+
+(add-to-list 'load-path "~/.emacs.d/site-lisp/qutebrowser.el")
+(require 'qutebrowser)
+
 (load! "configs/+exwm")
-;; (load! "configs/+m4ue")
+(load! "configs/+dashboard.el")
 (load! "configs/+which-key")
 (load! "configs/+evilmode")
 (load! "configs/+company")
@@ -226,3 +230,4 @@
 (load! "configs/+consult")
 (add-to-list 'load-path "~/dotfiles/.config/doom/local")
 (add-to-list 'custom-theme-load-path "~/dotfiles/.config/doom/local/color-theme-ujelly/")
+;; (load! "configs/+m4ue")

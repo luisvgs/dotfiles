@@ -12,7 +12,6 @@
        (ivy +icons +fuzzy +prescient)           ; the search engine of the future
        :ui
        doom              ; what makes DOOM look the way it does
-       ;; doom-dashboard    ; a nifty splash screen for Emacs
        nav-flash
        (treemacs)
        (emoji +unicode)  ; 🙂
@@ -21,23 +20,17 @@
        (modeline)
        ophints           ; highlight the region an operation acts on
        (popup +defaults +all)   ; tame sudden yet inevitable temporary windows
-       ;; tabs              ; a tab bar for Emacs
        (vc-gutter +pretty) ; vcs diff in the fringe
        vi-tilde-fringe   ; fringe tildes to mark beyond EOB
-       ;;window-select     ; visually switch windows
        workspaces        ; tab emulation, persistence & separate workspaces
-       ;;zen               ; distraction-free coding or writing
        :editor
        (evil +everywhere); come to the dark side, we have cookies
-       ;;file-templates    ; auto-snippets for empty files
        fold              ; (nigh) universal code folding
        (format)  ; automated prettiness
        multiple-cursors  ; editing in many places at once
        snippets          ; my elves. They type so I don't have to
-
        :emacs
        (dired +icons +dirvish)             ; making dired pretty [functional]
-       ;; electric          ; smarter, keyword-based electric-indent
        (ibuffer +icons)         ; interactive buffer management
        (undo +tree)              ; persistent, smarter undo for your inevitable mistakes
        vc                ; version-control and Emacs, sitting in a tree
@@ -53,7 +46,6 @@
        rgb               ; creating color strings
        tree-sitter       ; syntax and parsing, sitting in a tree...
        :os
-       ;; (:if IS-MAC macos)  ; improve compatibility with macOS
        ( tty +osc)               ; improve the terminal Emacs experience
        :lang
        (agda +local)              ; types of types of types of types...

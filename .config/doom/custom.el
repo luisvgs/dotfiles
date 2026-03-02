@@ -22,9 +22,9 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
-   '("fc1275617f9c8d1c8351df9667d750a8e3da2658077cfdda2ca281a2ebc914e0" default))
+   '("4b88b7ca61eb48bb22e2a4b589be66ba31ba805860db9ed51b4c484f3ef612a7" "fc1275617f9c8d1c8351df9667d750a8e3da2658077cfdda2ca281a2ebc914e0" default))
  '(magit-todos-insert-after '(bottom) nil nil "Changed by setter of obsolete option `magit-todos-insert-at'")
- '(org-agenda-files '("~/org/todo.org"))
+ '(org-agenda-files nil)
  '(package-selected-packages '(flymake))
  '(safe-local-variable-values '((eval turn-off-auto-fill)))
  '(tramp-term-host-shells '(("172.23.184.65" . bash))))

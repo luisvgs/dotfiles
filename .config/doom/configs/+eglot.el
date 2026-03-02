@@ -25,8 +25,7 @@
               (setq eldoc-documentation-strategy #'eldoc-documentation-compose)))
 
   :hook
-  ((rjsx-mode tuareg-mode lean4-mode rustic-mode tsx-ts-mode markdown-mode typescript-ts-mode js2-mode scala-mode agda2-mode haskell-mode idris-mode lua-mode ruby-mode) . eglot-ensure))
-
+  ((rjsx-mode tuareg-mode lean4-mode rustic-mode tsx-ts-mode typescript-ts-mode js2-mode scala-mode agda2-mode haskell-mode idris-mode lua-mode ruby-mode) . eglot-ensure))
 
 (use-package! eglot-booster
   :after eglot
@@ -41,8 +40,13 @@
   :config
   (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
 
+;; (add-hook! 'markdown-mode-hook #'olivetti-mode)
+;; (setq olivetti-body-width 90)
+
 (use-package! markdown-mode
-  :mode (("\\.md\\'" . markdown-mode)))
+  :mode (("\\.md\\'" . markdown-mode))
+  :config
+  (setq markdown-header-scaling t))
 
 (after! corfu
   (setq
@@ -85,6 +89,10 @@
     (dolist (grammar
              '((css . ("https://github.com/tree-sitter/tree-sitter-css" "v0.20.0"))
                (bash "https://github.com/tree-sitter/tree-sitter-bash")
+               (markdown . ("https://github.com/tree-sitter-grammars/tree-sitter-markdown"
+                         "split_parser" "tree-sitter-markdown/src"))
+               (markdown-inline . ("https://github.com/tree-sitter-grammars/tree-sitter-markdown"
+                         "split_parser" "tree-sitter-markdown-inline/src"))
                (html . ("https://github.com/tree-sitter/tree-sitter-html" "v0.20.1"))
                (javascript . ("https://github.com/tree-sitter/tree-sitter-javascript" "v0.21.2" "src"))
                (json . ("https://github.com/tree-sitter/tree-sitter-json" "v0.20.2"))
