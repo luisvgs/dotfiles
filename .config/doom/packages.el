@@ -8,13 +8,15 @@
 (package! dmenu)
 (package! spacemacs-theme)
 (package! drag-stuff)
-(package! evil-goggles)
 (package! treesit-auto)
 (package! nyan-mode)
 (package! kind-icon)
 (package! exwm-modeline)
-(package! app-launcher :recipe (
-  :host github :repo "sebastienWae/app-launcher" :files ("*")))
+(package! app-launcher
+  :recipe
+  (:host github
+   :repo "sebastienWae/app-launcher"
+   :files ("*")))
 (package! lean4-mode :recipe
   (:host github
    :repo "leanprover-community/lean4-mode"
@@ -25,7 +27,21 @@
 (package! eglot-booster
   :recipe (:host github :repo "jdtsmith/eglot-booster"
            :files ("*")))
-(package! auctex)
-;; (package! minions)
-;; (package! latex-preview-pane)
+(package! grandshell-theme)
+(package! color-theme-sanityinc-tomorrow)
+(package! qutebrowser
+  :recipe (:host github
+           :repo "lrustand/qutebrowser.el"
+           :files (:defaults ".py")))
+;;org stuff
+(package! org-fancy-priorities)
+(package! org-superstar)
+(package! org-roam-ui)
+
+
+(package! easysession)
+(package! magit-todos)
+(package! transpose-frame
+  :recipe (:local-repo "local/transpose-frame"))
+
 (disable-packages! ng2-mode android-mode groovy-mode nodejs-repl coffee-mode skewer-mode all-the-icons tuareg-mode idris-mode)

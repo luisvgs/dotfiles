@@ -52,6 +52,10 @@
   :defer t
   :hook (org-mode . org-superstar-mode))
 
+(after! org-modern
+  (setq org-modern-fold-stars '(("◉" . "◉") ("○" . "○") ("◈" . "◈") ("◇" . "◇") ("◦" . "◦")))
+  )
+
 (use-package! org-fancy-priorities
   :defer t
   :hook (org-mode . org-fancy-priorities-mode))
@@ -71,39 +75,74 @@
   '(org-level-1 :inherit outline-1 :height 1.45 :background "#feeed2")
   '(org-document-title :height 1.1 :underline nil :foreground "#8B8B8B"))
 
-;; (org-super-agenda-mode)
-;; (use-package! org-super-agenda
-;;   :config
-;;   (setq org-super-agenda-groups
-;;         '(;; Each group has an implicit boolean OR operator between its selectors.
-;;           (:name " Overdue "  ; Optionally specify section name
-;;            :scheduled past
-;;            :children t
-;;            :time-grid t
-;;            :face (:background "black" :underline t)
-;;            :order 2
-;;            :face 'error)
+(use-package! citar
+  :after org
+  :config
+  (setq citar-bibliography '("~/org/references.bib")
+        citar-library-paths '("~/Zotero/storage/")
+        citar-notes-paths '("~/org/roam/references/"))
+  (map! :map org-mode-map ("C-c b" #'org-cite-insert)))
 
-;;           (:name "Personal "
-;;            :order 3)
+(after! oc
+  (setq org-cite-global-bibliography '("~/org/references.bib")))
 
-;;           (:name " Today "
-;;            :time-grid t
-;;            :habit t
-;;            :date today
-;;            :scheduled today
-;;            :order 1
-;;  :transformer (--> it
-;;                                   (upcase it)
-;;                                   (propertize it 'face '(:foreground "RosyBrown1"))))
-;;           )
-;;         )
-;;   )
+(after! org
+  (add-to-list 'org-file-apps '("\\.pdf\\'" . emacs))
+  (org-link-set-parameters "zotero"
+                           :follow (lambda (zpath)
+                                     (browse-url (format "zotero:%s" zpath)))))
 
-;; (map! :desc "Next line"
-;;       :map org-super-agenda-header-map
-;;       "j" 'org-agenda-next-line)
+(use-package! citar-org-roam
+  :after (citar org-roam)
+  :config
+  (setq org-roam-directory "~/org/roam")
+  (citar-org-roam-mode))
 
-;; (map! :desc "Next line"
-;;       :map org-super-agenda-header-map
-;;       "k" 'org-agenda-previous-line)
+
+(defun my/org-roam-node-from-cite (citekey)
+  (interactive (list (citar-org-select-key nil)))
+  (let* ((entry (citar-get-entry citekey))
+         (author (or (citar-get-value "author" entry)
+                     (citar-get-value "editor" entry)
+                     "Unknown"))
+         (title (or (citar-get-value "title" entry) citekey))
+         (display-title (concat author " :: " title)))
+    (org-roam-capture-
+     :templates
+     '(("r" "reference" plain "%?"
+        :if-new
+        (file+head "references/${citekey}.org"
+                   ":PROPERTIES:\n:ROAM_REFS: @${citekey}\n:END:\n#+title: ${title}\n#+filetags: :reading:\n")
+        :immediate-finish t
+        :unnarrowed t))
+     :info (list :citekey citekey :title display-title)
+     :node (org-roam-node-create :title display-title)
+     :props '(:finalize find-file))))
+(map! :leader :desc "New ref note" "n r R" #'my/org-roam-node-from-cite)
+
+
+(use-package! org-roam
+  :defer t
+  :after org
+  :custom
+  (org-roam-directory (file-truename "~/org/roam"))
+  :bind (("C-c n l" . org-roam-buffer-toggle)
+         ("C-c n f" . org-roam-node-find)
+         ("C-c n g" . org-roam-graph)
+         ("C-c n i" . org-roam-node-insert)
+         ("C-c n c" . org-roam-capture)
+         ;; Dailies
+         ("C-c n j" . org-roam-dailies-capture-today))
+  :config
+  ;; If you're using a vertical completion framework, you might want a more informative completion interface
+  (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
+  (org-roam-db-autosync-mode)
+  ;; If using org-roam-protocol
+  (require 'org-roam-protocol))
+
+(use-package! org-roam-ui
+  :after org-roam
+  :config
+  (setq org-roam-ui-sync-theme t
+        org-roam-ui-follow t
+        org-roam-ui-update-on-save t))

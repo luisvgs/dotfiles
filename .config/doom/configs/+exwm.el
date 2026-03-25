@@ -1,20 +1,50 @@
-(defun exwm/shutdown ()
-  (interactive)
-  (when (yes-or-no-p "Are you sure you want to shutdown")
-    shell-command "shutdown now"))
-
-(defun efs/display-startup-time ()
+;; TODO
+;; Handle shutdown and reboot keybindings
+;; Setup polybar like this guy: https://github.com/martinbaillie/dotfiles/blob/7da368f5b45fa64dd3de77ecca3dcf38f647c00a/config/emacs/%2Bexwm.el#L17
+(defvar notify-id nil)
+(defun exwm/display-startup-time ()
   (message "Emacs loaded in %s with %d garbage collections."
            (format "%.2f seconds"
                    (float-time
                     (time-subtract after-init-time before-init-time)))
            gcs-done))
 
-(add-hook 'emacs-startup-hook #'efs/display-startup-time)
+(add-hook 'emacs-startup-hook #'exwm/display-startup-time)
+
+(defvar exwm/polybar-process nil)
+
+(defun exwm/kill-polybar ()
+  (when exwm/polybar-process
+    (ignore-errors (kill-process exwm/polybar-process)))
+  (setq exwm/polybar-process nil))
+
+(defun exwm/polybar-exwm-workspaces ()
+  (mapconcat
+   (lambda (i)
+     (if (= i exwm-workspace-current-index)
+         (format "%%{F#C678DD}[%d]%%{F-}" i)
+       ;; (format "%%{F#5B6268} [%d] %%{F-}" i)))
+       (format " %d " i)))
+   (number-sequence 0 (1- exwm-workspace-number))
+   ""))
+
+(defun exwm/start-polybar ()
+  (interactive)
+  (exwm/kill-polybar)
+  (setq exwm/polybar-process
+        (start-process-shell-command "polybar" nil "polybar main")))
+
+(defun exwm/send-polybar-hook (module hook-index)
+  (start-process-shell-command "polybar-msg" nil
+                               (format "polybar-msg hook %s %s" module hook-index)))
+
+(defun exwm/polybar-update-workspace ()
+  (exwm/send-polybar-hook "exwm-workspace" 1))
+
+(add-hook 'exwm-workspace-switch-hook #'exwm/polybar-update-workspace)
 
 (use-package! exwm-modeline
   :after exwm)
-(add-hook 'exwm-init-hook #'exwm-modeline-mode)
 
 (use-package! dmenu
   :after exwm)
@@ -48,6 +78,7 @@
 (defun exwm/exwm-init-hook ()
   (start-process-shell-command "redshift" nil "redshift -O 4100")
   (start-process-shell-command "nm-applet" nil "nm-applet")
+  (exwm/start-polybar)
   (exwm/set-wallpaper)
   (exwm-workspace-switch-create 1))
 
@@ -61,7 +92,7 @@
     (_ nil)))
 
 
-(defun my/close-window-or-buffer ()
+(defun exwm/close-window-or-buffer ()
   (interactive)
   (cond
    ((derived-mode-p 'exwm-mode)
@@ -71,14 +102,13 @@
    (t
     (kill-buffer))))
 
-(defun my/kill-current-window ()
+(defun exwm/kill-current-window ()
   (interactive)
   (if (derived-mode-p 'exwm-mode)
       (exwm-manage--kill-buffer-and-window)
     (kill-current-buffer)))
 
-(defun my/brightness-up ()
-  "Aumenta el brillo de la pantalla usando brightnessctl y muestra una notificación."
+(defun exwm/brightness-up ()
   (interactive)
   (start-process-shell-command "brightness-up" nil "brightnessctl set +5%")
   (let* ((current-brightness (shell-command-to-string "brightnessctl get | awk '{printf \"%d\", ($1 > 100 ? 100 : $1)}'"))
@@ -87,100 +117,99 @@
                                  (format "notify-send -t 2000 -h string:x-canonical-private-synchronous:brightness 'Brillo' '%s%%'"
                                          display-brightness))))
 
-(defun my/brightness-down ()
+(defun exwm/brightness-down ()
   "Disminuye el brillo de la pantalla usando brightnessctl y muestra una notificación."
   (interactive)
-  ;; Ejecuta el comando para disminuir el brillo
   (start-process-shell-command "brightness-down" nil "brightnessctl set 5%-")
-  ;; Obtiene el brillo actual y lo muestra en una notificación
   (let* ((current-brightness (shell-command-to-string "brightnessctl get | awk '{printf \"%d\", ($1 < 0 ? 0 : ($1 > 100 ? 100 : $1))}'"))
          (display-brightness (string-trim current-brightness)))
     (start-process-shell-command "notify-brightness-down" nil
                                  (format "notify-send -t 2000 -h string:x-canonical-private-synchronous:brightness 'Brillo' '%s%%'"
                                          display-brightness))))
-(defun my/volume-up ()
+(defun exwm/volume-up ()
   (interactive)
   (start-process-shell-command "amixer" nil "amixer -D pulse sset Master 5%+")
   (let ((volume (shell-command-to-string "amixer -D pulse get Master | grep -oP '\\d+%' | head -1")))
-    (start-process-shell-command "notify" nil
-                                 (format "notify-send -t 2000 -h string:x-canonical-private-synchronous:volume 'Volume' '%s'"
-                                         (string-trim volume)))))
+    (setq notify-id (notifications-notify :title "EXWM"
+                                          :replaces-id notify-id
+                                          :body (format "Volume: %s" (string-trim volume))))))
 
-(defun my/volume-down ()
+(defun exwm/volume-down ()
   (interactive)
   (start-process-shell-command "amixer" nil "amixer -D pulse sset Master 5%-")
   (let ((volume (shell-command-to-string "amixer -D pulse get Master | grep -oP '\\d+%' | head -1")))
-    (start-process-shell-command "notify" nil
-                                 (format "notify-send -t 2000 -h string:x-canonical-private-synchronous:volume 'Volume' '%s'"
-                                         (string-trim volume)))))
+    (setq notify-id (notifications-notify :title "EXWM"
+                                          :replaces-id notify-id
+                                          :body (format "Volume: %s" (string-trim volume))))))
 
-(defun my/volume-toggle-mute ()
+(defun exwm/volume-toggle-mute ()
   (interactive)
   (start-process-shell-command "amixer" nil "amixer -D pulse set Master 1+ toggle")
   (let ((mute-status (shell-command-to-string "amixer -D pulse get Master | grep -o '\\[on\\]\\|\\[off\\]'")))
     (if (string-match "\\[off\\]" mute-status)
         (start-process-shell-command "notify" nil "notify-send -t 2000 -h string:x-canonical-private-synchronous:volume 'Volume' 'Muted'")
       (let ((volume (shell-command-to-string "amixer -D pulse get Master | grep -oP '\\d+%' | head -1")))
-        (start-process-shell-command "notify" nil
-                                     (format "notify-send -t 2000 -h string:x-canonical-private-synchronous:volume 'Volume' '%s'"
-                                             (string-trim volume)))))))
+        (setq notify-id (notifications-notify :title "EXWM"
+                                              :replaces-id notify-id
+                                              :body (format "notify-send -t 2000 -h string:x-canonical-private-synchronous:volume 'Volume' '%s'"
+                                                            (string-trim volume))))))))
 
-(defun my/powermenu ()
+(defun exwm/powermenu ()
   "Launch the power menu script."
   (interactive)
   (shell-command "~/.config/i3/scripts/powermenu &"))
 
-;; NEW TODO
-;; --- Switch back and forth between current and last workspace ---
-(defvar my/last-exwm-workspace 0
+;; Switch back and forth between current and last workspace
+(defvar exwm/last-exwm-workspace 0
   "Holds the index of the last visited EXWM workspace.")
 
-(defun my/track-exwm-last-workspace ()
+(defun exwm/track-exwm-last-workspace ()
   "Track the last visited EXWM workspace."
-  (unless (= exwm-workspace-current-index my/last-exwm-workspace)
-    (setq my/last-exwm-workspace exwm-workspace-current-index)))
+  (unless (= exwm-workspace-current-index exwm/last-exwm-workspace)
+    (setq exwm/last-exwm-workspace exwm-workspace-current-index)))
 
-(add-hook 'exwm-workspace-switch-hook #'my/track-exwm-last-workspace)
+(add-hook 'exwm-workspace-switch-hook #'exwm/track-exwm-last-workspace)
 
-(defvar my/previous-exwm-workspace nil
+(defvar exwm/previous-exwm-workspace nil
   "The previously visited EXWM workspace index.")
 
-(defun my/exwm-switch-to-last-workspace ()
+(defun exwm/exwm-switch-to-last-workspace ()
   "Toggle back to the previously visited EXWM workspace."
   (interactive)
-  (when (and my/previous-exwm-workspace
-             (numberp my/previous-exwm-workspace)
-             (not (= exwm-workspace-current-index my/previous-exwm-workspace)))
+  (when (and exwm/previous-exwm-workspace
+             (numberp exwm/previous-exwm-workspace)
+             (not (= exwm-workspace-current-index exwm/previous-exwm-workspace)))
     (let ((current exwm-workspace-current-index)
-          (prev my/previous-exwm-workspace))
-      (setq my/previous-exwm-workspace current)
+          (prev exwm/previous-exwm-workspace))
+      (setq exwm/previous-exwm-workspace current)
       (exwm-workspace-switch prev))))
 
-;; Track both current and previous workspaces
 (add-hook 'exwm-workspace-switch-hook
           (lambda ()
-            (setq my/previous-exwm-workspace my/last-exwm-workspace)
-            (setq my/last-exwm-workspace exwm-workspace-current-index)))
+            (setq exwm/previous-exwm-workspace exwm/last-exwm-workspace)
+            (setq exwm/last-exwm-workspace exwm-workspace-current-index)))
 
 (use-package exwm
   :config
   (setq exwm-workspace-number 6)
   (add-hook 'exwm-update-class-hook #'exwm/exwm-update-class)
   (add-hook 'exwm-init-hook #'exwm/exwm-init-hook)
+  (add-hook 'exwm-init-hook #'exwm-modeline-mode)
   (add-hook 'exwm-manage-finish-hook #'exwm/configure-window-by-class)
   (require 'exwm-randr)
   (exwm-randr-mode t)
   (exwm/setup-displays)
 
-  (require 'exwm-systemtray)
-  (exwm-systemtray-mode 1)
-  (setq exwm-systemtray-height 25)
+  ;; (require 'exwm-systemtray)
+  ;; (exwm-systemtray-mode 1)
+  (setq exwm-systemtray-height 30)
   (setq exwm-layout-show-all-buffers t)
   (setq exwm-workspace-show-all-buffers t)
-  ;; (setq display-time-day-and-date t)
-  (display-time-mode 1)
+  (add-hook 'exwm-floating-setup-hook #'exwm-layout-hide-mode-line)
+  (add-hook 'exwm-floating-exit-hook #'exwm-layout-show-mode-line)
+
   (setq exwm-manage-configurations
-        '(((member exwm-class-name '("Telegram" "Google-chrome"))
+        '(((member exwm-class-name '("Telegram" "Google-chrome" "Zotero"))
 	   char-mode t)))
   (define-key exwm-mode-map [?\C-q] 'exwm-input-send-next-key)
   (setq
@@ -205,7 +234,7 @@
      ([s-up] . windmove-up)
      ([s-down] . windmove-down)
 
-     ([?\s-q] . my/powermenu)
+     ;; ([?\s-q] . exwm/shutdown)
 
      ([?\s-d] . dired)
      ([s-p] . dmenu)
@@ -214,12 +243,14 @@
      ;; QoL
      ([?\s-w] . exwm-workspace-switch)
      ([?\s-b] . ibuffer)
-     ([?\s-B] . kill-current-buffer)
-     ([?\s-C] . +workspace/close-window-or-workspace)
+     ([?\s-q] . kill-current-buffer)
+     ;; ([?\s-C] . +workspace/close-window-or-workspace)
+     ([?\s-C] . exwm/close-window-or-buffer)
      ;; SUPER+/ switches to char-mode (needed to pass commands in XWindows sometimes)
      ;; SUPER+? switches us back to line-mode
      ([?\s-/] . exwm-input-release-keyboard)
      ([?\s-?] . exwm-reset)
+     ([?\s-p] . app-launcher-run-app)
      ([?\s-m] . exwm-layout-toggle-mode-line)
      ;; change window focus with super+h,j,k,l
      ([?\s-h] evil-window-left)
@@ -234,13 +265,12 @@
      ([?\s-K] +evil/window-move-up)
      ([?\s-L] +evil/window-move-right)
 
-     ([?\s-p] #'app-launcher-run-app)
-     ([XF86AudioRaiseVolume] . my/volume-up)
-     ([XF86AudioLowerVolume] . my/volume-down)
-     ([XF86AudioMute]        . my/volume-toggle-mute)
+     ([XF86AudioRaiseVolume] . exwm/volume-up)
+     ([XF86AudioLowerVolume] . exwm/volume-down)
+     ([XF86AudioMute]        . exwm/volume-toggle-mute)
 
-     ([XF86MonBrightnessUp] . my/brightness-up)
-     ([XF86MonBrightnessDown] . my/brightness-down)
+     ([XF86MonBrightnessUp] . exwm/brightness-up)
+     ([XF86MonBrightnessDown] . exwm/brightness-down)
 
      ([?\s-\C-h] side-bottom-window)
      ([?\s-\C-j] side-left-window)
@@ -257,7 +287,7 @@
                   (interactive (list (read-shell-command "$ ")))
                   (start-process-shell-command command nil command)))
 
-     ([?\s-`]   . my/exwm-switch-to-last-workspace)
+     ([?\s-`]   . exwm/exwm-switch-to-last-workspace)
      ([?\s-t] . (lambda ()
                   (interactive)
                   (start-process "" nil "kitty")))
@@ -266,8 +296,7 @@
                   (start-process "" nil "google-chrome-stable")))
 
      ([?\s-n] . (lambda () (interactive) (start-process "" nil "thunar")))
-
-     ;; 's-N': Switch to certain workspace with Super (Win) plus a number key (0 - 9)
+     ;; (exwm-input-set-key (kbd "S-s-SPC") #'transpose-frame)
      ,@(mapcar (lambda (i)
                  `(,(kbd (format "s-%d" i)) .
                    (lambda ()
@@ -279,9 +308,22 @@
   (window-divider-mode 1)
   (exwm-wm-mode))
 
-
 (setq mouse-autoselect-window t)
 (setq focus-follows-mouse t)
-(setq exwm-workspace-warp-cursor t)
-(set-frame-parameter nil 'alpha-background 92)
-(add-to-list 'default-frame-alist '(alpha-background . 92))
+
+(defun exwm/after-reload-notify ()
+  (setq notify-id (notifications-notify :title "EXWM"
+                                        :replaces-id notify-id
+                                        :body "System successfully compiled.")))
+(defun exwm/before-reload-notify ()
+  (setq notify-id (notifications-notify :title "EXWM"
+                                        :replaces-id notify-id
+                                        :body "Compiling..")))
+
+(add-hook 'doom-after-reload-hook #'exwm/after-reload-notify)
+(add-hook 'doom-before-reload-hook #'exwm/before-reload-notify)
+;; (add-to-list 'exwm-manage-configurations
+;;              '((equal exwm-class-name "Polybar")
+;;                managed nil))
+
+;; (add-hook 'exwm-init-hook #'start-polybar)

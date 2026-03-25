@@ -1,6 +1,7 @@
 ;; -*- lexical-binding: t -*-
-;; TODO
-;; ** Organize modules
+;; * TODO:
+;; ** improve exwm keybindings
+
 ;; Deactivate unneeded packages
 
 (setq compile-angel-verbose t)
@@ -13,7 +14,7 @@
  user-full-name "Luis Vegas"
  user-mail-address "luisvegasmor@gmail.com"
  ;; doom-font (font-spec :family "JetBrains Mono Nerd Font" :size 19 :weight 'Regular)
- doom-theme 'doom-feather-dark
+ doom-theme 'doom-one
  native-comp-jit-compilation nil
  +latex-viewers '(pdf-tools)
  use-package-compute-statistics t
@@ -26,6 +27,8 @@
  vterm-always-compile-module t
  smerge-command-prefix "\C-cv"
  initial-major-mode (quote fundamental-mode)
+ global-display-line-numbers-mode 1
+ display-time-mode nil
  display-line-numbers-type 'relative)
 (define-key evil-normal-state-map (kbd "-") 'dirvish-fd)
 (advice-add #'add-node-modules-path :override #'ignore)
@@ -100,19 +103,6 @@
         "M-j" #'drag-stuff-down
         "M-k" #'drag-stuff-up))
 
-;; (use-package! marginalia
-;;   :bind ( ("M-A" . #'marginalia-cycle) )
-;;   :custom
-;;   (marginalia-max-relative-age 0)
-;;   (marginalia-align 'center))
-
-;; (after! vertico
-;;   (setq vertico-count 10
-;;         vertico-buffer-display-action '(display-buffer-reuse-window)
-;;         vertico-grid-separator "       "
-;;         vertico-grid-lookahead 50
-;;         vertico-resize nil))
-
 (rg-enable-default-bindings)
 
 (use-package! evil-goggles
@@ -144,26 +134,6 @@
   (setq-default TeX-master nil))
 
 
-
-(use-package! ivy
-  :config
-  (setq ivy-use-virtual-buffers t
-        ivy-count-format "(%d/%d) "
-        ivy-initial-inputs-alist nil
-        ivy-wrap t
-        ivy-height 10
-        ivy-use-selectable-prompt t
-        ivy-re-builders-alist '((counsel-rg . ivy--regex-plus)
-                                (counsel-git-grep . ivy--regex-plus)
-                                (swiper . ivy--regex-plus) (t . ivy--regex-fuzzy)))
-  :bind (:map ivy-minibuffer-map
-              ("C-j" . ivy-next-line)
-              ("C-k" . ivy-previous-line)
-              ("C-d" . ivy-scroll-up-command)
-              ("C-u" . ivy-scroll-down-command)
-              ("C-RET" . ivy-immediate-done)
-              ("C-SPC" . ivy-restrict-to-matches)))
-
 (use-package! counsel
   :bind
   ("M-x" . counsel-M-x)
@@ -181,36 +151,51 @@
   (setq counsel-find-file-ignore-regexp (concat "\\(?:^[#.]\\)" "\\|\\(?:[#~]$\\)" "\\|\\(?:^Icon?\\)" "\\|\\.elc$" "\\|\\.o$"))
   (setq counsel-rg-base-command "rg --with-filename --no-heading --line-number --color never --smart-case %s"))
 
-(use-package! swiper
-  :bind
-  ("C-s" . swiper-isearch)
-  ("C-r" . swiper-isearch-backward)
-  :config (setq swiper-action-recenter t
-                swiper-goto-start-of-match t))
+(use-package! marginalia
+  :bind ( ("M-A" . #'marginalia-cycle) )
+  :custom
+  (marginalia-max-relative-age 0)
+  (marginalia-align 'center))
 
-(use-package! ivy-rich
-  :after ivy
+(after! vertico
+  (setq vertico-count 12
+        vertico-buffer-display-action '(display-buffer-reuse-window)
+        vertico-grid-separator "       "
+        vertico-grid-lookahead 50
+        vertico-resize nil))
+
+(after! elfeed
   :config
-  (setq ivy-rich-path-style 'abbrev)
-  (ivy-rich-mode t)
-  (ivy-rich-project-root-cache-mode t))
+  (setq elfeed-feeds
+        '("https://this-week-in-rust.org/rss.xml"
+          "http://feeds.bbci.co.uk/news/rss.xml")))
 
-(use-package! nerd-icons-ivy-rich
-  :after ivy-rich
-  :config (nerd-icons-ivy-rich-mode t))
+(use-package! easysession
+  :disabled t
+  :after exwm
+  :ensure t
+  :demand t
+  :custom
+  (easysession-save-interval (* 10 60))  ; Save every 10 minutes
+  (easysession-switch-to-save-session t)
+  (easysession-switch-to-exclude-current nil)
+  (easysession-save-mode-lighter-show-session-name t)
 
-(use-package! ivy-prescient
-  :after counsel
+  ;; Optionally, the session name can be shown in the modeline info area:
+  ;; (easysession-mode-line-misc-info t)
   :config
-  (setq ivy-prescient-retain-classic-highlighting t
-        prescient-sort-full-matches-first t
-        prescient-filter-method '(literal regexp initialism fuzzy))
-  (ivy-prescient-mode t)
-  (prescient-persist-mode t))
-
+  ;; (map! :g "C-c sl") #'easysession-switch-to) ; Load session
+  ;; (global-set-key (kbd "C-c ss") #'easysession-save) ; Save session
+  ;; (global-set-key (kbd "C-c sL") #'easysession-switch-to-and-restore-geometry)
+  ;; (global-set-key (kbd "C-c sr") #'easysession-rename)
+  ;; (global-set-key (kbd "C-c sR") #'easysession-reset)
+  ;; (global-set-key (kbd "C-c su") #'easysession-unload)
+  ;; (global-set-key (kbd "C-c sd") #'easysession-delete)
+  (setq easysession-setup-load-session t)
+  (easysession-setup))
 
 (load! "configs/+exwm")
-(load! "configs/+dashboard.el")
+(load! "configs/+dashboard")
 (load! "configs/+which-key")
 (load! "configs/+evilmode")
 (load! "configs/+company")
@@ -219,12 +204,22 @@
 (load! "configs/+vterm")
 (load! "configs/+treesitter")
 (load! "configs/+org")
+(load! "org-roam-zotero-notes")
 (load! "configs/+eglot")
 (load! "configs/+persp")
 (load! "configs/+keybindings")
 (load! "configs/+utility")
 (load! "configs/+projectile")
 (load! "configs/+consult")
+(load! "configs/+qutebrowser")
+;; (load! "configs/+m4ue")
 (add-to-list 'load-path "~/dotfiles/.config/doom/local")
 (add-to-list 'custom-theme-load-path "~/dotfiles/.config/doom/local/color-theme-ujelly/")
-;; (load! "configs/+m4ue")
+
+(use-package! maude-mode
+  :defer t
+  :mode ("\\.maude\\'"))
+;; (use-package! transpose-frame)
+
+(use-package! notifications
+  :after exwm)

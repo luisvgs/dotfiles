@@ -23,6 +23,7 @@
 (map! :map evil-normal-state-map "s-[" #'previous-buffer)
 
 (use-package! evil-multiedit
+  :after evil
   :config
   (evil-multiedit-default-keybinds))
 
@@ -32,3 +33,6 @@
 
 (after! evil
   (setq evil-escape-key-sequence "jk"))
+
+(use-package! evil-goggles
+  :after evil)

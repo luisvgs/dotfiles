@@ -1,0 +1,16 @@
+** Zhaohui Luo reading list
+- Z. Luo. Modern Type Theories: Their Development and Applications. 2026. (To appear.)
+- Z. Luo. Formal Semantics in Modern Type Theories: An Overview. Proof-Theoretic Semantics: Assessment and Future Perspectives, Proc. of the Third Tuebingen Conference on Proof-Theoretic Semantics. Tuebingen, 2019. [The abstract and slides are available.]
+- G. Lungu and Z. Luo. Definitional Extensions in Type Theorey Revisited. TYPES 2017. Budapest, May-June 2017.
+
+- Feng and Z. Luo. Typed Operational Semantics for Dependent Record Types. Proceedings of Types for Proofs and Programs (TYPES'09), Aussois, France. EPTCS 53, 2009. [pdf-file available.]
+
+- C. Callaghan, Z. Luo, J. H. McKinna and R. Pollack (eds.). Types for Proofs and Programs. Proc. of Inter. Conf. TYPES'2000, Durham, UK. LNCS 2277. 2002.
+  
+- Goguen and Z. Luo. Inductive data types: well-ordering types revisited. In G. Huet and G. Plotkin (eds.), Logical Environments, Cambridge University Press, 1993. Also as ECS-LFCS-92-209, Dept of Computer Science, Edinburgh Univ. [pdf and ps files available.]
+
+- Luo. A unifying theory of dependent types: the schematic approach. Proc. of Symp. on Logical Foundations of Computer Science (Logic at Tver'92), LNCS 620, 1992. Also as ECS-LFCS-92-202, Dept of Computer Science, Edinburgh Univ. [ps and pdf files available.]
+
+- Luo. A higher-order calculus and theory abstraction. Information and Computation 90(1), 1991. [pdf and ps files available.]
+
+- Luo. An Extended Calculus of Constructions. PhD thesis, University of Edinburgh, 1990. Also as Report CST-65-90/ECS-LFCS-90-118, Department of Computer Science, University of Edinburgh. [ pdf and ps files available.]

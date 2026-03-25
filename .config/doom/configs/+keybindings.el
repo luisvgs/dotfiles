@@ -6,7 +6,7 @@
 
 (map! :leader
       :desc "Perform Rg search"
-        "r g" #'+ivy/project-search)
+      "r g" #'consult-ripgrep)
 
 (map! :g "C-z" #'undo)
 (map! :nvig "C-'" #'er/expand-region)
@@ -15,8 +15,7 @@
  :leader
  :desc "View" "v" #'TeX-view)
 
-(map! :g "C-s" #'swiper)
-
+(map! :g "C-s" #'consult-line)
 (map! :g "C-\\" #'+treemacs/toggle)
 
 (map! :leader

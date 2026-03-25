@@ -31,14 +31,14 @@
   :after eglot
   :config (eglot-booster-mode))
 
-(use-package! kind-icon
-  :ensure t
-  :after corfu
-  :custom
-  (kind-icon-blend-background nil)
-  (kind-icon-default-face 'corfu-default)
-  :config
-  (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
+;; (use-package! kind-icon
+;;   :ensure t
+;;   :after corfu
+;;   :custom
+;;   (kind-icon-blend-background nil)
+;;   (kind-icon-default-face 'corfu-default)
+;;   :config
+;;   (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
 
 ;; (add-hook! 'markdown-mode-hook #'olivetti-mode)
 ;; (setq olivetti-body-width 90)
@@ -90,9 +90,9 @@
              '((css . ("https://github.com/tree-sitter/tree-sitter-css" "v0.20.0"))
                (bash "https://github.com/tree-sitter/tree-sitter-bash")
                (markdown . ("https://github.com/tree-sitter-grammars/tree-sitter-markdown"
-                         "split_parser" "tree-sitter-markdown/src"))
+                            "split_parser" "tree-sitter-markdown/src"))
                (markdown-inline . ("https://github.com/tree-sitter-grammars/tree-sitter-markdown"
-                         "split_parser" "tree-sitter-markdown-inline/src"))
+                                   "split_parser" "tree-sitter-markdown-inline/src"))
                (html . ("https://github.com/tree-sitter/tree-sitter-html" "v0.20.1"))
                (javascript . ("https://github.com/tree-sitter/tree-sitter-javascript" "v0.21.2" "src"))
                (json . ("https://github.com/tree-sitter/tree-sitter-json" "v0.20.2"))
@@ -256,3 +256,7 @@
                              (current-buffer) t)
                             (goto-char point-before))))
                       -10 t)))
+
+;; (use-package! treesit
+;;   :defer t
+;;   :hook (prog-mode))

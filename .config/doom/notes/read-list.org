@@ -1,0 +1,504 @@
+#+TITLE: TFM Reading Plan: Quotient Types in Dependent Type Theory
+#+AUTHOR: Luis
+#+STARTUP: overview
+#+TODO: TODO READING | DONE SKIPPED
+#+TAGS: essential(e) recommended(r) optional(o)
+#+TAGS: foundations(f) implementation(i) quotients(q) rewriting(w) erasure(s)
+#+PROPERTY: header-args :eval no
+
+* Phase 1: Foundations of Dependent Type Theory [0/4]
+DEADLINE: <2026-04-08 Wed>
+
+** TODO [#A] Rijke - Introduction to Homotopy Type Theory (Ch. 1-6)  :essential:foundations:
+:PROPERTIES:
+:AUTHOR: Egbert Rijke
+:YEAR: 2025
+:VENUE: Cambridge UP
+:DOI: 10.1017/9781108933568
+:URL: https://arxiv.org/abs/2212.11082
+:FEEDS: Chapter 2 (Preliminares)
+:END:
+Solo capitulos 1-6. Cubre Pi types, Sigma types, identity types,
+equivalences, truncation levels. NO leer los capitulos sobre HoTT/univalence.
+
+** TODO [#A] Loh, McBride, Swierstra - A Tutorial Implementation of a Dependently Typed Lambda Calculus :essential:implementation:
+:PROPERTIES:
+:AUTHOR: Andres Loh, Conor McBride, Wouter Swierstra
+:YEAR: 2010
+:VENUE: Fundamenta Informaticae 102(2):177-207
+:DOI: 10.3233/FI-2010-304
+:URL: https://www.andres-loeh.de/LambdaPi/LambdaPi.pdf
+:FEEDS: Chapter 3 (Core Language), Chapter 5 (Implementacion)
+:END:
+EL paper mas importante para arrancar la implementacion. Leer con el
+codigo Haskell al lado. Replicar el LambdaPi como primer paso.
+
+** TODO [#A] Mimram - Program = Proof (caps. lambda calculus, rewriting, dependent types) :essential:foundations:
+:PROPERTIES:
+:AUTHOR: Samuel Mimram
+:YEAR: 2020
+:URL: http://www.lix.polytechnique.fr/Labo/Samuel.Mimram//teaching/INF551/course.pdf
+:ISBN: 979-8615591839
+:FEEDS: Chapter 2 (Preliminares)
+:END:
+Usar como referencia de consulta. Cubre lambda calculus, rewriting
+systems, y dependent types en un solo libro. Particularmente bueno
+para rewriting (confluence, critical pairs, terminacion).
+
+** TODO [#A] Coquand - An Algorithm for Type-Checking Dependent Types :essential:foundations:
+:PROPERTIES:
+:AUTHOR: Thierry Coquand
+:YEAR: 1996
+:VENUE: Science of Computer Programming 26(1-3):167-177
+:DOI: 10.1016/0167-6423(95)00021-6
+:FEEDS: Chapter 3 (Core Language)
+:END:
+El paper fundacional sobre type checking semantico para dependent
+types. El algoritmo de Coquand es la base de todos los type checkers
+modernos incluyendo Agda.
+
+** TODO [#B] Christiansen - Checking Dependent Types with NbE: A Tutorial :recommended:implementation:
+:PROPERTIES:
+:AUTHOR: David Thrane Christiansen
+:YEAR: 2019
+:URL: https://davidchristiansen.dk/tutorials/implementing-types-hs.pdf
+:FEEDS: Chapter 5 (Implementacion)
+:END:
+Tutorial en Haskell implementando "Tartlet" con NbE y bidirectional
+checking. Mas moderno que LambdaPi, usa closures.
+
+** TODO [#B] Norell - Towards a Practical Programming Language Based on Dependent Type Theory :recommended:implementation:
+:PROPERTIES:
+:AUTHOR: Ulf Norell
+:YEAR: 2007
+:VENUE: PhD thesis, Chalmers
+:URL: https://www.cse.chalmers.se/~ulfn/papers/thesis.pdf
+:FEEDS: Referencia estructural para la tesis
+:END:
+La tesis detras de Agda 2. Util como modelo estructural de como
+escribir una tesis sobre implementar un lenguaje con tipos dependientes.
+
+** TODO [#B] Dunfield, Krishnaswami - Bidirectional Typing            :recommended:implementation:
+:PROPERTIES:
+:AUTHOR: Jana Dunfield, Neel Krishnaswami
+:YEAR: 2022
+:VENUE: ACM Computing Surveys 54(5):1-38
+:DOI: 10.1145/3450952
+:URL: https://arxiv.org/abs/1908.05839
+:FEEDS: Chapter 3 (Core Language)
+:END:
+Survey definitivo sobre bidirectional typing. Secciones 1-4
+principalmente.
+
+* Phase 2: Implementation Techniques [0/4]
+DEADLINE: <2026-04-29 Wed>
+
+** TODO [#A] Kovacs - elaboration-zoo                                 :essential:implementation:
+:PROPERTIES:
+:AUTHOR: Andras Kovacs
+:YEAR: ongoing
+:URL: https://github.com/AndrasKovacs/elaboration-zoo
+:FEEDS: Chapter 5 (Implementacion)
+:END:
+LA referencia de implementacion mas importante. Seis implementaciones
+progresivas en Haskell: evaluacion, type checking, holes, implicit
+arguments, pruning, first-class polymorphism. Estudiar packages 01-04
+en detalle.
+
+** TODO [#A] Weirich - pi-forall + lecture notes                     :essential:implementation:
+:PROPERTIES:
+:AUTHOR: Stephanie Weirich
+:YEAR: 2022
+:URL_REPO: https://github.com/sweirich/pi-forall
+:URL_NOTES: https://arxiv.org/abs/2207.02129
+:FEEDS: Chapter 5 (Implementacion)
+:END:
+Lenguaje dependently typed didactico en Haskell con bidirectional
+checking, propositional equality, datatypes, y erasure annotations.
+Directamente relevante para el erasure de proofs en lift.
+
+** TODO [#A] Abel - Normalization by Evaluation: Dependent Types and Impredicativity :essential:implementation:
+:PROPERTIES:
+:AUTHOR: Andreas Abel
+:YEAR: 2013
+:VENUE: Habilitation, LMU Munchen
+:URL: https://www.cse.chalmers.se/~abela/habil.pdf
+:FEEDS: Chapter 3 (Core Language), Chapter 5 (Implementacion)
+:END:
+Referencia comprehensiva sobre NbE para dependent type theory.
+Capitulos sobre predicative type theory con universos son
+directamente relevantes.
+
+** TODO [#A] Abel, Coquand, Dybjer - Normalization by Evaluation for Martin-Lof Type Theory with Typed Equality Judgements :essential:implementation:
+:PROPERTIES:
+:AUTHOR: Andreas Abel, Thierry Coquand, Peter Dybjer
+:YEAR: 2007
+:VENUE: LICS 2007, pp. 3-12
+:FEEDS: Chapter 3 (Core Language)
+:END:
+Prueba decidibilidad de equality usando NbE. Establece injectividad
+de Pi-types, propiedad clave para el type checker.
+
+** TODO [#B] Abel, Coquand, Dybjer - Verifying a Semantic Beta-Eta-Conversion Test :recommended:implementation:
+:PROPERTIES:
+:AUTHOR: Andreas Abel, Thierry Coquand, Peter Dybjer
+:YEAR: 2008
+:VENUE: MPC 2008, LNCS 5133:29-56
+:DOI: 10.1007/978-3-540-70594-9_4
+:FEEDS: Chapter 3 (Core Language)
+:END:
+Analiza el algoritmo de Coquand para beta-eta-equality checking con
+universos predicativos.
+
+** TODO [#C] Kovacs - smalltt                                         :optional:implementation:
+:PROPERTIES:
+:AUTHOR: Andras Kovacs
+:URL: https://github.com/AndrasKovacs/smalltt
+:FEEDS: Chapter 5 (Implementacion)
+:END:
+Elaborador de alto rendimiento. Consultar para ideas de optimizacion.
+
+** TODO [#B] Brady - Idris, a General-Purpose Dependently Typed Programming Language :recommended:implementation:
+:PROPERTIES:
+:AUTHOR: Edwin Brady
+:YEAR: 2013
+:VENUE: JFP 23:552-593
+:DOI: 10.1017/S0956796813000129
+:FEEDS: Contexto
+:END:
+Cubre elaboration y compilation de un lenguaje dependently typed real.
+
+* Phase 3: Quotient Types -- Theory and Formalization [0/7]
+DEADLINE: <2026-05-20 Wed>
+
+** TODO [#A] Hofmann - Extensional Constructs in Intensional Type Theory :essential:quotients:
+:PROPERTIES:
+:AUTHOR: Martin Hofmann
+:YEAR: 1995 (thesis), 1997 (book)
+:VENUE: PhD thesis, U. Edinburgh / Springer
+:DOI: 10.1007/978-1-4471-0963-1
+:URL: https://ncatlab.org/nlab/files/HofmannExtensionalIntensionalTypeTheory.pdf
+:FEEDS: Chapter 4 (Quotient Types)
+:END:
+Trabajo fundacional. Introduce el setoid model y el groupoid model.
+Cubre proof irrelevance y quotient types. Seccion 2.3.6 sobre
+quotient types es clave.
+
+** TODO [#A] Barthe, Capretta, Pons - Setoids in Type Theory         :essential:quotients:
+:PROPERTIES:
+:AUTHOR: Gilles Barthe, Venanzio Capretta, Olivier Pons
+:YEAR: 2003
+:VENUE: JFP 13(2):261-293
+:DOI: 10.1017/S0956796802004501
+:URL: https://www.researchgate.net/publication/2409241_Setoids_in_Type_Theory
+:FEEDS: Chapter 2 (Preliminares), Chapter 4 (Quotient Types)
+:END:
+Estudio comprehensivo de setoids. Muestra por que son dolorosos y
+motiva la necesidad de quotient types reales.
+
+** TODO [#A] Li - Quotient Types in Type Theory                      :essential:quotients:
+:PROPERTIES:
+:AUTHOR: Nuo Li
+:YEAR: 2015
+:VENUE: PhD thesis, U. Nottingham (supervisor: Altenkirch)
+:URL: https://eprints.nottingham.ac.uk/28941/1/Nuo%20Li's_Thesis.pdf
+:FEEDS: Chapter 4 (Quotient Types) -- REFERENCIA PRINCIPAL
+:END:
+La tesis mas directamente relacionada con el TFM de Luis. Cubre
+definable quotients, setoid models, groupoid models, y HoTT.
+Formalizado en Agda. LEER CAPITULOS 1-4 EN DETALLE.
+
+** TODO [#A] Altenkirch, Anberree, Li - Definable Quotients in Type Theory :essential:quotients:
+:PROPERTIES:
+:AUTHOR: Thorsten Altenkirch, Thomas Anberree, Nuo Li
+:YEAR: ~2011
+:URL: https://people.cs.nott.ac.uk/psztxa/publ/defquotients.pdf
+:FEEDS: Chapter 4 (Quotient Types)
+:END:
+Introduce "definable quotients" via normalization functions (split
+coequalizers). Modelo conceptual detras de la implementacion de Lean.
+
+** TODO [#A] Nogin - Quotient Types: A Modular Approach              :essential:quotients:
+:PROPERTIES:
+:AUTHOR: Alexei Nogin
+:YEAR: 2002
+:VENUE: TPHOLs 2002, LNCS 2410:263-280
+:DOI: 10.1007/3-540-45685-6_18
+:FEEDS: Chapter 4 (Quotient Types)
+:END:
+Propone descomponer quotient types en primitivas mas simples con
+reglas modulares. Directamente relevante para disenar la API
+Quotient/quot/lift.
+
+** TODO [#A] Altenkirch, McBride, Swierstra - Observational Equality, Now! :essential:quotients:
+:PROPERTIES:
+:AUTHOR: Thorsten Altenkirch, Conor McBride, Wouter Swierstra
+:YEAR: 2007
+:VENUE: PLPV 2007, pp. 57-68
+:DOI: 10.1145/1292597.1292608
+:URL: http://strictlypositive.org/obseqnow.pdf
+:FEEDS: Chapter 4 (Quotient Types)
+:END:
+Paper pionero sobre observational type theory. Cada tipo obtiene una
+igualdad observacional que satisface function extensionality.
+
+** TODO [#A] Pujet, Tabareau - Observational Equality: Now For Good  :essential:quotients:
+:PROPERTIES:
+:AUTHOR: Loic Pujet, Nicolas Tabareau
+:YEAR: 2022
+:VENUE: POPL 2022, 6(POPL):32:1-32:27
+:DOI: 10.1145/3498693
+:URL: https://inria.hal.science/hal-03367052v4/document
+:FEEDS: Chapter 4 (Quotient Types), Chapter 6 (Related Work)
+:END:
+Version moderna y corregida del anterior. Introduce TT_obs con
+normalizing reduction, canonicity, y quotient types como extension.
+Estado del arte.
+
+** TODO [#B] Carneiro - The Type Theory of Lean                      :recommended:quotients:
+:PROPERTIES:
+:AUTHOR: Mario Carneiro
+:YEAR: 2019
+:VENUE: MSc thesis, CMU
+:URL: https://github.com/digama0/lean-type-theory/releases
+:FEEDS: Chapter 4 (Quotient Types), Chapter 6 (Related Work)
+:END:
+Seccion 2.7.1 especifica formalmente los quotient types de Lean
+(Quotient.mk, Quotient.lift, Quotient.sound). La implementacion
+real-world mas cercana a lo que Luis construye.
+
+** TODO [#B] Altenkirch, Kaposi - Type Theory in Type Theory using Quotient Inductive Types :recommended:quotients:
+:PROPERTIES:
+:AUTHOR: Thorsten Altenkirch, Ambrus Kaposi
+:YEAR: 2016
+:VENUE: POPL 2016, pp. 18-29
+:DOI: 10.1145/2837614.2837638
+:URL: https://akaposi.github.io/tt-in-tt.pdf
+:FEEDS: Chapter 4 (Quotient Types)
+:END:
+Introduce QITs. Generalizacion mas potente de quotient types simples.
+Secciones iniciales son accesibles.
+
+** TODO [#C] Vezzosi, Mortberg, Abel - Cubical Agda                  :optional:quotients:
+:PROPERTIES:
+:AUTHOR: Andrea Vezzosi, Anders Mortberg, Andreas Abel
+:YEAR: 2019
+:VENUE: ICFP 2019
+:DOI: 10.1145/3341691
+:FEEDS: Chapter 6 (Related Work)
+:END:
+Como Cubical Agda implementa quotient types via HITs. Punto de
+diseno alternativo.
+
+** TODO [#C] HoTT Book - Chapter 6 (Higher Inductive Types)          :optional:quotients:
+:PROPERTIES:
+:URL: https://homotopytypetheory.org/book/
+:FEEDS: Contexto
+:END:
+Contexto amplio. Seccion 6.10 sobre quotients.
+
+* Phase 4: Rewriting Systems for Proof Obligations [0/5]
+DEADLINE: <2026-06-10 Wed>
+
+** TODO [#A] Baader, Nipkow - Term Rewriting and All That (Ch. 1-5)  :essential:rewriting:
+:PROPERTIES:
+:AUTHOR: Franz Baader, Tobias Nipkow
+:YEAR: 1998
+:VENUE: Cambridge UP
+:ISBN: 978-0-521-77920-3
+:FEEDS: Chapter 2 (Preliminares), Chapter 5 (Rewriting)
+:END:
+EL libro estandar de rewriting. Capitulos sobre confluence (critical
+pairs) y completion son los mas importantes para la tesis.
+
+** TODO [#A] Blanqui - Type Theory and Rewriting (PhD thesis)        :essential:rewriting:
+:PROPERTIES:
+:AUTHOR: Frederic Blanqui
+:YEAR: 2001
+:VENUE: PhD thesis, U. Paris-Sud
+:URL: https://tel.archives-ouvertes.fr/tel-00105522
+:URL_ARXIV: https://arxiv.org/abs/cs/0610068
+:FEEDS: Chapter 5 (Rewriting)
+:END:
+Trabajo fundacional sobre combinar dependent type theory con term
+rewriting. Leer selectivamente -- foco en el framework y resultados
+clave sobre confluence y terminacion.
+
+** TODO [#A] Blanqui - Type Safety of Rewrite Rules in Dependent Types :essential:rewriting:
+:PROPERTIES:
+:AUTHOR: Frederic Blanqui
+:YEAR: 2020
+:VENUE: FSCD 2020, LIPIcs 167:13:1-13:14
+:DOI: 10.4230/LIPIcs.FSCD.2020.13
+:URL: https://arxiv.org/abs/2010.16111
+:FEEDS: Chapter 5 (Rewriting) -- REFERENCIA TECNICA PRINCIPAL
+:END:
+Metodo basado en Knuth-Bendix completion para verificar que rewrite
+rules preservan typing (subject reduction). Core technique que Luis
+adapta para verificar que funciones respetan equivalence relations.
+
+** TODO [#A] Cockx, Tabareau, Winterhalter - The Taming of the Rew  :essential:rewriting:
+:PROPERTIES:
+:AUTHOR: Jesper Cockx, Nicolas Tabareau, Theo Winterhalter
+:YEAR: 2021
+:VENUE: POPL 2021, 5(POPL):60:1-60:29
+:DOI: 10.1145/3434341
+:URL: https://hal.science/hal-02901011v2/document
+:FEEDS: Chapter 5 (Rewriting)
+:END:
+Introduce RTT con el "triangle criterion" para garantizar confluence
+y subject reduction. EL framework practico moderno para anadir
+rewriting a dependent types.
+
+** TODO [#A] Blanqui - Definitions by Rewriting in the Calculus of Constructions :essential:rewriting:
+:PROPERTIES:
+:AUTHOR: Frederic Blanqui
+:YEAR: 2005
+:VENUE: MSCS 15(1):37-92
+:DOI: 10.1017/S0960129504004426
+:FEEDS: Chapter 5 (Rewriting)
+:END:
+Establece condiciones para strong normalization y confluence al
+anadir rewriting al CoC.
+
+** TODO [#B] Cockx - Dependent Pattern Matching and Proof-Relevant Unification :recommended:rewriting:
+:PROPERTIES:
+:AUTHOR: Jesper Cockx
+:YEAR: 2017
+:VENUE: PhD thesis, KU Leuven
+:URL: https://jesper.cx/publications.html
+:FEEDS: Chapter 5 (Rewriting)
+:END:
+Conecta rewriting con pattern matching en Agda.
+
+** TODO [#B] Cockx - Type Theory Unchained: Extending Agda with User-Defined Rewrite Rules :recommended:rewriting:
+:PROPERTIES:
+:AUTHOR: Jesper Cockx
+:YEAR: 2020
+:VENUE: TYPES 2019, LIPIcs 175:2:1-2:27
+:DOI: 10.4230/LIPIcs.TYPES.2019.2
+:FEEDS: Chapter 5 (Rewriting)
+:END:
+Como se anadieron rewrite rules a Agda en la practica.
+
+** TODO [#B] Barbanera, Fernandez, Geuvers - Modularity of Strong Normalization in the Algebraic-Lambda-Cube :recommended:rewriting:
+:PROPERTIES:
+:AUTHOR: Franco Barbanera, Maribel Fernandez, Herman Geuvers
+:YEAR: 1997
+:VENUE: JFP 7(6):613-660
+:FEEDS: Chapter 5 (Rewriting)
+:END:
+Modularidad de strong normalization al combinar lambda calculus con
+rewriting. Directamente relevante para el sistema combinado.
+
+* Phase 5: Erasure and Irrelevance [0/2]
+DEADLINE: <2026-06-10 Wed>
+
+** TODO [#A] Abel - Irrelevance in Type Theory with a Heterogeneous Equality Judgement :essential:erasure:
+:PROPERTIES:
+:AUTHOR: Andreas Abel
+:YEAR: 2011
+:VENUE: FoSSaCS 2011, LNCS 6604:57-71
+:DOI: 10.1007/978-3-642-19805-2_5
+:FEEDS: Chapter 5 (Implementacion), Chapter 4 (Quotient Types)
+:END:
+Extiende irrelevant quantification a universos y large eliminations.
+Directamente relevante para erasing proofs en lift.
+
+** TODO [#A] Abel - On Irrelevance and Algorithmic Equality in Predicative Type Theory :essential:erasure:
+:PROPERTIES:
+:AUTHOR: Andreas Abel
+:YEAR: 2012
+:VENUE: LMCS
+:URL: https://arxiv.org/abs/1203.4716
+:FEEDS: Chapter 5 (Implementacion)
+:END:
+Version journal del anterior. Metatheoria completa incluyendo subject
+reduction, normalization, y type-directed equality algorithm.
+
+** TODO [#B] Tejiscak - A Dependently Typed Calculus with Pattern Matching and Erasure Inference :recommended:erasure:
+:PROPERTIES:
+:AUTHOR: Matus Tejiscak
+:YEAR: 2020
+:VENUE: ICFP 2020
+:DOI: 10.1145/3408973
+:FEEDS: Chapter 5 (Implementacion)
+:END:
+Erasure inference en la practica -- identifica que terminos solo se
+necesitan en type-checking y se borran en runtime.
+
+* Weekly Schedule
+** Semana 1 (Mar 19-25): Foundations I
+- [ ] Rijke Ch. 1-3
+- [ ] Mimram Ch. 1-6 (skim)
+- [ ] Setup proyecto Haskell (stack/cabal)
+** Semana 2 (Mar 26 - Apr 1): Foundations II
+- [ ] Rijke Ch. 4-6
+- [ ] Loh/McBride/Swierstra (LambdaPi) completo
+- [ ] Implementar type checker basico siguiendo LambdaPi
+** Semana 3 (Apr 2-8): Bidirectional + Coquand
+- [ ] Coquand 1996
+- [ ] Dunfield/Krishnaswami survey sec. 1-4
+- [ ] Christiansen tutorial (Tartlet)
+- [ ] Refactorizar type checker a bidirectional
+** Semana 4 (Apr 9-15): Elaboration I
+- [ ] elaboration-zoo packages 01-03
+- [ ] pi-forall version1
+- [ ] Implementar NbE-based evaluator
+** Semana 5 (Apr 16-22): Elaboration II
+- [ ] Abel habilitation Ch. 1-3
+- [ ] elaboration-zoo package 04
+- [ ] Anadir implicit arguments y unificacion basica
+** Semana 6 (Apr 23-29): NbE + escribir
+- [ ] Abel/Coquand/Dybjer LICS 2007
+- [ ] Abel/Coquand/Dybjer MPC 2008
+- [ ] Estabilizar core type checker
+- [ ] ESCRIBIR borrador Cap. 2 (Preliminares)
+** Semana 7 (Apr 30 - May 6): Setoids + problema
+- [ ] Hofmann thesis Ch. 1-4
+- [ ] Barthe/Capretta/Pons (setoids)
+- [ ] Nogin (quotient types modular)
+- [ ] Disenar sintaxis Quotient/quot/lift
+** Semana 8 (May 7-13): Quotient types teoria
+- [ ] Li thesis Ch. 1-4
+- [ ] Altenkirch/Anberree/Li (definable quotients)
+- [ ] Carneiro sec. 2.7 (Lean quotients)
+- [ ] Empezar implementar quotient type formation rules
+** Semana 9 (May 14-20): OTT + quotients avanzados
+- [ ] Obs. Eq. Now! (Altenkirch/McBride/Swierstra)
+- [ ] Obs. Eq. Now For Good (Pujet/Tabareau)
+- [ ] Altenkirch/Kaposi POPL 2016 (QITs)
+- [ ] Implementar quot y lift con proof obligations
+** Semana 10 (May 21-27): Rewriting foundations
+- [ ] Baader/Nipkow Ch. 1-4, 6-7
+- [ ] Blanqui 2005 (Definitions by Rewriting in CoC)
+- [ ] Disenar proof obligation checker basado en rewriting
+** Semana 11 (May 28 - Jun 3): Rewriting + dependent types
+- [ ] Blanqui FSCD 2020 (Type Safety of Rewrite Rules)
+- [ ] Cockx/Tabareau/Winterhalter 2021 (RTT)
+- [ ] Implementar confluence/subject-reduction checks
+** Semana 12 (Jun 4-10): Erasure + integracion
+- [ ] Abel FoSSaCS 2011 (irrelevance)
+- [ ] Abel LMCS 2012 (algorithmic equality)
+- [ ] Tejiscak 2020 (erasure inference)
+- [ ] Anadir proof erasure a lift
+- [ ] Integration testing
+
+* Notes
+** Reading Log Template
+Usar este formato para cada paper/libro leido:
+*** TEMPLATE: [Author - Title]
+- *Idea principal*:
+- *Que aprendi*:
+- *Preguntas que tengo*:
+- *Relevancia para mi TFM*:
+- *Que capitulo alimenta*:
+** Key Definitions to Track
+- [ ] Quotient type (formation, intro, elim, beta)
+- [ ] Definable quotient (Li/Altenkirch)
+- [ ] Setoid
+- [ ] Confluence
+- [ ] Subject reduction
+- [ ] Strong normalization
+- [ ] Proof irrelevance / erasure
+- [ ] Normalization by Evaluation (NbE)

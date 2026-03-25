@@ -3,15 +3,14 @@ export PATH="$HOME/.npm-global/bin:$PATH"
 export PATH="/opt/idea-IC-241.18034.62/bin:$PATH"
 export PATH="/opt/sqlectron:$PATH"
 export PATH="$HOME/.dotnet/tools:$PATH"
-export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/sinter/target/release:$PATH"
-export READER='zathura'
-# export EDITOR='emacs -nw'
+export READER='emacs'
 BLK="04" CHR="04" DIR="04" EXE="00" REG="00" HARDLINK="00" SYMLINK="06" MISSING="00" ORPHAN="01" FIFO="0F" SOCK="0F" OTHER="02"
 export NNN_FCOLORS="$BLK$CHR$DIR$EXE$REG$HARDLINK$SYMLINK$MISSING$ORPHAN$FIFO$SOCK$OTHER"
 export JAVA_HOME='/usr/lib/jvm/java-17-openjdk'
 export PATH="$JAVA_HOME/bin:$PATH"
 export PATH="$HOME/.local/share/gem/ruby/3.4.0/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 # source ~/.env
 
 alias spr='mvn spring-boot:run'
@@ -92,8 +91,6 @@ alias dbt='docker build -t'
 alias docker-on='systemctl start docker'
 alias docker-clean='docker rmi $(docker images --filter "dangling=true" -q --no-trunc) --force'
 
-
-
 # Monitor management
 alias dual='xrandr --output HDMI-2 --mode 1920x1080 --same-as eDP-1 && xrandr --output eDP-1 --off'
 alias monitor-on='xrandr --output eDP-1 --auto'
@@ -103,12 +100,6 @@ alias monitor-on='xrandr --output eDP-1 --auto'
 
 autoload -U compinit
 compinit
-
-# export DOT_REPO="https://github.com/luisvgs/dotfiles.git"
-# export DOT_DIR="$HOME/.dotfiles"
-# source /usr/share/nvm/init-nvm.sh
-# fpath=($HOME/.config/zsh/scripts/dot/dot.sh $fpath)
-# source $HOME/.config/zsh/scripts/dot/dot.sh
 source $HOME/.config/zsh/scripts/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $HOME/.config/zsh/scripts/zsh-scripts/fzf_git_functions.zsh
 source $HOME/.config/zsh/scripts/zsh-scripts/key-binding.zsh
@@ -116,7 +107,7 @@ source $HOME/.config/zsh/scripts/fancy-ctrlz/fancy.zsh
 source $HOME/.config/zsh/scripts/git-prompt/git-prompt.zsh
 source $HOME/.config/zsh/scripts/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source $HOME/.config/zsh/scripts/scala-helper/scala-helper.zsh
-source $HOME/.elan/env
+# source $HOME/.elan/env
 [[ -s $HOME/.nvm/nvm.sh ]] && . $HOME/.nvm/nvm.sh
 [ -f "/home/luis/.ghcup/env" ] && source "/home/luis/.ghcup/env" # ghcup-env
 

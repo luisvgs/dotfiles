@@ -1,6 +1,7 @@
 (use-package! doom-modeline
+  ;; :hook (doom-init-ui . doom-modeline-mode)
   :config
-  (setq doom-modeline-height 50
+  (setq doom-modeline-height 40
         doom-modeline-major-mode-icon t
         doom-modeline-project-name nil
         doom-modeline-major-mode-color-icon t
@@ -9,7 +10,7 @@
         doom-modeline-buffer-state-icon t
         doom-modeline-buffer-modification-icon t
         doom-modeline-buffer-name t
-        doom-modeline-modal-modern-icon t
+        doom-modeline-modal-modern-icon nil
         doom-modeline-lsp-icon t
         doom-modeline-lsp t
         doom-modeline-modal-icon t
@@ -31,7 +32,6 @@
           (conflict     . (doom-modeline-urgent bold))
           (unregistered . (doom-modeline-urgent bold)))
         doom-modeline-persp-icon nil
-        doom-modeline-modal-modern-icon nil
         doom-modeline-persp-name nil)
   (custom-set-faces!
     '(doom-modeline-buffer-modified :foreground "orange")))
