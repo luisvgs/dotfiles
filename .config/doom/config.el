@@ -2,8 +2,6 @@
 ;; * TODO:
 ;; ** improve exwm keybindings
 
-;; Deactivate unneeded packages
-
 (setq compile-angel-verbose t)
 (compile-angel-on-load-mode)
 (use-package! doom)
@@ -14,7 +12,7 @@
  user-full-name "Luis Vegas"
  user-mail-address "luisvegasmor@gmail.com"
  ;; doom-font (font-spec :family "JetBrains Mono Nerd Font" :size 19 :weight 'Regular)
- doom-theme 'doom-one
+ doom-theme 'ef-duo-dark
  native-comp-jit-compilation nil
  +latex-viewers '(pdf-tools)
  use-package-compute-statistics t
@@ -133,24 +131,6 @@
   (setq TeX-parse-self t)
   (setq-default TeX-master nil))
 
-
-(use-package! counsel
-  :bind
-  ("M-x" . counsel-M-x)
-  ("C-x b" . counsel-switch-buffer)
-  ("C-x C-f" . counsel-find-file)
-  ("C-x C-r" . counsel-recentf)
-  ("C-c g" . counsel-git)
-  ("C-c j" . counsel-git-grep)
-  ("C-c s" . counsel-rg)
-  ("C-h f" . counsel-describe-function)
-  ("C-h v" . counsel-describe-variable)
-  ("C-h l" . counsel-find-library)
-  ("C-h a" . counsel-apropos)
-  :config
-  (setq counsel-find-file-ignore-regexp (concat "\\(?:^[#.]\\)" "\\|\\(?:[#~]$\\)" "\\|\\(?:^Icon?\\)" "\\|\\.elc$" "\\|\\.o$"))
-  (setq counsel-rg-base-command "rg --with-filename --no-heading --line-number --color never --smart-case %s"))
-
 (use-package! marginalia
   :bind ( ("M-A" . #'marginalia-cycle) )
   :custom
@@ -216,9 +196,9 @@
 (add-to-list 'load-path "~/dotfiles/.config/doom/local")
 (add-to-list 'custom-theme-load-path "~/dotfiles/.config/doom/local/color-theme-ujelly/")
 
-(use-package! maude-mode
-  :defer t
-  :mode ("\\.maude\\'"))
+;; (use-package! maude-mode
+;;   :defer t
+;;   :mode ("\\.maude\\'"))
 ;; (use-package! transpose-frame)
 
 (use-package! notifications

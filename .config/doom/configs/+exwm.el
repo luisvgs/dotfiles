@@ -1,6 +1,20 @@
 ;; TODO
 ;; Handle shutdown and reboot keybindings
 ;; Setup polybar like this guy: https://github.com/martinbaillie/dotfiles/blob/7da368f5b45fa64dd3de77ecca3dcf38f647c00a/config/emacs/%2Bexwm.el#L17
+
+(defun exwm/shutdown ()
+  (interactive)
+  (if (y-or-n-p "Are you sure you want to shutdown?")
+      (async-shell-command "shutdown now")
+    (message "not shutting down")
+    ))
+
+(defun exwm/reboot ()
+  (interactive)
+  (if (y-or-n-p "Are you sure you want to reboot?")
+      (async-shell-command "reboot")
+    (message "Reboot aborted")))
+
 (defvar notify-id nil)
 (defun exwm/display-startup-time ()
   (message "Emacs loaded in %s with %d garbage collections."
@@ -12,7 +26,6 @@
 (add-hook 'emacs-startup-hook #'exwm/display-startup-time)
 
 (defvar exwm/polybar-process nil)
-
 (defun exwm/kill-polybar ()
   (when exwm/polybar-process
     (ignore-errors (kill-process exwm/polybar-process)))
@@ -78,7 +91,7 @@
 (defun exwm/exwm-init-hook ()
   (start-process-shell-command "redshift" nil "redshift -O 4100")
   (start-process-shell-command "nm-applet" nil "nm-applet")
-  (exwm/start-polybar)
+  ;; (exwm/start-polybar)
   (exwm/set-wallpaper)
   (exwm-workspace-switch-create 1))
 
@@ -205,12 +218,39 @@
   (setq exwm-systemtray-height 30)
   (setq exwm-layout-show-all-buffers t)
   (setq exwm-workspace-show-all-buffers t)
-  (add-hook 'exwm-floating-setup-hook #'exwm-layout-hide-mode-line)
-  (add-hook 'exwm-floating-exit-hook #'exwm-layout-show-mode-line)
+  ;; (add-hook 'exwm-floating-setup-hook #'exwm-layout-hide-mode-line)
+  ;; (add-hook 'exwm-floating-exit-hook #'exwm-layout-show-mode-line)
 
   (setq exwm-manage-configurations
         '(((member exwm-class-name '("Telegram" "Google-chrome" "Zotero"))
 	   char-mode t)))
+
+  (defun exwm/auto-char-mode ()
+    (when (and (derived-mode-p 'exwm-mode)
+               (member exwm-class-name '("Telegram" "Google-chrome" "Zotero")))
+      (run-with-idle-timer 0.3 nil
+                           (lambda (buf)
+                             (when (buffer-live-p buf)
+                               (with-current-buffer buf
+                                 (exwm-input-release-keyboard))))
+                           (current-buffer))))
+
+  (defun exwm/char-mode-on-workspace-switch ()
+    (dolist (buf (buffer-list))
+      (with-current-buffer buf
+        (when (and (derived-mode-p 'exwm-mode)
+                   (member exwm-class-name '("Telegram" "Google-chrome" "Zotero"))
+                   (get-buffer-window buf (selected-frame)))
+          (run-with-idle-timer 0.3 nil
+                               (lambda (b)
+                                 (when (buffer-live-p b)
+                                   (with-current-buffer b
+                                     (exwm-input-release-keyboard))))
+                               buf)))))
+
+  (add-hook 'exwm-manage-finish-hook #'exwm/auto-char-mode)
+  (add-hook 'exwm-workspace-switch-hook #'exwm/char-mode-on-workspace-switch)
+
   (define-key exwm-mode-map [?\C-q] 'exwm-input-send-next-key)
   (setq
    exwm-input-simulation-keys '(([?\s-F] . [?\C-f]))
@@ -310,6 +350,7 @@
 
 (setq mouse-autoselect-window t)
 (setq focus-follows-mouse t)
+(setq exwm-workspace-warp-cursor t)
 
 (defun exwm/after-reload-notify ()
   (setq notify-id (notifications-notify :title "EXWM"
@@ -322,8 +363,3 @@
 
 (add-hook 'doom-after-reload-hook #'exwm/after-reload-notify)
 (add-hook 'doom-before-reload-hook #'exwm/before-reload-notify)
-;; (add-to-list 'exwm-manage-configurations
-;;              '((equal exwm-class-name "Polybar")
-;;                managed nil))
-
-;; (add-hook 'exwm-init-hook #'start-polybar)
