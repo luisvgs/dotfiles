@@ -46,6 +46,7 @@ alias est="emacsclient -e '(kill-emacs)'"
 
 alias ssql='systemctl start mysqld'
 alias lsql='mysql -u root -p'
+alias ghidra-run='_JAVA_AWT_WM_NONREPARENTING=1 ghidra'
 
 alias v='vim'
 alias vim='vim'
@@ -92,9 +93,9 @@ alias docker-on='systemctl start docker'
 alias docker-clean='docker rmi $(docker images --filter "dangling=true" -q --no-trunc) --force'
 
 # Monitor management
-alias dual='xrandr --output HDMI-2 --mode 1920x1080 --same-as eDP-1 && xrandr --output eDP-1 --off'
+# alias dual='xrandr --output HDMI-2 --mode 1920x1080 --same-as eDP-1 && xrandr --output eDP-1 --off'
 alias monitor-on='xrandr --output eDP-1 --auto'
-# alias dual='xrandr --output HDMI-2 --mode 2560x1080 --same-as eDP-1'
+alias dual='xrandr --output eDP-1 --auto --output HDMI-2 --auto --same-as eDP-1 --scale-from 1920x1080'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 

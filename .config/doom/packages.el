@@ -36,11 +36,8 @@
 ;;org stuff
 (package! org-fancy-priorities)
 (package! org-superstar)
-(package! org-roam-ui)
-
-
+;; (package! org-roam-ui)
 (package! easysession)
-(package! magit-todos)
 (package! transpose-frame
   :recipe (:local-repo "local/transpose-frame"))
 

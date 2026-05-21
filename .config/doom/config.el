@@ -1,7 +1,4 @@
 ;; -*- lexical-binding: t -*-
-;; * TODO:
-;; ** improve exwm keybindings
-
 (setq compile-angel-verbose t)
 (compile-angel-on-load-mode)
 (use-package! doom)
@@ -11,10 +8,11 @@
 (setq
  user-full-name "Luis Vegas"
  user-mail-address "luisvegasmor@gmail.com"
- ;; doom-font (font-spec :family "JetBrains Mono Nerd Font" :size 19 :weight 'Regular)
- doom-theme 'ef-duo-dark
+ doom-theme 'doom-solarized-dark
  native-comp-jit-compilation nil
  +latex-viewers '(pdf-tools)
+ save-interprogram-paste-before-kill t
+ kill-do-not-save-duplicates t
  use-package-compute-statistics t
  auto-save-default t
  display-time-mode nil
@@ -36,7 +34,7 @@
  delete-by-moving-to-trash t
  window-combination-resize t
  x-stretch-cursor t)
-(set-face-attribute 'default nil :font "Iosevka Comfy" :height 150 :weight 'Regular)
+(set-face-attribute 'default nil :font "Iosevka Comfy" :height 150 :weight 'Light)
 
 (use-package! nyan-mode
   :disabled t
@@ -174,16 +172,19 @@
   (setq easysession-setup-load-session t)
   (easysession-setup))
 
+(add-hook 'after-save-hook
+          #'executable-make-buffer-file-executable-if-script-p)
+
 (load! "configs/+exwm")
 (load! "configs/+dashboard")
 (load! "configs/+which-key")
 (load! "configs/+evilmode")
 (load! "configs/+company")
 (load! "configs/+modeline")
-(load! "configs/+magit")
+;; (load! "configs/+magit")
 (load! "configs/+vterm")
 (load! "configs/+treesitter")
-(load! "configs/+org")
+;; (load! "configs/+org")
 (load! "org-roam-zotero-notes")
 (load! "configs/+eglot")
 (load! "configs/+persp")

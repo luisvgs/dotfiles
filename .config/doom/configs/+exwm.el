@@ -6,7 +6,7 @@
   (interactive)
   (if (y-or-n-p "Are you sure you want to shutdown?")
       (async-shell-command "shutdown now")
-    (message "not shutting down")
+    (message "Shutdown aborted")
     ))
 
 (defun exwm/reboot ()
@@ -89,7 +89,7 @@
    "feh" nil "feh --bg-fill ~/.config/wallpapers/space.png"))
 
 (defun exwm/exwm-init-hook ()
-  (start-process-shell-command "redshift" nil "redshift -O 4100")
+  (start-process-shell-command "redshift" nil "redshift -O 4200")
   (start-process-shell-command "nm-applet" nil "nm-applet")
   ;; (exwm/start-polybar)
   (exwm/set-wallpaper)
@@ -131,7 +131,6 @@
                                          display-brightness))))
 
 (defun exwm/brightness-down ()
-  "Disminuye el brillo de la pantalla usando brightnessctl y muestra una notificación."
   (interactive)
   (start-process-shell-command "brightness-down" nil "brightnessctl set 5%-")
   (let* ((current-brightness (shell-command-to-string "brightnessctl get | awk '{printf \"%d\", ($1 < 0 ? 0 : ($1 > 100 ? 100 : $1))}'"))
@@ -213,8 +212,8 @@
   (exwm-randr-mode t)
   (exwm/setup-displays)
 
-  ;; (require 'exwm-systemtray)
-  ;; (exwm-systemtray-mode 1)
+  (require 'exwm-systemtray)
+  (exwm-systemtray-mode 1)
   (setq exwm-systemtray-height 30)
   (setq exwm-layout-show-all-buffers t)
   (setq exwm-workspace-show-all-buffers t)

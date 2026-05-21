@@ -257,6 +257,7 @@
                             (goto-char point-before))))
                       -10 t)))
 
-;; (use-package! treesit
-;;   :defer t
-;;   :hook (prog-mode))
+;; Development stuff
+(with-eval-after-load 'eglot
+  (add-to-list 'eglot-server-programs
+               `(maude-ts-mode . (,(expand-file-name "~/dev/maude-lsp/target/release/maude-lsp")))))

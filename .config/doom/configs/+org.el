@@ -92,11 +92,12 @@
                            :follow (lambda (zpath)
                                      (browse-url (format "zotero:%s" zpath)))))
 
-(use-package! citar-org-roam
-  :after (citar org-roam)
-  :config
-  (setq org-roam-directory "~/org/roam")
-  (citar-org-roam-mode))
+;; (use-package! citar-org-roam
+;;   :disable t
+;;   :after (citar org-roam)
+;;   :config
+;;   (setq org-roam-directory "~/org/roam")
+;;   (citar-org-roam-mode))
 
 
 (defun my/org-roam-node-from-cite (citekey)
@@ -121,28 +122,30 @@
 (map! :leader :desc "New ref note" "n r R" #'my/org-roam-node-from-cite)
 
 
-(use-package! org-roam
-  :defer t
-  :after org
-  :custom
-  (org-roam-directory (file-truename "~/org/roam"))
-  :bind (("C-c n l" . org-roam-buffer-toggle)
-         ("C-c n f" . org-roam-node-find)
-         ("C-c n g" . org-roam-graph)
-         ("C-c n i" . org-roam-node-insert)
-         ("C-c n c" . org-roam-capture)
-         ;; Dailies
-         ("C-c n j" . org-roam-dailies-capture-today))
-  :config
-  ;; If you're using a vertical completion framework, you might want a more informative completion interface
-  (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
-  (org-roam-db-autosync-mode)
-  ;; If using org-roam-protocol
-  (require 'org-roam-protocol))
+;; (use-package! org-roam
+;;   :disable t
+;;   :defer t
+;;   :after org
+;;   :custom
+;;   (org-roam-directory (file-truename "~/org/roam"))
+;;   :bind (("C-c n l" . org-roam-buffer-toggle)
+;;          ("C-c n f" . org-roam-node-find)
+;;          ("C-c n g" . org-roam-graph)
+;;          ("C-c n i" . org-roam-node-insert)
+;;          ("C-c n c" . org-roam-capture)
+;;          ;; Dailies
+;;          ("C-c n j" . org-roam-dailies-capture-today))
+;;   :config
+;;   ;; If you're using a vertical completion framework, you might want a more informative completion interface
+;;   (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
+;;   (org-roam-db-autosync-mode)
+;;   ;; If using org-roam-protocol
+;;   (require 'org-roam-protocol))
 
-(use-package! org-roam-ui
-  :after org-roam
-  :config
-  (setq org-roam-ui-sync-theme t
-        org-roam-ui-follow t
-        org-roam-ui-update-on-save t))
+;; (use-package! org-roam-ui
+;;   :disable t
+;;   :after org-roam
+;;   :config
+;;   (setq org-roam-ui-sync-theme t
+;;         org-roam-ui-follow t
+;;         org-roam-ui-update-on-save t))
