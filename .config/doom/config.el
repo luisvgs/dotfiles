@@ -8,7 +8,7 @@
 (setq
  user-full-name "Luis Vegas"
  user-mail-address "luisvegasmor@gmail.com"
- doom-theme 'doom-solarized-dark
+ doom-theme 'spacemacs-dark
  native-comp-jit-compilation nil
  +latex-viewers '(pdf-tools)
  save-interprogram-paste-before-kill t
@@ -34,7 +34,7 @@
  delete-by-moving-to-trash t
  window-combination-resize t
  x-stretch-cursor t)
-(set-face-attribute 'default nil :font "Iosevka Comfy" :height 150 :weight 'Light)
+(set-face-attribute 'default nil :font "Iosevka Comfy" :height 150 :weight 'Regular)
 
 (use-package! nyan-mode
   :disabled t
@@ -174,6 +174,8 @@
 
 (add-hook 'after-save-hook
           #'executable-make-buffer-file-executable-if-script-p)
+
+(setenv "GEM_HOME" (expand-file-name "~/.local/share/gem/ruby/3.4.0"))
 
 (load! "configs/+exwm")
 (load! "configs/+dashboard")

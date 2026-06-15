@@ -76,7 +76,7 @@
        ( markdown +tree-sitter +grip)   ; writing docs for people to ignore
        ;; ( sh +lsp +tree-sitter)                ; she sells {ba,z,fi}sh shells on the C xor
        (org +pretty +present +journal +hugo +dragndrop +pandoc) ; organize your plain life in plain text
-       (ruby +tree-sitter) ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
+       (ruby +tree-sitter +lsp) ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
        (web +eglot)        ; the tubes
        (lua +eglot +tree-sitter)
        :email

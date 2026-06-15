@@ -8,7 +8,7 @@
   (add-to-list 'eglot-server-programs '(lua-mode "lua-language-server"))
   (add-to-list 'eglot-server-programs '(rjsx-mode .("typescript-language-server" "--stdio")))
   (add-to-list 'eglot-server-programs '(tuareg-mode "ocamllsp"))
-  (add-to-list 'eglot-server-programs '(ruby-mode "solargraph" "stdio"))
+  (add-to-list 'eglot-server-programs '(ruby-ts-mode "ruby-lsp"))
   (add-to-list 'eglot-server-programs '(lean4-mode . ("lake" "serve")))
   (add-to-list 'eglot-server-programs '(haskell-mode . ("haskell-language-server-wrapper" "--lsp")))
   (add-to-list 'eglot-server-programs '(tsx-ts-mode . ("typescript-language-server" "--stdio")))
@@ -16,7 +16,7 @@
   (add-to-list 'eglot-server-programs
                `(rustic-mode . ("rust-analyzer" :initializationOptions
                                 (:procMacro (:enable t)
-                                 :cargo (:buildScripts (:enable t))))))
+                                            :cargo (:buildScripts (:enable t))))))
   (add-hook 'eglot-managed-mode-hook
             (lambda ()
               (setq eldoc-documentation-functions
@@ -25,7 +25,7 @@
               (setq eldoc-documentation-strategy #'eldoc-documentation-compose)))
 
   :hook
-  ((rjsx-mode tuareg-mode lean4-mode rustic-mode tsx-ts-mode typescript-ts-mode js2-mode scala-mode agda2-mode haskell-mode idris-mode lua-mode ruby-mode) . eglot-ensure))
+  ((rjsx-mode tuareg-mode lean4-mode rustic-mode tsx-ts-mode typescript-ts-mode js2-mode scala-mode agda2-mode haskell-mode idris-mode lua-mode ruby-ts-mode) . eglot-ensure))
 
 (use-package! eglot-booster
   :after eglot
@@ -63,6 +63,7 @@
   :custom
   (treesit-auto-install 'prompt)
   :config
+  (setq treesit-auto-langs (remove 'ruby treesit-auto-langs))
   (treesit-auto-add-to-auto-mode-alist 'all)
   (global-treesit-auto-mode))
 
@@ -80,7 +81,6 @@
   :mode (("\\.tsx\\'" . tsx-ts-mode)
          ("\\.js\\'"  . typescript-ts-mode)
          ("\\.ts\\'"  . typescript-ts-mode)
-         ("\\.rb\\'"  . ruby-ts-mode)
          ("\\.jsx\\'" . tsx-ts-mode))
   :preface
   (defun os/setup-install-grammars ()
@@ -197,7 +197,7 @@
 (global-prettify-symbols-mode 1)
 
 (defun haskell-pretty-mode ()
-  "Set up pretty symbols for haskell"
+  "Set up pretty symbols for haskell."
   (setq prettify-symbols-alist
         '(("lambda" .  ?\u03BB)
           ("\\" . ?\u03BB)
@@ -243,21 +243,27 @@
 (after! company
   (setq-default company-backends '(company-capf)))
 
-(add-hook 'ruby-mode-hook (lambda () (flycheck-mode -1)))
-(add-hook 'ruby-mode-hook
-          (lambda ()
-            (add-hook 'before-save-hook
-                      (lambda ()
-                        (when (eq major-mode 'ruby-mode)
-                          (let ((point-before (point)))
-                            (shell-command-on-region
-                             (point-min) (point-max)
-                             "rufo -x"
-                             (current-buffer) t)
-                            (goto-char point-before))))
-                      -10 t)))
-
-;; Development stuff
+;; Maude Development stuff
 (with-eval-after-load 'eglot
   (add-to-list 'eglot-server-programs
                `(maude-ts-mode . (,(expand-file-name "~/dev/maude-lsp/target/release/maude-lsp")))))
+
+(use-package! ruby-ts-mode
+  :mode (("\\.rb\\'" . ruby-ts-mode)
+         ("\\.rake\\'" . ruby-ts-mode)
+         ("Gemfile\\'" . ruby-ts-mode)
+         ("Rakefile\\'" . ruby-ts-mode)
+         ("config\\.ru\\'" . ruby-ts-mode))
+  :hook
+  (ruby-ts-mode . (lambda ()
+                    (flycheck-mode -1)
+                    (eglot-ensure))))
+
+(defun os/eglot-format-on-save ()
+  (when (and (eglot-managed-p)
+             (eglot-server-capable :documentFormattingProvider))
+    (add-hook 'before-save-hook #'eglot-format-buffer nil t)))
+(add-hook 'eglot-managed-mode-hook #'os/eglot-format-on-save)
+
+
+(setq +format-on-save-enabled-modes '(not ruby-ts-mode ruby-mode))

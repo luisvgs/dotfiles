@@ -28,7 +28,6 @@
   :recipe (:host github :repo "jdtsmith/eglot-booster"
            :files ("*")))
 (package! grandshell-theme)
-(package! color-theme-sanityinc-tomorrow)
 (package! qutebrowser
   :recipe (:host github
            :repo "lrustand/qutebrowser.el"

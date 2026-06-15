@@ -119,3 +119,5 @@ fpath=("/home/luis/.local/share/scalacli/completions/zsh" $fpath)
 compinit
 # <<< scala-cli completions <<<
 # export PATH=$PATH:~/.cache/yay/sonar-scanner/src/sonar-scanner-6.2.1.4610/bin
+export GEM_HOME="$(gem env user_gemhome)"
+export PATH="$GEM_HOME/bin:$PATH"

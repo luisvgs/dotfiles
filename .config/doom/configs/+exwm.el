@@ -59,6 +59,9 @@
 (use-package! exwm-modeline
   :after exwm)
 
+(after! exwm
+  (require 'notifications))
+
 (use-package! dmenu
   :after exwm)
 
@@ -91,6 +94,7 @@
 (defun exwm/exwm-init-hook ()
   (start-process-shell-command "redshift" nil "redshift -O 4200")
   (start-process-shell-command "nm-applet" nil "nm-applet")
+  (start-process "xkbmap" nil "setxkbmap" "us" "-variant" "altgr-intl")
   ;; (exwm/start-polybar)
   (exwm/set-wallpaper)
   (exwm-workspace-switch-create 1))
