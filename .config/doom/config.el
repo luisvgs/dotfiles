@@ -8,7 +8,7 @@
 (setq
  user-full-name "Luis Vegas"
  user-mail-address "luisvegasmor@gmail.com"
- doom-theme 'spacemacs-dark
+ doom-theme 'standard-light
  native-comp-jit-compilation nil
  +latex-viewers '(pdf-tools)
  save-interprogram-paste-before-kill t
@@ -48,6 +48,10 @@
   (pdf-tools-install)
   (setq-default pdf-view-display-size 'fit-page)
   (setq pdf-annot-activate-created-annotations t)
+  (setq pdf-sync-forward-display-action
+        '(display-buffer-same-window)
+        pdf-sync-backward-display-action
+        '(display-buffer-same-window))
   (define-key pdf-view-mode-map (kbd "C-s") 'isearch-forward))
 
 (use-package! rainbow-mode
@@ -180,6 +184,7 @@
 (load! "configs/+exwm")
 (load! "configs/+dashboard")
 (load! "configs/+which-key")
+(load! "configs/+latex")
 (load! "configs/+evilmode")
 (load! "configs/+company")
 (load! "configs/+modeline")
@@ -195,7 +200,7 @@
 (load! "configs/+projectile")
 (load! "configs/+consult")
 (load! "configs/+qutebrowser")
-;; (load! "configs/+m4ue")
+(load! "configs/+mail")
 (add-to-list 'load-path "~/dotfiles/.config/doom/local")
 (add-to-list 'custom-theme-load-path "~/dotfiles/.config/doom/local/color-theme-ujelly/")
 

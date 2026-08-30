@@ -2,7 +2,7 @@
   :init
   (setq eglot-autoshutdown t)
   :config
-  (setq eglot-ignored-server-capabilities '(:documentLinkProvider :inlayHintProvider :documentOnTypeFormattingProvider))
+  (setq eglot-ignored-server-capabilities '(:documentLinkProvider :documentOnTypeFormattingProvider))
   (electric-pair-mode)
   (add-to-list 'eglot-server-programs '(scala-mode "metals"))
   (add-to-list 'eglot-server-programs '(lua-mode "lua-language-server"))
@@ -13,10 +13,19 @@
   (add-to-list 'eglot-server-programs '(haskell-mode . ("haskell-language-server-wrapper" "--lsp")))
   (add-to-list 'eglot-server-programs '(tsx-ts-mode . ("typescript-language-server" "--stdio")))
   (add-to-list 'eglot-server-programs '(typescript-ts-mode . ("typescript-language-server" "--stdio")))
+  (add-to-list 'eglot-server-programs  '((c-mode c++-mode c-ts-mode c++-ts-mode)
+                                         . ("clangd"
+                                            "--background-index"
+                                            "--clang-tidy"
+                                            "--completion-style=detailed"
+                                            "--header-insertion=never"
+                                            "--compile-commands-dir=."
+                                            "--fallback-flags=-std=c++23"
+                                            )))
   (add-to-list 'eglot-server-programs
                `(rustic-mode . ("rust-analyzer" :initializationOptions
                                 (:procMacro (:enable t)
-                                            :cargo (:buildScripts (:enable t))))))
+                                 :cargo (:buildScripts (:enable t))))))
   (add-hook 'eglot-managed-mode-hook
             (lambda ()
               (setq eldoc-documentation-functions
@@ -25,7 +34,7 @@
               (setq eldoc-documentation-strategy #'eldoc-documentation-compose)))
 
   :hook
-  ((rjsx-mode tuareg-mode lean4-mode rustic-mode tsx-ts-mode typescript-ts-mode js2-mode scala-mode agda2-mode haskell-mode idris-mode lua-mode ruby-ts-mode) . eglot-ensure))
+  ((c-mode c++-mode c-ts-mode c++-ts-mode rjsx-mode tuareg-mode lean4-mode rustic-mode tsx-ts-mode typescript-ts-mode js2-mode scala-mode agda2-mode haskell-mode idris-mode lua-mode ruby-ts-mode) . eglot-ensure))
 
 (use-package! eglot-booster
   :after eglot
@@ -97,6 +106,7 @@
                (javascript . ("https://github.com/tree-sitter/tree-sitter-javascript" "v0.21.2" "src"))
                (json . ("https://github.com/tree-sitter/tree-sitter-json" "v0.20.2"))
                (cmake "https://github.com/uyha/tree-sitter-cmake")
+               (cpp "https://github.com/tree-sitter/tree-sitter-cpp")
                (ruby "https://github.com/tree-sitter/tree-sitter-ruby")
                (tsx . ("https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.3" "tsx/src"))
                (typescript . ("https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.3" "typescript/src"))
@@ -163,6 +173,7 @@
               (add-hook 'before-save-hook #'eglot-format-buffer -10 t))))
 
 (add-hook 'haskell-mode-hook (lambda () (flycheck-mode -1)))
+(add-hook 'haskell-ts-mode-hook (lambda () (flycheck-mode -1)))
 
 (use-package! idris-mode
   :mode ("\\.idr\\'")
@@ -259,11 +270,32 @@
                     (flycheck-mode -1)
                     (eglot-ensure))))
 
+(defvar os/eglot-format-on-save-excluded-modes
+  '(ruby-mode ruby-ts-mode))
+
 (defun os/eglot-format-on-save ()
   (when (and (eglot-managed-p)
+             (not (memq major-mode os/eglot-format-on-save-excluded-modes))
              (eglot-server-capable :documentFormattingProvider))
-    (add-hook 'before-save-hook #'eglot-format-buffer nil t)))
+    (add-hook 'before-save-hook #'eglot-format-buffer -10 t)))
+
+(remove-hook 'eglot-managed-mode-hook #'os/eglot-format-on-save)
 (add-hook 'eglot-managed-mode-hook #'os/eglot-format-on-save)
 
 
 (setq +format-on-save-enabled-modes '(not ruby-ts-mode ruby-mode))
+
+
+(setq c-basic-offset 4
+      c-ts-mode-indent-offset 4
+      c-default-style "stroustrup")
+
+(dolist (hook '(c++-mode-hook c-ts-mode-hook c++-ts-mode-hook))
+  (add-hook hook
+            (lambda ()
+              (setq-local
+               tab-width 4
+               indent-tabs-mode nil
+               compile-command
+               (concat "g++ -std=c++23 -Wall -Wextra " (shell-quote-argument (buffer-file-name))
+                       " -o out && ./out")))))

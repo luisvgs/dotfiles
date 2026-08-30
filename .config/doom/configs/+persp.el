@@ -3,11 +3,11 @@
         persp-add-buffer-on-find-file t
         persp-add-buffer-on-after-change-major-mode t)
 
-  (defun display-workspaces-in-minibuffer ()
-    (with-current-buffer " *Minibuf-0*"
-      (erase-buffer)
-      (insert (+workspace--tabline))))
-  (run-with-idle-timer 1 t #'display-workspaces-in-minibuffer)
+  ;; (defun display-workspaces-in-minibuffer ()
+  ;;   (with-current-buffer " *Minibuf-0*"
+  ;;     (erase-buffer)
+  ;;     (insert (+workspace--tabline))))
+  ;; (run-with-idle-timer 1 t #'display-workspaces-in-minibuffer)
   (+workspace/display)
 
   (defun my/persp-consult-buffer ()

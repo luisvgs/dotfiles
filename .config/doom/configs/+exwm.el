@@ -219,18 +219,18 @@
   (require 'exwm-systemtray)
   (exwm-systemtray-mode 1)
   (setq exwm-systemtray-height 30)
-  (setq exwm-layout-show-all-buffers t)
-  (setq exwm-workspace-show-all-buffers t)
+  (setq exwm-layout-show-all-buffers nil
+        exwm-workspace-show-all-buffers nil)
   ;; (add-hook 'exwm-floating-setup-hook #'exwm-layout-hide-mode-line)
   ;; (add-hook 'exwm-floating-exit-hook #'exwm-layout-show-mode-line)
 
   (setq exwm-manage-configurations
-        '(((member exwm-class-name '("Telegram" "Google-chrome" "Zotero"))
+        '(((member exwm-class-name '("Telegram" "Google-chrome" "Zotero" "Zathura"))
 	   char-mode t)))
 
   (defun exwm/auto-char-mode ()
     (when (and (derived-mode-p 'exwm-mode)
-               (member exwm-class-name '("Telegram" "Google-chrome" "Zotero")))
+               (member exwm-class-name '("Telegram" "Google-chrome" "Zotero" "Zathura")))
       (run-with-idle-timer 0.3 nil
                            (lambda (buf)
                              (when (buffer-live-p buf)
@@ -293,6 +293,8 @@
      ;; SUPER+? switches us back to line-mode
      ([?\s-/] . exwm-input-release-keyboard)
      ([?\s-?] . exwm-reset)
+     ([?\s-.] . switch-to-next-buffer)
+     ([?\s-,] . switch-to-prev-buffer)
      ([?\s-p] . app-launcher-run-app)
      ([?\s-m] . exwm-layout-toggle-mode-line)
      ;; change window focus with super+h,j,k,l
@@ -300,8 +302,6 @@
      ([?\s-j] evil-window-next)
      ([?\s-k] evil-window-prev)
      ([?\s-l] evil-window-right)
-     ;; ([?\s-`] exwm-workspace-switch-to-last)
-
      ;; move windows around using SUPER+SHIFT+h,j,k,l
      ([?\s-H] +evil/window-move-left)
      ([?\s-J] +evil/window-move-down)
