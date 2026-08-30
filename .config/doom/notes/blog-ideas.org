@@ -1,0 +1,7 @@
+#+TITLE: Blog ideas
+#+AUTHOR: Luis Vegas
+#+OPTIONS: toc:3 num:t
+
+* Ideas
++ Maude (mode, lsp and tree-sitter ) Development process
++ Dependently typed language formalization in Maude process

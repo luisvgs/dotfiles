@@ -1,0 +1,561 @@
+#+TITLE: Maude: On overview
+#+AUTHOR: Luis Vegas
+#+OPTIONS: toc:3 num:t
+
+Referencia principal: /All About Maude/ (Clavel et al., Springer LNCS 4350) y el /Maude Manual v3.4/ disponible en =https://maude.cs.illinois.edu/manual.pdf=.
+
+* Parte I -- Basico
+
+** Modulos
+
+Maude organiza todo en modulos. Hay tres tipos fundamentales:
+
+- =fmod ... endfm= -- modulo funcional (solo ecuaciones, determinista, Church-Rosser + terminante)
+- =mod ... endm= -- modulo de sistema (ecuaciones + reglas de reescritura, posiblemente no-determinista)
+- =omod ... endom= -- modulo orientado a objetos (azucar sintactico sobre =mod=)
+
+#+begin_src maude
+fmod MI-MODULO is
+
+endfm
+#+end_src
+
+** Sorts y Subsorts
+
+Los sorts son los tipos del lenguaje. Los kinds son las clases de equivalencia de sorts conectados y actuan como "supersorts de error".
+
+#+begin_src maude
+fmod BASICO is
+  sort Nat .
+  sort Zero .
+  sort NzNat .
+  subsort Zero < Nat .
+  subsort NzNat < Nat .
+
+  sorts Bool String .
+endfm
+#+end_src
+
+Un subsort =A < B= significa que todo termino de sort =A= es tambien de sort =B=. Los kinds se denotan =[Nat]= y agrupan todos los sorts en la misma componente conexa.
+
+** Operadores
+
+Los operadores se declaran con =op= u =ops=. Los guiones bajos (=_=) indican las posiciones de los argumentos (sintaxis mixfix).
+
+#+begin_src maude
+fmod NATS is
+  sort Nat .
+
+  op zero : -> Nat .
+  op s_ : Nat -> Nat .
+  op _+_ : Nat Nat -> Nat .
+
+  vars M N : Nat .
+  eq zero + N = N .
+  eq s M + N = s (M + N) .
+endfm
+#+end_src
+
+Atributos de operadores:
+
+#+begin_src maude
+  op _+_ : Nat Nat -> Nat [comm assoc id: zero] .
+  op _*_ : Nat Nat -> Nat [comm assoc prec 31] .
+  op _+_ : Nat Nat -> Nat [prec 33] .
+#+end_src
+
+Los atributos mas comunes son:
+
+- =assoc= -- asociatividad (el matching se hace modulo asociatividad)
+- =comm= -- conmutatividad
+- =id: e= -- elemento identidad
+- =idem= -- idempotencia
+- =prec n= -- precedencia (mayor = liga menos)
+- =gather (e ...)= -- asociatividad sintactica (=E=, =e=, =&=)
+- =ctor= -- marca el operador como constructor
+
+** Variables y Ecuaciones
+
+#+begin_src maude
+fmod BOOLS is
+  sort Bool .
+  ops true false : -> Bool .
+  op not_ : Bool -> Bool .
+  op _and_ : Bool Bool -> Bool .
+  op _or_ : Bool Bool -> Bool .
+
+  vars A B : Bool .
+  eq not true = false .
+  eq not false = true .
+  eq true and B = B .
+  eq false and B = false .
+  eq true or B = true .
+  eq false or B = B .
+endfm
+#+end_src
+
+Ecuaciones condicionales con =ceq=:
+
+#+begin_src maude
+  ceq A or B = true if A == true .
+#+end_src
+
+** Importacion de modulos
+
+Tres modos de importacion:
+
+#+begin_src maude
+fmod A is
+  protecting B .    --- no se anaden ni confunden elementos de B
+  extending C .     --- se pueden anadir nuevos elementos pero no confundir existentes
+  including D .     --- sin restricciones
+endfm
+#+end_src
+
+La forma abreviada es =pr=, =ex=, =inc=.
+
+** Comandos del interprete
+
+#+begin_src text
+red <term> .                          --- reducir a forma normal (ecuacional)
+red in <modulo> : <term> .            --- reducir en un modulo especifico
+rew <term> .                          --- reescribir (aplica reglas rl)
+rew [n] <term> .                      --- reescribir hasta n pasos
+search <t> =>* <patron> .             --- buscar estados alcanzables
+search <t> =>! <patron> .             --- buscar formas normales alcanzables
+show module <nombre> .                --- mostrar un modulo
+#+end_src
+
+** Modulos Built-in
+
+Maude provee modulos predefinidos:
+
+#+begin_src maude
+fmod EJEMPLO is
+  pr BOOL .        --- true, false, _and_, _or_, not_, _xor_, if_then_else_fi
+  pr NAT .         --- 0, s_, _+_, _*_, _<_, _<=_, _>_, _>=_, sd (symmetric diff)
+  pr INT .         --- enteros
+  pr FLOAT .       --- punto flotante
+  pr STRING .      --- cadenas de caracteres
+  pr QID .         --- quoted identifiers ('foo, 'bar)
+endfm
+#+end_src
+
+** Ejemplo completo basico: Listas
+
+#+begin_src maude
+fmod LIST-NAT is
+  pr NAT .
+
+  sort List .
+  subsort Nat < List .
+
+  op nil : -> List .
+  op _::_ : Nat List -> List .
+  op length : List -> Nat .
+  op _++_ : List List -> List .
+
+  vars N : Nat .
+  vars L L' : List .
+
+  eq length(nil) = 0 .
+  eq length(N :: L) = s length(L) .
+
+  eq nil ++ L = L .
+  eq (N :: L) ++ L' = N :: (L ++ L') .
+endfm
+#+end_src
+
+Sesion en el interprete:
+
+#+begin_example
+Maude> red length(3 :: 2 :: 1 :: nil) .
+result NzNat: 3
+
+Maude> red (1 :: 2 :: nil) ++ (3 :: 4 :: nil) .
+result List: 1 :: 2 :: 3 :: 4 :: nil
+#+end_example
+
+* Parte II -- Intermedio
+
+** System Modules y Reglas de Reescritura
+
+Las reglas (=rl=, =crl=) modelan transiciones de estado no-deterministas. A diferencia de las ecuaciones, no se asume confluencia.
+
+#+begin_src maude
+mod COUNTER is
+  pr NAT .
+  sort State .
+  op <_> : Nat -> State [ctor] .
+
+  var N : Nat .
+  rl [inc] : < N > => < s N > .
+endm
+#+end_src
+
+#+begin_example
+Maude> rew [5] < 0 > .
+result State: < 5 >
+#+end_example
+
+** Search
+
+El comando =search= explora el espacio de estados.
+
+#+begin_src maude
+mod COIN is
+  sort Coin .
+  ops heads tails : -> Coin [ctor] .
+  rl [flip] : heads => tails .
+  rl [flip] : tails => heads .
+endm
+#+end_src
+
+#+begin_example
+Maude> search heads =>* tails .
+#+end_example
+
+** Matching condicional y Sort Tests
+
+#+begin_src maude
+fmod MAYBE-NAT is
+  pr NAT .
+  sort MaybeNat .
+  subsort Nat < MaybeNat .
+  op nothing : -> MaybeNat [ctor] .
+  op isNat : MaybeNat -> Bool .
+
+  var N : Nat .
+  var M : MaybeNat .
+  eq isNat(nothing) = false .
+  ceq isNat(M) = true if M :: Nat .
+endfm
+#+end_src
+
+La condicion =M :: Nat= es un /sort test/: verifica que =M= tiene sort =Nat=.
+
+** Modulos Parametrizados
+
+#+begin_src maude
+fmod LIST{X :: TRIV} is
+  sort NeList{X} .
+  sort List{X} .
+  subsort X$Elt < NeList{X} < List{X} .
+
+  op nil : -> List{X} [ctor] .
+  op _::_ : X$Elt List{X} -> List{X} [ctor] .
+  op _++_ : List{X} List{X} -> List{X} .
+  op head : NeList{X} -> X$Elt .
+
+  var E : X$Elt .
+  vars L L' : List{X} .
+
+  eq nil ++ L = L .
+  eq (E :: L) ++ L' = E :: (L ++ L') .
+  eq head(E :: L) = E .
+endfm
+#+end_src
+
+Instanciacion con views:
+
+#+begin_src maude
+view Nat from TRIV to NAT is
+  sort Elt to Nat .
+endv
+
+fmod NAT-LISTS is
+  pr LIST{Nat} .
+endfm
+#+end_src
+
+** Operadores con Estrategia de Evaluacion
+
+#+begin_src maude
+  op if_then_else_fi : Bool Nat Nat -> Nat [strat (1 0)] .
+#+end_src
+
+=strat (1 0)= significa: evalua primero el argumento 1, luego decide (0 = evaluar el resto). Esto evita evaluar ambas ramas.
+
+** Operadores parciales y Kinds
+
+#+begin_src maude
+fmod DIV is
+  pr NAT .
+  op _/_ : Nat NzNat -> Nat .
+  op _/_ : Nat Nat ~> Nat .
+endfm
+#+end_src
+
+=~>= indica operador parcial. Si el resultado no tiene sort, se queda en el kind =[Nat]= como termino de error.
+
+* Parte III -- Ejercicios: Parsers y Evaluadores
+
+** Ejercicio 1: Calculadora Simple con Eval
+
+Una calculadora de expresiones aritmeticas con naturales, suma, multiplicacion, y un operador =eval= que reduce la expresion a un valor.
+
+#+begin_src maude
+fmod CALC is
+  pr NAT .
+  pr INT .
+
+  sort Expr .
+  subsort Int < Expr .
+
+  op _plus_ : Expr Expr -> Expr [ctor prec 33 gather (E e)] .
+  op _times_ : Expr Expr -> Expr [ctor prec 31 gather (E e)] .
+  op _minus_ : Expr Expr -> Expr [ctor prec 33 gather (E e)] .
+  op neg_ : Expr -> Expr [ctor prec 15] .
+
+  op eval : Expr -> Int .
+
+  vars E E' : Expr .
+  vars I J : Int .
+
+  eq eval(I) = I .
+  eq eval(E plus E') = eval(E) + eval(E') .
+  eq eval(E times E') = eval(E) * eval(E') .
+  eq eval(E minus E') = eval(E) - eval(E') .
+  eq eval(neg E) = - eval(E) .
+endfm
+#+end_src
+
+Sesion:
+
+#+begin_example
+Maude> red eval(3 plus 4 times 2) .
+result NzNat: 11
+
+Maude> red eval(10 minus 3 minus 2) .
+result NzInt: 5
+
+Maude> red eval(neg 5 plus 8) .
+result NzNat: 3
+#+end_example
+
+La clave aqui es que la sintaxis mixfix de Maude actua como parser: =3 plus 4 times 2= se parsea como =3 plus (4 times 2)= gracias a las precedencias (=times= con =prec 31= liga mas fuerte que =plus= con =prec 33=). El atributo =gather (E e)= fuerza asociatividad a izquierdas.
+
+** Ejercicio 2: Untyped Lambda Calculus -- Parser y Evaluador
+
+Definimos la sintaxis abstracta del lambda calculo sin tipos, substitucion, y beta-reduccion.
+
+#+begin_src maude
+fmod LAMBDA is
+  pr STRING .
+
+  sort Var .
+  sort Term .
+  subsort Var < Term .
+
+  op var : String -> Var [ctor] .
+  op lam : Var Term -> Term [ctor] .
+  op app : Term Term -> Term [ctor] .
+
+  op subst : Term Var Term -> Term .
+
+  vars X Y : Var .
+  vars T T1 T2 S : Term .
+  vars N N' : String .
+
+  eq subst(var(N), var(N), S) = S .
+  ceq subst(var(N), var(N'), S) = var(N) if N =/= N' .
+
+  eq subst(app(T1, T2), X, S) = app(subst(T1, X, S), subst(T2, X, S)) .
+
+  ceq subst(lam(var(N), T), var(N), S) = lam(var(N), T) if true = true .
+  ceq subst(lam(var(N), T), var(N'), S) = lam(var(N), subst(T, var(N'), S))
+    if N =/= N' .
+
+  op eval : Term -> Term .
+
+  eq eval(var(N)) = var(N) .
+  eq eval(lam(X, T)) = lam(X, T) .
+  eq eval(app(lam(X, T), S)) = eval(subst(T, X, S)) .
+  ceq eval(app(T1, T2)) = eval(app(T1', T2))
+    if T1' := eval(T1)
+    /\ T1' =/= T1 [owise] .
+  eq eval(app(T1, T2)) = app(T1, T2) [owise] .
+endfm
+#+end_src
+
+Sesion:
+
+#+begin_example
+Maude> red eval(app(lam(var("x"), var("x")), lam(var("y"), var("y")))) .
+result Term: lam(var("y"), var("y"))
+
+Maude> red eval(app(app(lam(var("x"), lam(var("y"), var("x"))),
+                        var("a")),
+                    var("b"))) .
+result Var: var("a")
+#+end_example
+
+Notas:
+
+- La substitucion aqui es naive (no capture-avoiding). Para un tratamiento correcto se necesitarian nombres frescos o de Bruijn.
+- =owise= es un atributo que dice "aplicar esta ecuacion solo si ninguna otra hace matching". Es muy util para definir casos default.
+- La condicion ~T1' := eval(T1)~ usa /matching equations/: computa =eval(T1)= y liga el resultado a =T1'=.
+
+** Ejercicio 3: Simply Typed Lambda Calculus -- Parser, Typechecker y Evaluador
+
+Ahora anadimos tipos simples (STLC). Definimos tipos, contextos, juicio de tipado, y evaluacion.
+
+#+begin_src maude
+fmod STLC-TYPES is
+  pr STRING .
+
+  sort Ty .
+  op base : -> Ty [ctor] .
+  op _=>_ : Ty Ty -> Ty [ctor prec 30 gather (e E)] .
+endfm
+
+fmod STLC-TERMS is
+  pr STLC-TYPES .
+
+  sort Var .
+  sort Term .
+  subsort Var < Term .
+
+  op var : String -> Var [ctor] .
+  op lam : Var Ty Term -> Term [ctor] .
+  op app : Term Term -> Term [ctor] .
+endfm
+
+fmod STLC-CONTEXT is
+  pr STLC-TERMS .
+
+  sort Ctx .
+  op empty : -> Ctx [ctor] .
+  op _:_,_ : Var Ty Ctx -> Ctx [ctor] .
+
+  op lookup : Var Ctx -> [Ty] .
+
+  vars X Y : Var .
+  var A : Ty .
+  var G : Ctx .
+  vars N N' : String .
+
+  eq lookup(var(N), var(N) : A , G) = A .
+  ceq lookup(var(N), var(N') : A , G) = lookup(var(N), G) if N =/= N' .
+endfm
+
+fmod STLC-TYPECHECK is
+  pr STLC-CONTEXT .
+
+  sort TyResult .
+  subsort Ty < TyResult .
+  op tyError : String -> TyResult [ctor] .
+
+  op infer : Ctx Term -> TyResult .
+
+  vars X : Var .
+  vars T T1 T2 : Term .
+  vars A B : Ty .
+  var G : Ctx .
+  var N : String .
+
+  eq infer(G, var(N)) = lookup(var(N), G) .
+
+  eq infer(G, lam(X, A, T)) = A => infer(X : A , G, T) .
+
+  ceq infer(G, app(T1, T2)) = B
+    if A => B := infer(G, T1)
+    /\ A' := infer(G, T2)
+    /\ A' == A = true .
+
+  var A' : [Ty] .
+endfm
+
+fmod STLC-SUBST is
+  pr STLC-TERMS .
+
+  op subst : Term Var Term -> Term .
+
+  vars X Y : Var .
+  vars T T1 T2 S : Term .
+  vars N N' : String .
+  var A : Ty .
+
+  eq subst(var(N), var(N), S) = S .
+  ceq subst(var(N), var(N'), S) = var(N) if N =/= N' .
+
+  eq subst(app(T1, T2), X, S) = app(subst(T1, X, S), subst(T2, X, S)) .
+
+  ceq subst(lam(var(N), A, T), var(N), S) = lam(var(N), A, T) if true = true .
+  ceq subst(lam(var(N), A, T), var(N'), S) = lam(var(N), A, subst(T, var(N'), S))
+    if N =/= N' .
+endfm
+
+fmod STLC-EVAL is
+  pr STLC-SUBST .
+
+  op eval : Term -> Term .
+
+  vars X : Var .
+  vars T T1 T1' T2 S : Term .
+  var A : Ty .
+  var N : String .
+
+  eq eval(var(N)) = var(N) .
+  eq eval(lam(X, A, T)) = lam(X, A, T) .
+  eq eval(app(lam(X, A, T), S)) = eval(subst(T, X, S)) .
+  ceq eval(app(T1, T2)) = eval(app(T1', T2))
+    if T1' := eval(T1)
+    /\ T1' =/= T1 [owise] .
+  eq eval(app(T1, T2)) = app(T1, T2) [owise] .
+endfm
+
+fmod STLC is
+  pr STLC-TYPECHECK .
+  pr STLC-EVAL .
+endfm
+#+end_src
+
+Sesion:
+
+#+begin_example
+Maude> red in STLC :
+  infer(empty, lam(var("x"), base, var("x"))) .
+result Ty: base => base
+
+Maude> red in STLC :
+  infer(empty,
+    lam(var("f"), base => base,
+      lam(var("x"), base,
+        app(var("f"), var("x"))))) .
+result Ty: (base => base) => base => base
+
+Maude> red in STLC :
+  eval(app(lam(var("x"), base, var("x")), var("y"))) .
+result Var: var("y")
+
+Maude> red in STLC :
+  eval(app(app(
+    lam(var("f"), base => base,
+      lam(var("x"), base,
+        app(var("f"), var("x")))),
+    lam(var("y"), base, var("y"))),
+    var("z"))) .
+result Var: var("z")
+
+Maude> red in STLC :
+  infer(empty, app(var("x"), var("y"))) .
+--- resultado en el kind [TyResult] (error, no tiene sort TyResult)
+#+end_example
+
+* Resumen de Conceptos Clave
+
+*Maude como framework para PLT.* El punto fundamental es que la reescritura de terminos /es/ la semantica operacional. Definir un evaluador en Maude es literalmente definir las reglas de reduccion como ecuaciones o reglas de reescritura. El parser viene "gratis" de la sintaxis mixfix: al declarar operadores con precedencia y gather, Maude parsea las expresiones directamente.
+
+*Ecuaciones vs Reglas.* Las ecuaciones (=eq=) deben ser Church-Rosser y terminantes -- se usan para computacion determinista (evaluacion, substitucion, inferencia de tipos). Las reglas (=rl=) modelan transiciones no-deterministas y se exploran con =rew= y =search=.
+
+*Sort system.* El sistema de sorts con subsorts da un nivel basico de tipado estatico sobre los terminos. Los kinds agrupan sorts en componentes conexas y permiten manejar errores (un termino sin sort valido se queda en el kind).
+
+*Modularidad.* =protecting= preserva la semantica del submodulo, =including= es mas liberal. Los modulos parametrizados con theories y views dan polimorfismo parametrico al estilo OBJ/algebraico.
+
+* Referencias
+
+- Clavel et al. /All About Maude/. LNCS 4350, Springer, 2007.
+- /Maude Manual v3.4/. https://maude.cs.illinois.edu/manual.pdf
+- Meseguer, J. "Conditional rewriting logic as a unified model of concurrency". /TCS/, 1992.
+- GitHub: https://github.com/maude-lang/Maude
