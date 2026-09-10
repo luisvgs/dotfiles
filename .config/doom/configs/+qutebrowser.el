@@ -1,4 +1,5 @@
 (use-package! qutebrowser
+  :disabled t
   :after exwm
   :config
   (unless (server-running-p)

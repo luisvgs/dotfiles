@@ -13,7 +13,7 @@
        :ui
        doom                             ; what makes DOOM look the way it does
        nav-flash
-       (treemacs)
+       (treemacs +lsp)
        (emoji +unicode +ascii)          ; 🙂
        hl-todo
        (ligatures +extra)
@@ -33,7 +33,7 @@
        snippets                         ; my elves. They type so I don't have to
        :emacs
        eww
-       ;; electric
+       electric
        (dired +icons +dirvish)          ; making dired pretty [functional]
        (ibuffer +icons)                 ; interactive buffer management
        (undo +tree)      ; persistent, smarter undo for your inevitable mistakes
@@ -46,8 +46,8 @@
        biblio
        eval
        lookup                         ; navigate your code and its documentation
-       (lsp +eglot +booster)          ; M-x vscode
-       ( magit +forge)                ; a git porcelain for Emacs
+       (lsp +booster +peek)          ; M-x vscode
+       (magit +forge)                ; a git porcelain for Emacs
        pdf                            ; pdf enhancements
        rgb                            ; creating color strings
        tree-sitter                    ; syntax and parsing, sitting in a tree...
@@ -56,26 +56,26 @@
        :lang
        (agda +local)                    ; types of types of types of types...
        emacs-lisp                       ; drown in parentheses
-       (haskell +eglot +tree-sitter)    ; a language that's lazier than I am
+       (haskell +lsp +tree-sitter)    ; a language that's lazier than I am
        idris                            ; a language you can depend on
        json                             ; At least it ain't XML
-       (javascript +eglot +tree-sitter) ; all(hope(abandon(ye(who(enter(here))))))
+       (javascript +lsp +tree-sitter) ; all(hope(abandon(ye(who(enter(here))))))
        (latex +latexmk)  ; writing papers in Emacs has never been so fun
        ;; (java +lsp)
        ;; (clojure +lsp +tree-sitter)
        ;; (ocaml +lsp)             ; an objective camel
-       (rust)                        ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
-       (python +tree-sitter)
+       (rust +lsp)                        ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
+       ;; (python +tree-sitter)
        ;; (scala +lsp)             ; java, but good
        ;;fortran           ; in FORTRAN, GOD is REAL (unless declared INTEGER)
-       (cc +tree-sitter)         ; C > C++ == 1
+       (cc +lsp +tree-sitter)         ; C > C++ == 1
        ;;common-lisp       ; if you've seen one lisp, you've seen them all
        ( markdown +tree-sitter +grip)   ; writing docs for people to ignore
        ;; ( sh +lsp +tree-sitter)                ; she sells {ba,z,fi}sh shells on the C xor
        (org +pretty +present +journal +hugo +dragndrop +pandoc) ; organize your plain life in plain text
-       (ruby +tree-sitter +lsp) ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
-       (web +eglot)        ; the tubes
-       (lua +eglot +tree-sitter)
+       (ruby +lsp) ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
+       (web +lsp)        ; the tubes
+       ;; (lua +lsp +tree-sitter)
        :email
        notmuch
        :app

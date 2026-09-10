@@ -8,7 +8,7 @@
 (setq
  user-full-name "Luis Vegas"
  user-mail-address "luisvegasmor@gmail.com"
- doom-theme 'standard-light
+ doom-theme 'modus-vivendi
  native-comp-jit-compilation nil
  +latex-viewers '(pdf-tools)
  save-interprogram-paste-before-kill t
@@ -25,10 +25,10 @@
  initial-major-mode (quote fundamental-mode)
  global-display-line-numbers-mode 1
  display-time-mode nil
- display-line-numbers-type 'relative)
-(define-key evil-normal-state-map (kbd "-") 'dirvish-fd)
+ display-line-numbers-type 'nil)
+(define-key evil-normal-state-map (kbd "-") 'dirvish-dwim)
 (advice-add #'add-node-modules-path :override #'ignore)
-(advice-add 'jsonrpc--log-event :override #'ignore)
+;; (advice-add 'jsonrpc--log-event :override #'ignore)
 
 (setq-default
  delete-by-moving-to-trash t
@@ -152,6 +152,7 @@
         '("https://this-week-in-rust.org/rss.xml"
           "http://feeds.bbci.co.uk/news/rss.xml")))
 
+
 (use-package! easysession
   :disabled t
   :after exwm
@@ -183,17 +184,17 @@
 
 (load! "configs/+exwm")
 (load! "configs/+dashboard")
+(load! "configs/+dired")
 (load! "configs/+which-key")
 (load! "configs/+latex")
 (load! "configs/+evilmode")
 (load! "configs/+company")
 (load! "configs/+modeline")
-;; (load! "configs/+magit")
 (load! "configs/+vterm")
 (load! "configs/+treesitter")
-;; (load! "configs/+org")
 (load! "org-roam-zotero-notes")
-(load! "configs/+eglot")
+(load! "configs/+lsp")
+;; (load! "configs/+tabs")
 (load! "configs/+persp")
 (load! "configs/+keybindings")
 (load! "configs/+utility")
@@ -202,12 +203,14 @@
 (load! "configs/+qutebrowser")
 (load! "configs/+mail")
 (add-to-list 'load-path "~/dotfiles/.config/doom/local")
-(add-to-list 'custom-theme-load-path "~/dotfiles/.config/doom/local/color-theme-ujelly/")
-
+;; (add-to-list 'custom-theme-load-path "~/dotfiles/.config/doom/local/color-theme-ujelly/")
 ;; (use-package! maude-mode
 ;;   :defer t
 ;;   :mode ("\\.maude\\'"))
 ;; (use-package! transpose-frame)
-
+;; (load! "configs/+org")
+;; (load! "configs/+magit")
+;; (load! "configs/+eglot")
 (use-package! notifications
   :after exwm)
+

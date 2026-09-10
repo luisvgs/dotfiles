@@ -14,7 +14,7 @@
         doom-modeline-lsp-icon t
         doom-modeline-lsp t
         doom-modeline-modal-icon t
-        doom-modeline-modal t
+        doom-modeline-modal nil
         doom-modeline-enable-word-count nil
         doom-modeline-time-analogue-clock nil
         doom-modeline-time-icon nil

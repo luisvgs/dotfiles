@@ -21,9 +21,9 @@
    :files ("*.el" "data")))
 (package! evil-cleverparens)
 (package! exwm)
-(package! eglot-booster
-  :recipe (:host github :repo "jdtsmith/eglot-booster"
-           :files ("*")))
+;; (package! eglot-booster
+;;   :recipe (:host github :repo "jdtsmith/eglot-booster"
+;;            :files ("*")))
 (package! qutebrowser
   :recipe (:host github
            :repo "lrustand/qutebrowser.el"
@@ -39,4 +39,4 @@
 (package! alabaster-themes)
 (package! standard-themes)
 (package! notmuch-indicator)
-(disable-packages! ng2-mode android-mode groovy-mode nodejs-repl coffee-mode skewer-mode all-the-icons tuareg-mode idris-mode)
+(disable-packages! ng2-mode haskell-ts-mode android-mode groovy-mode nodejs-repl coffee-mode skewer-mode all-the-icons tuareg-mode idris-mode)
