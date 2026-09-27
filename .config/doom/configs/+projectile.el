@@ -5,3 +5,6 @@
   (add-to-list 'projectile-globally-ignored-directories "_build")
   (add-to-list 'projectile-globally-ignored-directories ".metals")
   (add-to-list 'projectile-globally-ignored-directories "target"))
+
+(after! projectile
+  (setq projectile-run-use-comint-mode t))

@@ -8,20 +8,22 @@
   (add-to-list 'eglot-server-programs '(lua-mode "lua-language-server"))
   (add-to-list 'eglot-server-programs '(rjsx-mode .("typescript-language-server" "--stdio")))
   (add-to-list 'eglot-server-programs '(tuareg-mode "ocamllsp"))
-  (add-to-list 'eglot-server-programs '(ruby-ts-mode "ruby-lsp"))
-  (add-to-list 'eglot-server-programs '(lean4-mode . ("lake" "serve")))
+  (add-to-list 'eglot-server-programs '(ruby-mode "ruby-lsp"))
+  (add-to-list 'eglot-server-programs '(nael-mode . ("lake" "serve")))
   (add-to-list 'eglot-server-programs '(haskell-mode . ("haskell-language-server-wrapper" "--lsp")))
   (add-to-list 'eglot-server-programs '(tsx-ts-mode . ("typescript-language-server" "--stdio")))
   (add-to-list 'eglot-server-programs '(typescript-ts-mode . ("typescript-language-server" "--stdio")))
-  (add-to-list 'eglot-server-programs  '((c-mode c++-mode c-ts-mode c++-ts-mode)
-                                         . ("clangd"
-                                            "--background-index"
-                                            "--clang-tidy"
-                                            "--completion-style=detailed"
-                                            "--header-insertion=never"
-                                            "--compile-commands-dir=."
-                                            "--fallback-flags=-std=c++23"
-                                            )))
+  (add-to-list
+   'eglot-server-programs
+   '((c-mode c++-mode c-ts-mode c++-ts-mode)
+     . ("clangd"
+        "--background-index"
+        "--clang-tidy"
+        "--completion-style=detailed"
+        "--header-insertion=iwyu"
+        "--header-insertion-decorators=0"
+        :initializationOptions
+        (:fallbackFlags ["-std=c++23"]))))
   (add-to-list 'eglot-server-programs
                `(rustic-mode . ("rust-analyzer" :initializationOptions
                                 (:procMacro (:enable t)
@@ -34,7 +36,7 @@
               (setq eldoc-documentation-strategy #'eldoc-documentation-compose)))
 
   :hook
-  ((c-mode c++-mode c-ts-mode c++-ts-mode rjsx-mode tuareg-mode lean4-mode rustic-mode tsx-ts-mode typescript-ts-mode js2-mode scala-mode agda2-mode haskell-mode idris-mode lua-mode ruby-ts-mode) . eglot-ensure))
+  ((c-mode c++-mode c-ts-mode c++-ts-mode rjsx-mode tuareg-mode nael-mode rustic-mode tsx-ts-mode typescript-ts-mode js2-mode scala-mode agda2-mode haskell-mode idris-mode lua-mode ruby-mode) . eglot-ensure))
 
 (use-package! eglot-booster
   :after eglot
@@ -212,19 +214,19 @@
   (add-to-list 'eglot-server-programs
                `(maude-ts-mode . (,(expand-file-name "~/dev/maude-lsp/target/release/maude-lsp")))))
 
-(use-package! ruby-ts-mode
+(use-package! ruby-mode
   :mode (("\\.rb\\'" . ruby-ts-mode)
          ("\\.rake\\'" . ruby-ts-mode)
          ("Gemfile\\'" . ruby-ts-mode)
          ("Rakefile\\'" . ruby-ts-mode)
          ("config\\.ru\\'" . ruby-ts-mode))
   :hook
-  (ruby-ts-mode . (lambda ()
-                    (flycheck-mode -1)
-                    (eglot-ensure))))
+  (ruby-mode . (lambda ()
+                 (flycheck-mode -1)
+                 (eglot-ensure))))
 
 (defvar os/eglot-format-on-save-excluded-modes
-  '(ruby-mode ruby-ts-mode))
+  '(ruby-mode ruby-mode))
 
 (defun os/eglot-format-on-save ()
   (when (and (eglot-managed-p)
@@ -236,12 +238,16 @@
 (add-hook 'eglot-managed-mode-hook #'os/eglot-format-on-save)
 
 
-(setq +format-on-save-enabled-modes '(not ruby-ts-mode ruby-mode))
+(setq +format-on-save-enabled-modes '(not ruby-mode))
 
 
 (setq c-basic-offset 4
       c-ts-mode-indent-offset 4
       c-default-style "stroustrup")
+
+(after! c-ts-mode
+  (setq c-ts-mode-indent-style 'k&r
+        c-ts-mode-indent-offset 4))
 
 (dolist (hook '(c++-mode-hook c-ts-mode-hook c++-ts-mode-hook))
   (add-hook hook
@@ -250,5 +256,19 @@
                tab-width 4
                indent-tabs-mode nil
                compile-command
-               (concat "g++ -std=c++23 -Wall -Wextra " (shell-quote-argument (buffer-file-name))
-                       " -o out && ./out")))))
+               (concat
+                "g++ -std=c++23 -Wall -Wextra "
+                (shell-quote-argument (buffer-file-name))
+                " -o out && ./out")))))
+
+(after! smartparens
+  (sp-local-pair '(c-mode c++-mode c-ts-mode c++-ts-mode)
+                 "{"
+                 nil
+                 :post-handlers '(("||\n[i]" "RET"))))
+
+(map! :map c-ts-base-mode-map
+      :leader
+      :prefix "c"
+      :desc "Find references"
+      "p" #'xref-find-references)

@@ -15,15 +15,11 @@
   (:host github
    :repo "sebastienWae/app-launcher"
    :files ("*")))
-(package! lean4-mode :recipe
-  (:host github
-   :repo "leanprover-community/lean4-mode"
-   :files ("*.el" "data")))
 (package! evil-cleverparens)
 (package! exwm)
-;; (package! eglot-booster
-;;   :recipe (:host github :repo "jdtsmith/eglot-booster"
-;;            :files ("*")))
+(package! eglot-booster
+  :recipe (:host github :repo "jdtsmith/eglot-booster"
+           :files ("*")))
 (package! qutebrowser
   :recipe (:host github
            :repo "lrustand/qutebrowser.el"

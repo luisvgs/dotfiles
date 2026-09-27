@@ -30,6 +30,15 @@
 (advice-add #'add-node-modules-path :override #'ignore)
 ;; (advice-add 'jsonrpc--log-event :override #'ignore)
 
+
+(set-language-environment "UTF-8")
+(prefer-coding-system 'utf-8-unix)
+(set-default-coding-systems 'utf-8-unix)
+(setq locale-coding-system 'utf-8-unix)
+
+(setenv "LANG" "C.UTF-8")
+(setenv "LC_ALL" "C.UTF-8")
+
 (setq-default
  delete-by-moving-to-trash t
  window-combination-resize t
@@ -193,7 +202,8 @@
 (load! "configs/+vterm")
 (load! "configs/+treesitter")
 (load! "org-roam-zotero-notes")
-(load! "configs/+lsp")
+;; (load! "configs/+lsp")
+(load! "configs/+eglot")
 ;; (load! "configs/+tabs")
 (load! "configs/+persp")
 (load! "configs/+keybindings")
@@ -210,7 +220,6 @@
 ;; (use-package! transpose-frame)
 ;; (load! "configs/+org")
 ;; (load! "configs/+magit")
-;; (load! "configs/+eglot")
 (use-package! notifications
   :after exwm)
 
